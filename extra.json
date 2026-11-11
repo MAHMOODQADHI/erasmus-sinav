@@ -1,85 +1,1280 @@
 {
-  "version": 1,
-  "updated": "2026-11-11",
-  "t_cw": [
-    {"q": "Complete the word:\nThe new policy will aff___ all first-year students.", "o": ["ect", "ord", "air", "ix"], "tk": "complete"},
-    {"q": "Complete the word:\nShe made a signif___ contribution to the project.", "o": ["icant", "icance", "y", "ied"], "tk": "complete"},
-    {"q": "Complete the word:\nThe lecture was cancel___ because the professor was ill.", "o": ["led", "ling", "s", "lation"], "tk": "complete"},
-    {"q": "Complete the word:\nMost participants found the survey easy to compl___.", "o": ["ete", "eted", "etion", "ain"], "tk": "complete"}
-  ],
-  "t_resp": [
-    {"audio": "Is it okay if I record today's lecture?", "q": "You will hear a question. Choose the best response.", "o": ["Sure, as long as it's for your own use.", "Yes, I recorded it yesterday.", "It's a lecture.", "No, I'm recording."], "fk": "permission"},
-    {"audio": "I've just been accepted to the exchange programme in Lisbon!", "q": "You will hear a statement. Choose the best response.", "o": ["That's wonderful! When do you leave?", "What a shame.", "Good luck with your application!", "I'm sorry to hear that."], "fk": "congrats"},
-    {"audio": "How long does it take to walk to the station from here?", "q": "You will hear a question. Choose the best response.", "o": ["About fifteen minutes.", "Twice a day.", "At the station.", "By train."], "fk": "questions"},
-    {"audio": "Could you speak a little louder? I can't hear you at the back.", "q": "You will hear a request. Choose the best response.", "o": ["Of course. Is this better?", "Yes, I can hear.", "I'm at the back.", "Louder is a word."], "fk": "request"}
-  ],
-  "t_build": [
-    {"q": "Build a sentence: choose the correct word order.\n\"Can you tell me ___?\"", "o": ["why the meeting was cancelled", "why was the meeting cancelled", "why the meeting cancelled was", "the meeting why was cancelled"], "rk": "indirect_q"},
-    {"q": "Build a sentence: choose the correct word order.\n\"By next June, I ___ my degree.\"", "o": ["will have finished", "will finished have", "have will finished", "will having finished"], "rk": "fut_perf"},
-    {"q": "Build a sentence: choose the correct word order.\n\"The building ___ in 1920.\"", "o": ["was designed", "designed was", "was design", "has designed"], "rk": "passive"}
-  ],
-  "t_daily": [
-    {"t": "Email: room change confirmation", "x": ["Dear Ms. Yilmaz, Thank you for your request to change rooms. We are pleased to confirm that you can move from Room 112 to Room 305 on Monday, 18 November.", "Please return the key to Room 112 to the reception desk by 10 a.m. on that day. You can collect the key to Room 305 at the same time. Note that Room 305 does not have a private bathroom, but it is larger and has a balcony.", "If you have any questions, please reply to this email or visit the Housing Office between 9 a.m. and 4 p.m. Kind regards, Housing Office"],
-     "q": [["When can Ms. Yilmaz move to the new room?", ["On Monday, 18 November", "On Sunday, 17 November", "Today", "Next month"], "detail", "you can move from Room 112 to Room 305 on Monday, 18 November"],
-           ["What must she do by 10 a.m. on that day?", ["Return the key to her old room", "Pay a fee", "Clean the balcony", "Call the Housing Office"], "detail", "Please return the key to Room 112 to the reception desk by 10 a.m. on that day."],
-           ["Which statement about Room 305 is TRUE?", ["It is larger and has a balcony.", "It has a private bathroom.", "It is smaller than Room 112.", "It is on the first floor."], "true", "Room 305 does not have a private bathroom, but it is larger and has a balcony."]]}
-  ],
-  "t_acad": [
-    {"t": "The Secret Life of Sleep in Animals", "x": ["Almost all animals studied so far show some form of sleep, but the way they sleep varies enormously. Some birds and dolphins can rest one half of their brain at a time, keeping the other half alert. This allows dolphins to keep swimming and surface to breathe, and helps birds watch for predators.", "The amount of sleep also differs widely between species. Large plant-eating animals such as giraffes and elephants may sleep only a few hours a day, possibly because they need to spend most of their time eating low-energy food. In contrast, some small animals that eat energy-rich food, such as bats, may sleep for more than eighteen hours.", "Despite these differences, scientists believe sleep must have important functions, since it exists across so many species even though sleeping animals are vulnerable to attack. Current theories suggest that sleep helps to save energy, repair the body and process memories."],
-     "q": [["What is the passage mainly about?", ["How and why sleep differs among animals", "Why dolphins are intelligent", "How to sleep better", "Which animals are most dangerous"], "main", ""],
-           ["Why can dolphins keep swimming while they sleep?", ["They rest one half of their brain at a time.", "They sleep only on land.", "They do not need sleep.", "They sleep for eighteen hours."], "detail", "Some birds and dolphins can rest one half of their brain at a time, keeping the other half alert."],
-           ["According to the passage, why might giraffes sleep so little?", ["They need to spend most of their time eating low-energy food.", "They are afraid of bats.", "Their brains are very small.", "They live in cold places."], "detail", "possibly because they need to spend most of their time eating low-energy food"],
-           ["The word \"vulnerable\" in paragraph 3 is closest in meaning to:", ["easily harmed", "very strong", "fast asleep", "well hidden"], "vocab", "sleeping animals are vulnerable to attack"],
-           ["Why do scientists believe sleep has important functions?", ["It exists in many species despite being risky.", "All animals sleep the same amount.", "Sleep makes animals bigger.", "Only humans need sleep."], "infer", "since it exists across so many species even though sleeping animals are vulnerable to attack"]]}
-  ],
-  "t_conv": [
-    {"t": "Conversation: borrowing equipment", "x": ["Student: Hi, I'm making a short film for my media course. Can I borrow a camera?", "Technician: Yes, but you need to book it at least two days in advance using the online form.", "Student: Oh, I need it this Friday. Is that still possible?", "Technician: Let me check. Yes, there's one camera free on Friday, but you have to return it by five o'clock the same day.", "Student: That's fine. Do I need anything else?", "Technician: Just your student card, and please bring your own memory card."],
-     "q": [["Why does the student want to borrow a camera?", ["To make a short film for a course", "To take holiday photos", "To sell it", "To record a lecture"], "gap", "I'm making a short film for my media course."],
-           ["How far in advance must equipment usually be booked?", ["At least two days", "One week", "One hour", "One month"], "gap", "you need to book it at least two days in advance"],
-           ["When must the student return the camera?", ["By five o'clock on Friday", "On Monday morning", "After one week", "Whenever she finishes"], "gap", "you have to return it by five o'clock the same day"],
-           ["What must the student bring?", ["Her student card and a memory card", "A deposit of 100 lira", "A letter from her teacher", "Her own tripod"], "gap", "Just your student card, and please bring your own memory card."]]}
-  ],
-  "t_ann": [
-    {"t": "Announcement: careers fair", "x": ["Good afternoon, everyone. The annual careers fair will take place next Wednesday from ten until four in the main sports hall.", "More than sixty companies will be there, including several that offer internships abroad. We strongly recommend bringing printed copies of your CV.", "If you would like feedback on your CV before the fair, the Careers Office is offering free fifteen-minute appointments this Monday and Tuesday."],
-     "q": [["Where will the careers fair take place?", ["In the main sports hall", "In the library", "In the Careers Office", "Online"], "gap", "in the main sports hall"],
-           ["What are students advised to bring?", ["Printed copies of their CV", "Their passport", "A laptop", "Business cards"], "gap", "We strongly recommend bringing printed copies of your CV."],
-           ["What does the Careers Office offer on Monday and Tuesday?", ["Free CV feedback appointments", "Internships abroad", "Free printing", "Interview practice with companies"], "gap", "the Careers Office is offering free fifteen-minute appointments this Monday and Tuesday"]]}
-  ],
-  "t_talk": [
-    {"t": "Academic talk: why we yawn", "x": ["Today I'd like to look at a behaviour we all share but rarely think about: yawning. For a long time, people believed we yawn because our bodies need more oxygen. However, experiments have shown that breathing extra oxygen does not reduce yawning.", "A more recent theory suggests that yawning helps to cool the brain. When we yawn, we take in a large amount of air, which may lower the temperature of blood flowing to the head. Supporting this idea, studies have found that people yawn less often when the air around them is very hot.", "Finally, yawning is contagious: seeing or even reading about someone yawning can make us yawn. Some researchers think this may be connected to empathy, our ability to share other people's feelings."],
-     "q": [["What is the talk mainly about?", ["Possible explanations for yawning", "How to stop feeling tired", "Why oxygen is important", "How the brain works during sleep"], "main", ""],
-           ["What did experiments show about the oxygen theory?", ["Extra oxygen does not reduce yawning.", "Extra oxygen stops yawning completely.", "Yawning increases oxygen in the blood.", "People yawn more in hot air."], "gap", "experiments have shown that breathing extra oxygen does not reduce yawning"],
-           ["What evidence supports the brain-cooling theory?", ["People yawn less when the air is very hot.", "People yawn more when they are hungry.", "Animals never yawn.", "Yawning raises body temperature."], "gap", "people yawn less often when the air around them is very hot"],
-           ["What do some researchers connect contagious yawning with?", ["Empathy", "Hunger", "Intelligence", "Age"], "gap", "Some researchers think this may be connected to empathy"]]}
-  ],
-  "i_read": [
-    {"t": "The Return of the Night Train", "x": ["A. In the 1990s and 2000s, many European night trains were withdrawn as cheap flights became popular and operators struggled to make a profit. Travellers could fly across the continent in a couple of hours, often for less than the price of a train ticket.", "B. In recent years, however, night trains have made a comeback. Growing concern about the environmental impact of flying has encouraged many travellers to choose rail, which produces far lower emissions per passenger on most routes. Several new routes have opened, connecting cities such as Vienna, Berlin, Paris and Amsterdam.", "C. Supporters point out that night trains also save time and money, as passengers travel while they sleep and do not need to pay for a hotel. Nevertheless, tickets for private sleeping cabins can still be expensive, and demand on popular routes often exceeds the number of available seats."],
-     "q": [["Night trains were withdrawn partly because of competition from cheap flights.", ["True", "False", "Not Given"], "tfng", "many European night trains were withdrawn as cheap flights became popular", true],
-           ["Rail produces higher emissions per passenger than flying on most routes.", ["False", "True", "Not Given"], "tfng", "rail, which produces far lower emissions per passenger on most routes", true],
-           ["The new route between Vienna and Paris is the most popular in Europe.", ["Not Given", "True", "False"], "tfng", "(The text lists cities but does not say which route is the most popular.)", true],
-           ["Which heading best fits paragraph B?", ["A revival driven by environmental concern", "The high cost of sleeping cabins", "Why airlines became cheaper", "How trains are built"], "heading", "In recent years, however, night trains have made a comeback."],
-           ["What problem with night trains is mentioned in paragraph C?", ["Demand is often higher than the number of seats.", "They are always late.", "They have no sleeping cabins.", "They only run in summer."], "detail", "demand on popular routes often exceeds the number of available seats"]]}
-  ],
-  "i_l1": [
-    {"t": "Part 1: joining the university sports centre", "x": ["Woman: Hi, I'd like to join the sports centre. What kind of membership do you have?", "Man: There's a basic membership for the gym only, and a full membership that also includes the swimming pool and classes.", "Woman: How much is the full membership?", "Man: It's thirty-five euros a month for students. The basic one is twenty.", "Woman: I'll take the full one. I'd like to try the yoga classes.", "Man: Great. Yoga is on Tuesday and Friday evenings at seven. Can I have your student number?", "Woman: Yes, it's S, 4, 8, 2, 7, 1.", "Man: Thank you. Your membership starts tomorrow."],
-     "q": [["Which type of membership does the woman choose?", ["Full membership", "Basic membership", "Swimming only", "A one-day pass"], "gap", "I'll take the full one."],
-           ["How much does her membership cost per month?", ["€35", "€20", "€55", "€30"], "gap", "It's thirty-five euros a month for students."],
-           ["When are the yoga classes?", ["Tuesday and Friday evenings at seven", "Every morning at seven", "Monday and Wednesday at six", "Saturday afternoons"], "gap", "Yoga is on Tuesday and Friday evenings at seven."],
-           ["What is her student number?", ["S48271", "S42871", "S48217", "S84271"], "gap", "it's S, 4, 8, 2, 7, 1"]]}
-  ],
-  "i_l4": [
-    {"t": "Part 4: the history of chocolate", "x": ["Today's lecture is about chocolate, which has a much longer history than most people realise.", "The cacao tree is native to Central and South America, and evidence suggests that people there were using cacao more than three thousand years ago. However, they did not eat it as a sweet bar. Instead, they made a bitter drink, often flavoured with chilli.", "Cacao beans were so valuable that the Aztecs even used them as a form of money.", "When cacao reached Europe in the sixteenth century, sugar was added to make the drink sweeter, and it became fashionable among the rich.", "It was only in the nineteenth century, with new industrial machines, that solid chocolate bars became cheap enough for ordinary people to buy."],
-     "q": [["Where is the cacao tree originally from?", ["Central and South America", "West Africa", "Southern Europe", "Asia"], "gap", "The cacao tree is native to Central and South America"],
-           ["How was cacao first consumed?", ["As a bitter drink", "As a sweet bar", "As a cake", "As ice cream"], "gap", "they made a bitter drink, often flavoured with chilli"],
-           ["What did the Aztecs use cacao beans for?", ["As money", "As medicine", "As decoration", "As animal food"], "gap", "the Aztecs even used them as a form of money"],
-           ["What was added to the drink in Europe?", ["Sugar", "Chilli", "Milk only", "Salt"], "gap", "sugar was added to make the drink sweeter"],
-           ["What made chocolate bars cheap for ordinary people?", ["New industrial machines in the nineteenth century", "Lower taxes in the sixteenth century", "The Aztecs' trade", "Growing cacao in Europe"], "gap", "It was only in the nineteenth century, with new industrial machines, that solid chocolate bars became cheap enough"]]}
-  ],
-  "speak": {
-    "toefl_repeat": ["Please collect your exam results from the faculty office.", "The workshop on academic writing starts at four o'clock."],
-    "toefl_interview": ["What is the most useful thing you have learned outside the classroom?", "Would you rather take an online course or a face-to-face course? Why?"],
-    "ielts_p1": ["Do you prefer studying in the morning or at night?", "What is your favourite season of the year?"],
-    "ielts_p2": ["Describe a time when you helped someone.\nYou should say:\n• who you helped\n• what the situation was\n• how you helped them\nand explain how you felt about it."],
-    "ielts_p3": ["Why do some people find it hard to ask for help?", "Should schools teach practical life skills such as cooking and managing money?"]
+ "version": 2,
+ "updated": "2026-11-11",
+ "t_cw": [
+  {
+   "q": "Complete the word:\nThe new policy will aff___ all first-year students.",
+   "o": [
+    "ect",
+    "ord",
+    "air",
+    "ix"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nShe made a signif___ contribution to the project.",
+   "o": [
+    "icant",
+    "icance",
+    "y",
+    "ied"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nThe lecture was cancel___ because the professor was ill.",
+   "o": [
+    "led",
+    "ling",
+    "s",
+    "lation"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nMost participants found the survey easy to compl___.",
+   "o": [
+    "ete",
+    "eted",
+    "etion",
+    "ain"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nThe results of the experiment were quite surpr___.",
+   "o": [
+    "ising",
+    "ised",
+    "ises",
+    "isingly"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nPlease submit your assignment before the dead___.",
+   "o": [
+    "line",
+    "lock",
+    "ly",
+    "en"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nThe library provides free acc___ to many online journals.",
+   "o": [
+    "ess",
+    "ept",
+    "ount",
+    "ent"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nOur professor gave us a detailed expl___ of the theory.",
+   "o": [
+    "anation",
+    "ain",
+    "ained",
+    "osion"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nLiving abroad helped him become more indep___.",
+   "o": [
+    "endent",
+    "endence",
+    "endently",
+    "endents"
+   ],
+   "tk": "complete"
+  },
+  {
+   "q": "Complete the word:\nWe need to anal___ the data before Friday.",
+   "o": [
+    "yse",
+    "ysis",
+    "yst",
+    "ytical"
+   ],
+   "tk": "complete"
   }
+ ],
+ "t_resp": [
+  {
+   "audio": "Is it okay if I record today's lecture?",
+   "q": "You will hear a question. Choose the best response.",
+   "o": [
+    "Sure, as long as it's for your own use.",
+    "Yes, I recorded it yesterday.",
+    "It's a lecture.",
+    "No, I'm recording."
+   ],
+   "fk": "permission"
+  },
+  {
+   "audio": "I've just been accepted to the exchange programme in Lisbon!",
+   "q": "You will hear a statement. Choose the best response.",
+   "o": [
+    "That's wonderful! When do you leave?",
+    "What a shame.",
+    "Good luck with your application!",
+    "I'm sorry to hear that."
+   ],
+   "fk": "congrats"
+  },
+  {
+   "audio": "How long does it take to walk to the station from here?",
+   "q": "You will hear a question. Choose the best response.",
+   "o": [
+    "About fifteen minutes.",
+    "Twice a day.",
+    "At the station.",
+    "By train."
+   ],
+   "fk": "questions"
+  },
+  {
+   "audio": "Could you speak a little louder? I can't hear you at the back.",
+   "q": "You will hear a request. Choose the best response.",
+   "o": [
+    "Of course. Is this better?",
+    "Yes, I can hear.",
+    "I'm at the back.",
+    "Louder is a word."
+   ],
+   "fk": "request"
+  },
+  {
+   "audio": "Would you mind closing the window? It's a bit cold in here.",
+   "q": "You will hear a request. Choose the best response.",
+   "o": [
+    "Not at all. I'll close it now.",
+    "Yes, it's very cold outside.",
+    "I don't have a window.",
+    "No, it was open yesterday."
+   ],
+   "fk": "mind"
+  },
+  {
+   "audio": "Why don't we study together in the library tomorrow?",
+   "q": "You will hear a suggestion. Choose the best response.",
+   "o": [
+    "Good idea. What time suits you?",
+    "Because the library is closed.",
+    "I studied there yesterday.",
+    "Yes, it's a big library."
+   ],
+   "fk": "suggestion"
+  },
+  {
+   "audio": "I'm really sorry I missed our meeting this morning.",
+   "q": "You will hear a statement. Choose the best response.",
+   "o": [
+    "Don't worry. Can we meet this afternoon instead?",
+    "You're welcome.",
+    "Congratulations!",
+    "Yes, it was at nine."
+   ],
+   "fk": "apology"
+  },
+  {
+   "audio": "Excuse me, how do I get to the main library?",
+   "q": "You will hear a question. Choose the best response.",
+   "o": [
+    "Go straight ahead and turn left at the café.",
+    "It opens at nine.",
+    "I've got a library card.",
+    "Yes, it's the main one."
+   ],
+   "fk": "directions"
+  },
+  {
+   "audio": "Sorry, could you repeat the last part? I didn't quite catch it.",
+   "q": "You will hear a request. Choose the best response.",
+   "o": [
+    "Sure. I said the essay is due on Thursday.",
+    "I didn't catch the bus either.",
+    "Yes, that was the last part.",
+    "No, I don't have a question."
+   ],
+   "fk": "clarify"
+  },
+  {
+   "audio": "Would you like to join us for dinner on Saturday?",
+   "q": "You will hear an invitation. Choose the best response.",
+   "o": [
+    "I'd love to. What time?",
+    "Yes, I had dinner already.",
+    "Saturday is a day.",
+    "You're welcome to it."
+   ],
+   "fk": "invitation"
+  }
+ ],
+ "t_build": [
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"Can you tell me ___?\"",
+   "o": [
+    "why the meeting was cancelled",
+    "why was the meeting cancelled",
+    "why the meeting cancelled was",
+    "the meeting why was cancelled"
+   ],
+   "rk": "indirect_q"
+  },
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"By next June, I ___ my degree.\"",
+   "o": [
+    "will have finished",
+    "will finished have",
+    "have will finished",
+    "will having finished"
+   ],
+   "rk": "fut_perf"
+  },
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"The building ___ in 1920.\"",
+   "o": [
+    "was designed",
+    "designed was",
+    "was design",
+    "has designed"
+   ],
+   "rk": "passive"
+  },
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"If I ___, I would join the drama club.\"",
+   "o": [
+    "had more free time",
+    "more free time had",
+    "had free more time",
+    "free time had more"
+   ],
+   "rk": "cond2"
+  },
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"That's the student ___.\"",
+   "o": [
+    "whose essay won the competition",
+    "whose won the essay competition",
+    "essay whose won the competition",
+    "whose the essay won competition"
+   ],
+   "rk": "rel_whose"
+  },
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"Not only ___, but she also speaks French.\"",
+   "o": [
+    "does she speak Spanish",
+    "she speaks Spanish",
+    "she does speak Spanish",
+    "speaks she Spanish"
+   ],
+   "rk": "inversion"
+  },
+  {
+   "q": "Build a sentence: choose the correct word order.\n\"The lecture room was ___ all the students.\"",
+   "o": [
+    "not big enough for",
+    "not enough big for",
+    "big not enough for",
+    "enough not big for"
+   ],
+   "rk": "too_enough"
+  }
+ ],
+ "t_daily": [
+  {
+   "t": "Email: room change confirmation",
+   "x": [
+    "Dear Ms. Yilmaz, Thank you for your request to change rooms. We are pleased to confirm that you can move from Room 112 to Room 305 on Monday, 18 November.",
+    "Please return the key to Room 112 to the reception desk by 10 a.m. on that day. You can collect the key to Room 305 at the same time. Note that Room 305 does not have a private bathroom, but it is larger and has a balcony.",
+    "If you have any questions, please reply to this email or visit the Housing Office between 9 a.m. and 4 p.m. Kind regards, Housing Office"
+   ],
+   "q": [
+    [
+     "When can Ms. Yilmaz move to the new room?",
+     [
+      "On Monday, 18 November",
+      "On Sunday, 17 November",
+      "Today",
+      "Next month"
+     ],
+     "detail",
+     "you can move from Room 112 to Room 305 on Monday, 18 November"
+    ],
+    [
+     "What must she do by 10 a.m. on that day?",
+     [
+      "Return the key to her old room",
+      "Pay a fee",
+      "Clean the balcony",
+      "Call the Housing Office"
+     ],
+     "detail",
+     "Please return the key to Room 112 to the reception desk by 10 a.m. on that day."
+    ],
+    [
+     "Which statement about Room 305 is TRUE?",
+     [
+      "It is larger and has a balcony.",
+      "It has a private bathroom.",
+      "It is smaller than Room 112.",
+      "It is on the first floor."
+     ],
+     "true",
+     "Room 305 does not have a private bathroom, but it is larger and has a balcony."
+    ]
+   ]
+  },
+  {
+   "t": "Advert: language exchange café",
+   "x": [
+    "Language Exchange Café – Every Thursday! Would you like to practise a foreign language in a relaxed setting? The International Students' Club invites you to our Language Exchange Café, held every Thursday from 6 p.m. to 8 p.m. in the Garden Room of the Student Union building.",
+    "Each evening is divided into two halves. For the first hour, you speak in your partner's language; for the second hour, you switch. Tables are available for English, Turkish, Arabic, German and Spanish.",
+    "Entry is free, and your first drink is on us. You do not need to book, but please arrive before 6:15 p.m. so that we can find you a partner. Beginners are very welcome!"
+   ],
+   "q": [
+    [
+     "How often does the Language Exchange Café take place?",
+     [
+      "Once a week, on Thursdays",
+      "Every day",
+      "Once a month",
+      "Only at weekends"
+     ],
+     "detail",
+     "held every Thursday from 6 p.m. to 8 p.m."
+    ],
+    [
+     "What happens after the first hour?",
+     [
+      "Partners switch to the other language.",
+      "Everyone goes home.",
+      "A teacher gives a grammar lesson.",
+      "Visitors pay for their drinks."
+     ],
+     "detail",
+     "for the second hour, you switch"
+    ],
+    [
+     "Why should visitors arrive before 6:15 p.m.?",
+     [
+      "So that the organisers can find them a partner",
+      "Because the doors close at 6:15",
+      "To get a free meal",
+      "To book a table online"
+     ],
+     "detail",
+     "please arrive before 6:15 p.m. so that we can find you a partner"
+    ],
+    [
+     "What can be inferred about the event?",
+     [
+      "People with little language experience can take part.",
+      "Only advanced speakers may attend.",
+      "It takes place online.",
+      "Visitors must pay to enter."
+     ],
+     "infer",
+     "Beginners are very welcome!"
+    ]
+   ]
+  }
+ ],
+ "t_acad": [
+  {
+   "t": "The Secret Life of Sleep in Animals",
+   "x": [
+    "Almost all animals studied so far show some form of sleep, but the way they sleep varies enormously. Some birds and dolphins can rest one half of their brain at a time, keeping the other half alert. This allows dolphins to keep swimming and surface to breathe, and helps birds watch for predators.",
+    "The amount of sleep also differs widely between species. Large plant-eating animals such as giraffes and elephants may sleep only a few hours a day, possibly because they need to spend most of their time eating low-energy food. In contrast, some small animals that eat energy-rich food, such as bats, may sleep for more than eighteen hours.",
+    "Despite these differences, scientists believe sleep must have important functions, since it exists across so many species even though sleeping animals are vulnerable to attack. Current theories suggest that sleep helps to save energy, repair the body and process memories."
+   ],
+   "q": [
+    [
+     "What is the passage mainly about?",
+     [
+      "How and why sleep differs among animals",
+      "Why dolphins are intelligent",
+      "How to sleep better",
+      "Which animals are most dangerous"
+     ],
+     "main",
+     ""
+    ],
+    [
+     "Why can dolphins keep swimming while they sleep?",
+     [
+      "They rest one half of their brain at a time.",
+      "They sleep only on land.",
+      "They do not need sleep.",
+      "They sleep for eighteen hours."
+     ],
+     "detail",
+     "Some birds and dolphins can rest one half of their brain at a time, keeping the other half alert."
+    ],
+    [
+     "According to the passage, why might giraffes sleep so little?",
+     [
+      "They need to spend most of their time eating low-energy food.",
+      "They are afraid of bats.",
+      "Their brains are very small.",
+      "They live in cold places."
+     ],
+     "detail",
+     "possibly because they need to spend most of their time eating low-energy food"
+    ],
+    [
+     "The word \"vulnerable\" in paragraph 3 is closest in meaning to:",
+     [
+      "easily harmed",
+      "very strong",
+      "fast asleep",
+      "well hidden"
+     ],
+     "vocab",
+     "sleeping animals are vulnerable to attack"
+    ],
+    [
+     "Why do scientists believe sleep has important functions?",
+     [
+      "It exists in many species despite being risky.",
+      "All animals sleep the same amount.",
+      "Sleep makes animals bigger.",
+      "Only humans need sleep."
+     ],
+     "infer",
+     "since it exists across so many species even though sleeping animals are vulnerable to attack"
+    ]
+   ]
+  },
+  {
+   "t": "The Waggle Dance of Honeybees",
+   "x": [
+    "Honeybees live in large colonies, and finding enough food for thousands of individuals is a constant challenge. Worker bees called foragers fly out to search for flowers rich in nectar and pollen. When a forager discovers a good source, she returns to the hive and shares the information with her sisters through a remarkable form of communication known as the waggle dance.",
+    "The dance is performed on the vertical surface of the honeycomb inside the dark hive. The bee runs forward in a straight line while shaking her body from side to side, then circles back and repeats the movement. The angle of this straight run compared with the vertical shows the direction of the food relative to the position of the sun. The length of time the bee spends waggling indicates how far away the food is: the longer the waggle, the greater the distance.",
+    "This behaviour was first explained in detail by the Austrian scientist Karl von Frisch, who received a Nobel Prize in 1973 partly for this work. His experiments showed that bees which watched a dance were able to fly directly to food they had never visited before. Today, researchers still study the waggle dance because it is one of the few known examples of animals communicating about places that are far away and out of sight."
+   ],
+   "q": [
+    [
+     "What is the passage mainly about?",
+     [
+      "How honeybees share information about food locations",
+      "Why honeybees produce honey",
+      "How flowers attract insects",
+      "The life of Karl von Frisch"
+     ],
+     "main",
+     ""
+    ],
+    [
+     "According to paragraph 2, what does the angle of the straight run show?",
+     [
+      "The direction of the food relative to the sun",
+      "The amount of food available",
+      "The age of the forager",
+      "The temperature outside the hive"
+     ],
+     "detail",
+     "The angle of this straight run compared with the vertical shows the direction of the food relative to the position of the sun."
+    ],
+    [
+     "What does it mean if a bee waggles for a longer time?",
+     [
+      "The food is farther away.",
+      "The food is closer to the hive.",
+      "The food is sweeter.",
+      "The hive is in danger."
+     ],
+     "detail",
+     "the longer the waggle, the greater the distance"
+    ],
+    [
+     "The word \"indicates\" in paragraph 2 is closest in meaning to:",
+     [
+      "shows",
+      "hides",
+      "doubles",
+      "forgets"
+     ],
+     "vocab",
+     "The length of time the bee spends waggling indicates how far away the food is"
+    ],
+    [
+     "The word \"His\" in paragraph 3 refers to:",
+     [
+      "Karl von Frisch's",
+      "the forager's",
+      "the researchers'",
+      "the colony's"
+     ],
+     "ref",
+     "His experiments showed that bees which watched a dance were able to fly directly to food they had never visited before."
+    ]
+   ]
+  }
+ ],
+ "t_conv": [
+  {
+   "t": "Conversation: borrowing equipment",
+   "x": [
+    "Student: Hi, I'm making a short film for my media course. Can I borrow a camera?",
+    "Technician: Yes, but you need to book it at least two days in advance using the online form.",
+    "Student: Oh, I need it this Friday. Is that still possible?",
+    "Technician: Let me check. Yes, there's one camera free on Friday, but you have to return it by five o'clock the same day.",
+    "Student: That's fine. Do I need anything else?",
+    "Technician: Just your student card, and please bring your own memory card."
+   ],
+   "q": [
+    [
+     "Why does the student want to borrow a camera?",
+     [
+      "To make a short film for a course",
+      "To take holiday photos",
+      "To sell it",
+      "To record a lecture"
+     ],
+     "gap",
+     "I'm making a short film for my media course."
+    ],
+    [
+     "How far in advance must equipment usually be booked?",
+     [
+      "At least two days",
+      "One week",
+      "One hour",
+      "One month"
+     ],
+     "gap",
+     "you need to book it at least two days in advance"
+    ],
+    [
+     "When must the student return the camera?",
+     [
+      "By five o'clock on Friday",
+      "On Monday morning",
+      "After one week",
+      "Whenever she finishes"
+     ],
+     "gap",
+     "you have to return it by five o'clock the same day"
+    ],
+    [
+     "What must the student bring?",
+     [
+      "Her student card and a memory card",
+      "A deposit of 100 lira",
+      "A letter from her teacher",
+      "Her own tripod"
+     ],
+     "gap",
+     "Just your student card, and please bring your own memory card."
+    ]
+   ]
+  },
+  {
+   "t": "Conversation: dropping a course",
+   "x": [
+    "Student: Hi, I'm thinking of dropping my statistics course. Is it too late?",
+    "Advisor: Not yet. The deadline for dropping courses without a penalty is next Friday.",
+    "Student: Great. Will it affect my scholarship?",
+    "Advisor: It might. Your scholarship requires at least thirty credits this term. How many are you taking?",
+    "Student: Thirty-six, and statistics is six credits.",
+    "Advisor: Then you'd still have thirty, so you're fine. But statistics is required for your degree, so you'll need to take it next year.",
+    "Student: That's okay. I'd rather take it when I have fewer other courses.",
+    "Advisor: Sensible. Just fill in the form on the student portal and I'll approve it."
+   ],
+   "q": [
+    [
+     "Why does the student visit the advisor?",
+     [
+      "To ask about dropping a course",
+      "To apply for a scholarship",
+      "To complain about a teacher",
+      "To register for a new course"
+     ],
+     "main",
+     ""
+    ],
+    [
+     "When is the deadline for dropping a course without a penalty?",
+     [
+      "Next Friday",
+      "Today",
+      "Next month",
+      "At the end of the year"
+     ],
+     "gap",
+     "The deadline for dropping courses without a penalty is next Friday."
+    ],
+    [
+     "How many credits will the student have after dropping statistics?",
+     [
+      "30",
+      "36",
+      "6",
+      "24"
+     ],
+     "gap",
+     "Then you'd still have thirty, so you're fine."
+    ],
+    [
+     "What must the student do to drop the course?",
+     [
+      "Fill in a form on the student portal",
+      "Write a letter to the professor",
+      "Pay a small fee",
+      "Visit the advisor again next year"
+     ],
+     "gap",
+     "Just fill in the form on the student portal and I'll approve it."
+    ]
+   ]
+  }
+ ],
+ "t_ann": [
+  {
+   "t": "Announcement: careers fair",
+   "x": [
+    "Good afternoon, everyone. The annual careers fair will take place next Wednesday from ten until four in the main sports hall.",
+    "More than sixty companies will be there, including several that offer internships abroad. We strongly recommend bringing printed copies of your CV.",
+    "If you would like feedback on your CV before the fair, the Careers Office is offering free fifteen-minute appointments this Monday and Tuesday."
+   ],
+   "q": [
+    [
+     "Where will the careers fair take place?",
+     [
+      "In the main sports hall",
+      "In the library",
+      "In the Careers Office",
+      "Online"
+     ],
+     "gap",
+     "in the main sports hall"
+    ],
+    [
+     "What are students advised to bring?",
+     [
+      "Printed copies of their CV",
+      "Their passport",
+      "A laptop",
+      "Business cards"
+     ],
+     "gap",
+     "We strongly recommend bringing printed copies of your CV."
+    ],
+    [
+     "What does the Careers Office offer on Monday and Tuesday?",
+     [
+      "Free CV feedback appointments",
+      "Internships abroad",
+      "Free printing",
+      "Interview practice with companies"
+     ],
+     "gap",
+     "the Careers Office is offering free fifteen-minute appointments this Monday and Tuesday"
+    ]
+   ]
+  },
+  {
+   "t": "Announcement: library opening hours during exams",
+   "x": [
+    "Attention, please. During the exam period, from the first to the twentieth of December, the main library will stay open twenty-four hours a day.",
+    "Between midnight and seven in the morning, only the ground floor will be open, and you will need your student card to enter the building.",
+    "Please remember that food is not allowed in the reading rooms, but hot drinks in closed cups are permitted. Free coffee will be available in the entrance hall every evening at nine."
+   ],
+   "q": [
+    [
+     "How long will the library stay open each day during the exam period?",
+     [
+      "24 hours",
+      "Until midnight",
+      "Until 7 a.m.",
+      "12 hours"
+     ],
+     "gap",
+     "the main library will stay open twenty-four hours a day"
+    ],
+    [
+     "What do students need to enter the building between midnight and 7 a.m.?",
+     [
+      "Their student card",
+      "A booking number",
+      "A teacher's permission",
+      "A library fee"
+     ],
+     "gap",
+     "you will need your student card to enter the building"
+    ],
+    [
+     "What is allowed in the reading rooms?",
+     [
+      "Hot drinks in closed cups",
+      "Food",
+      "Any kind of drink",
+      "Snacks after nine"
+     ],
+     "gap",
+     "hot drinks in closed cups are permitted"
+    ]
+   ]
+  }
+ ],
+ "t_talk": [
+  {
+   "t": "Academic talk: why we yawn",
+   "x": [
+    "Today I'd like to look at a behaviour we all share but rarely think about: yawning. For a long time, people believed we yawn because our bodies need more oxygen. However, experiments have shown that breathing extra oxygen does not reduce yawning.",
+    "A more recent theory suggests that yawning helps to cool the brain. When we yawn, we take in a large amount of air, which may lower the temperature of blood flowing to the head. Supporting this idea, studies have found that people yawn less often when the air around them is very hot.",
+    "Finally, yawning is contagious: seeing or even reading about someone yawning can make us yawn. Some researchers think this may be connected to empathy, our ability to share other people's feelings."
+   ],
+   "q": [
+    [
+     "What is the talk mainly about?",
+     [
+      "Possible explanations for yawning",
+      "How to stop feeling tired",
+      "Why oxygen is important",
+      "How the brain works during sleep"
+     ],
+     "main",
+     ""
+    ],
+    [
+     "What did experiments show about the oxygen theory?",
+     [
+      "Extra oxygen does not reduce yawning.",
+      "Extra oxygen stops yawning completely.",
+      "Yawning increases oxygen in the blood.",
+      "People yawn more in hot air."
+     ],
+     "gap",
+     "experiments have shown that breathing extra oxygen does not reduce yawning"
+    ],
+    [
+     "What evidence supports the brain-cooling theory?",
+     [
+      "People yawn less when the air is very hot.",
+      "People yawn more when they are hungry.",
+      "Animals never yawn.",
+      "Yawning raises body temperature."
+     ],
+     "gap",
+     "people yawn less often when the air around them is very hot"
+    ],
+    [
+     "What do some researchers connect contagious yawning with?",
+     [
+      "Empathy",
+      "Hunger",
+      "Intelligence",
+      "Age"
+     ],
+     "gap",
+     "Some researchers think this may be connected to empathy"
+    ]
+   ]
+  },
+  {
+   "t": "Academic talk: why the sky is blue",
+   "x": [
+    "Today we're going to answer a question that children often ask: why is the sky blue? Sunlight looks white, but it is actually a mixture of all the colours of the rainbow. Each colour travels as a wave, and blue light has a shorter wavelength than red light.",
+    "When sunlight enters the atmosphere, it hits tiny gas molecules in the air. These molecules scatter short wavelengths, like blue, much more strongly than long wavelengths, like red. As a result, blue light is spread across the whole sky, and that is the colour we see when we look up during the day.",
+    "This also explains why sunsets are often red and orange. In the evening, sunlight has to travel through much more of the atmosphere to reach our eyes. By the time it arrives, most of the blue light has been scattered away, leaving mainly the reds and oranges."
+   ],
+   "q": [
+    [
+     "What is the talk mainly about?",
+     [
+      "Why the sky looks blue and sunsets look red",
+      "How rainbows are formed",
+      "Why sunlight is dangerous",
+      "How clouds are made"
+     ],
+     "main",
+     ""
+    ],
+    [
+     "What does the speaker say about sunlight?",
+     [
+      "It is a mixture of all the colours.",
+      "It contains only yellow light.",
+      "It does not travel as a wave.",
+      "It contains no blue light."
+     ],
+     "gap",
+     "it is actually a mixture of all the colours of the rainbow"
+    ],
+    [
+     "Which light do air molecules scatter most strongly?",
+     [
+      "Light with short wavelengths, such as blue",
+      "Light with long wavelengths, such as red",
+      "Only white light",
+      "All colours equally"
+     ],
+     "gap",
+     "These molecules scatter short wavelengths, like blue, much more strongly than long wavelengths, like red."
+    ],
+    [
+     "Why are sunsets often red?",
+     [
+      "Most blue light has been scattered away before it reaches us.",
+      "The sun becomes cooler in the evening.",
+      "Clouds reflect only red light.",
+      "Air molecules turn red at night."
+     ],
+     "gap",
+     "most of the blue light has been scattered away, leaving mainly the reds and oranges"
+    ]
+   ]
+  }
+ ],
+ "i_read": [
+  {
+   "t": "The Return of the Night Train",
+   "x": [
+    "A. In the 1990s and 2000s, many European night trains were withdrawn as cheap flights became popular and operators struggled to make a profit. Travellers could fly across the continent in a couple of hours, often for less than the price of a train ticket.",
+    "B. In recent years, however, night trains have made a comeback. Growing concern about the environmental impact of flying has encouraged many travellers to choose rail, which produces far lower emissions per passenger on most routes. Several new routes have opened, connecting cities such as Vienna, Berlin, Paris and Amsterdam.",
+    "C. Supporters point out that night trains also save time and money, as passengers travel while they sleep and do not need to pay for a hotel. Nevertheless, tickets for private sleeping cabins can still be expensive, and demand on popular routes often exceeds the number of available seats."
+   ],
+   "q": [
+    [
+     "Night trains were withdrawn partly because of competition from cheap flights.",
+     [
+      "True",
+      "False",
+      "Not Given"
+     ],
+     "tfng",
+     "many European night trains were withdrawn as cheap flights became popular",
+     true
+    ],
+    [
+     "Rail produces higher emissions per passenger than flying on most routes.",
+     [
+      "False",
+      "True",
+      "Not Given"
+     ],
+     "tfng",
+     "rail, which produces far lower emissions per passenger on most routes",
+     true
+    ],
+    [
+     "The new route between Vienna and Paris is the most popular in Europe.",
+     [
+      "Not Given",
+      "True",
+      "False"
+     ],
+     "tfng",
+     "(The text lists cities but does not say which route is the most popular.)",
+     true
+    ],
+    [
+     "Which heading best fits paragraph B?",
+     [
+      "A revival driven by environmental concern",
+      "The high cost of sleeping cabins",
+      "Why airlines became cheaper",
+      "How trains are built"
+     ],
+     "heading",
+     "In recent years, however, night trains have made a comeback."
+    ],
+    [
+     "What problem with night trains is mentioned in paragraph C?",
+     [
+      "Demand is often higher than the number of seats.",
+      "They are always late.",
+      "They have no sleeping cabins.",
+      "They only run in summer."
+     ],
+     "detail",
+     "demand on popular routes often exceeds the number of available seats"
+    ]
+   ]
+  },
+  {
+   "t": "The Story of the Pencil",
+   "x": [
+    "A. For centuries, people have called the dark centre of a pencil its 'lead', but pencils have never actually contained the metal lead. The material inside is graphite, a soft form of carbon. In the sixteenth century, a large deposit of very pure graphite was discovered in Borrowdale, in the north of England. Local people found that it left a clear dark mark, and it was soon being used for writing and drawing.",
+    "B. Early users wrapped pieces of graphite in string or sheepskin to keep their hands clean. Later, craftsmen began placing graphite sticks inside wooden holders, creating something close to the modern pencil. However, pure graphite was rare, and when supplies became difficult to obtain, pencil makers needed another solution.",
+    "C. In 1795, the French inventor Nicolas-Jacques Conté found that powdered graphite could be mixed with clay and baked in a kiln. By changing the amount of clay, he could make pencils that were harder or softer. This method allowed manufacturers to use lower-quality graphite, and it is still the basis of how most pencils are made today. In many countries, pencils are marked with letters such as H for 'hard' and B for 'black', which describe how firm the core is and how dark a line it produces."
+   ],
+   "q": [
+    [
+     "Pencils used to contain the metal lead.",
+     [
+      "False",
+      "True",
+      "Not Given"
+     ],
+     "tfng",
+     "pencils have never actually contained the metal lead",
+     true
+    ],
+    [
+     "The graphite found in Borrowdale was very pure.",
+     [
+      "True",
+      "False",
+      "Not Given"
+     ],
+     "tfng",
+     "a large deposit of very pure graphite was discovered in Borrowdale",
+     true
+    ],
+    [
+     "Conté sold his pencils mainly to artists.",
+     [
+      "Not Given",
+      "True",
+      "False"
+     ],
+     "tfng",
+     "(The text does not say who bought Conté's pencils.)",
+     true
+    ],
+    [
+     "Using different amounts of clay changes how hard a pencil is.",
+     [
+      "True",
+      "False",
+      "Not Given"
+     ],
+     "tfng",
+     "By changing the amount of clay, he could make pencils that were harder or softer.",
+     true
+    ],
+    [
+     "Which heading best fits paragraph B?",
+     [
+      "From bare graphite to wooden holders",
+      "A discovery in northern England",
+      "The meaning of pencil letters",
+      "Why pencils became expensive"
+     ],
+     "heading",
+     "Later, craftsmen began placing graphite sticks inside wooden holders, creating something close to the modern pencil."
+    ],
+    [
+     "What does the letter B on a pencil stand for?",
+     [
+      "Black",
+      "Basic",
+      "Brown",
+      "Bold"
+     ],
+     "detail",
+     "B for 'black'"
+    ]
+   ]
+  }
+ ],
+ "i_l1": [
+  {
+   "t": "Part 1: joining the university sports centre",
+   "x": [
+    "Woman: Hi, I'd like to join the sports centre. What kind of membership do you have?",
+    "Man: There's a basic membership for the gym only, and a full membership that also includes the swimming pool and classes.",
+    "Woman: How much is the full membership?",
+    "Man: It's thirty-five euros a month for students. The basic one is twenty.",
+    "Woman: I'll take the full one. I'd like to try the yoga classes.",
+    "Man: Great. Yoga is on Tuesday and Friday evenings at seven. Can I have your student number?",
+    "Woman: Yes, it's S, 4, 8, 2, 7, 1.",
+    "Man: Thank you. Your membership starts tomorrow."
+   ],
+   "q": [
+    [
+     "Which type of membership does the woman choose?",
+     [
+      "Full membership",
+      "Basic membership",
+      "Swimming only",
+      "A one-day pass"
+     ],
+     "gap",
+     "I'll take the full one."
+    ],
+    [
+     "How much does her membership cost per month?",
+     [
+      "€35",
+      "€20",
+      "€55",
+      "€30"
+     ],
+     "gap",
+     "It's thirty-five euros a month for students."
+    ],
+    [
+     "When are the yoga classes?",
+     [
+      "Tuesday and Friday evenings at seven",
+      "Every morning at seven",
+      "Monday and Wednesday at six",
+      "Saturday afternoons"
+     ],
+     "gap",
+     "Yoga is on Tuesday and Friday evenings at seven."
+    ],
+    [
+     "What is her student number?",
+     [
+      "S48271",
+      "S42871",
+      "S48217",
+      "S84271"
+     ],
+     "gap",
+     "it's S, 4, 8, 2, 7, 1"
+    ]
+   ]
+  },
+  {
+   "t": "Part 1: registering for a photography course",
+   "x": [
+    "Man: Good evening, Riverside Community Centre. How can I help?",
+    "Woman: Hello, I'd like to register for the evening photography course.",
+    "Man: Certainly. Can I take your surname?",
+    "Woman: Yes, it's Demir. That's D, E, M, I, R.",
+    "Man: Thank you. The course runs for eight weeks and starts on Wednesday the thirteenth of January.",
+    "Woman: What time are the classes?",
+    "Man: From half past six until eight o'clock.",
+    "Woman: And how much does it cost?",
+    "Man: The full fee is ninety pounds, but students pay seventy-five.",
+    "Woman: I'm a student, so that's great. Do I need my own camera?",
+    "Man: A phone camera is fine for the first few weeks."
+   ],
+   "q": [
+    [
+     "What is the woman's surname?",
+     [
+      "Demir",
+      "Damir",
+      "Demire",
+      "Dermi"
+     ],
+     "gap",
+     "That's D, E, M, I, R."
+    ],
+    [
+     "How many weeks does the course last?",
+     [
+      "8",
+      "6",
+      "10",
+      "12"
+     ],
+     "gap",
+     "The course runs for eight weeks"
+    ],
+    [
+     "When does the course start?",
+     [
+      "Wednesday 13 January",
+      "Wednesday 30 January",
+      "Thursday 13 January",
+      "Wednesday 3 January"
+     ],
+     "gap",
+     "starts on Wednesday the thirteenth of January"
+    ],
+    [
+     "What time do the classes finish?",
+     [
+      "8:00 p.m.",
+      "6:30 p.m.",
+      "7:30 p.m.",
+      "8:30 p.m."
+     ],
+     "gap",
+     "From half past six until eight o'clock."
+    ],
+    [
+     "How much will the woman pay?",
+     [
+      "£75",
+      "£90",
+      "£65",
+      "£85"
+     ],
+     "gap",
+     "students pay seventy-five"
+    ]
+   ]
+  }
+ ],
+ "i_l4": [
+  {
+   "t": "Part 4: the history of chocolate",
+   "x": [
+    "Today's lecture is about chocolate, which has a much longer history than most people realise.",
+    "The cacao tree is native to Central and South America, and evidence suggests that people there were using cacao more than three thousand years ago. However, they did not eat it as a sweet bar. Instead, they made a bitter drink, often flavoured with chilli.",
+    "Cacao beans were so valuable that the Aztecs even used them as a form of money.",
+    "When cacao reached Europe in the sixteenth century, sugar was added to make the drink sweeter, and it became fashionable among the rich.",
+    "It was only in the nineteenth century, with new industrial machines, that solid chocolate bars became cheap enough for ordinary people to buy."
+   ],
+   "q": [
+    [
+     "Where is the cacao tree originally from?",
+     [
+      "Central and South America",
+      "West Africa",
+      "Southern Europe",
+      "Asia"
+     ],
+     "gap",
+     "The cacao tree is native to Central and South America"
+    ],
+    [
+     "How was cacao first consumed?",
+     [
+      "As a bitter drink",
+      "As a sweet bar",
+      "As a cake",
+      "As ice cream"
+     ],
+     "gap",
+     "they made a bitter drink, often flavoured with chilli"
+    ],
+    [
+     "What did the Aztecs use cacao beans for?",
+     [
+      "As money",
+      "As medicine",
+      "As decoration",
+      "As animal food"
+     ],
+     "gap",
+     "the Aztecs even used them as a form of money"
+    ],
+    [
+     "What was added to the drink in Europe?",
+     [
+      "Sugar",
+      "Chilli",
+      "Milk only",
+      "Salt"
+     ],
+     "gap",
+     "sugar was added to make the drink sweeter"
+    ],
+    [
+     "What made chocolate bars cheap for ordinary people?",
+     [
+      "New industrial machines in the nineteenth century",
+      "Lower taxes in the sixteenth century",
+      "The Aztecs' trade",
+      "Growing cacao in Europe"
+     ],
+     "gap",
+     "It was only in the nineteenth century, with new industrial machines, that solid chocolate bars became cheap enough"
+    ]
+   ]
+  },
+  {
+   "t": "Part 4: the history of paper",
+   "x": [
+    "In this lecture, I'll outline the history of paper, a material we use every day without much thought.",
+    "Before paper, people wrote on many different surfaces, including clay tablets, papyrus made from a river plant, and parchment made from animal skin.",
+    "Paper as we know it was developed in China. Its invention is traditionally credited to a court official named Cai Lun, around the year one hundred and five. He made sheets from tree bark, old cloth and plant fibres soaked in water.",
+    "For several centuries, the technique remained mainly in East Asia. In the eighth century, papermaking reached the city of Samarkand in Central Asia, and soon afterwards Baghdad had its own paper mills.",
+    "Paper reached Europe by the twelfth century, but it was still made from old cloth, or rags. Only in the nineteenth century did manufacturers learn to make paper from wood pulp, which made it cheap enough for newspapers and books to be produced in huge numbers."
+   ],
+   "q": [
+    [
+     "What was parchment made from?",
+     [
+      "Animal skin",
+      "A river plant",
+      "Clay",
+      "Tree bark"
+     ],
+     "gap",
+     "parchment made from animal skin"
+    ],
+    [
+     "Who is traditionally credited with inventing paper?",
+     [
+      "A court official named Cai Lun",
+      "A merchant from Samarkand",
+      "A European monk",
+      "An engineer in Baghdad"
+     ],
+     "gap",
+     "Its invention is traditionally credited to a court official named Cai Lun"
+    ],
+    [
+     "When did papermaking reach Samarkand?",
+     [
+      "In the eighth century",
+      "In the twelfth century",
+      "Around the year 105",
+      "In the nineteenth century"
+     ],
+     "gap",
+     "In the eighth century, papermaking reached the city of Samarkand"
+    ],
+    [
+     "What was paper in Europe made from at first?",
+     [
+      "Old cloth, or rags",
+      "Wood pulp",
+      "Papyrus",
+      "Animal skin"
+     ],
+     "gap",
+     "it was still made from old cloth, or rags"
+    ],
+    [
+     "What effect did the use of wood pulp have?",
+     [
+      "It made paper cheap enough for mass production.",
+      "It made paper stronger than parchment.",
+      "It ended papermaking in China.",
+      "It made paper more expensive."
+     ],
+     "gap",
+     "which made it cheap enough for newspapers and books to be produced in huge numbers"
+    ]
+   ]
+  }
+ ],
+ "speak": {
+  "toefl_repeat": [
+   "Please collect your exam results from the faculty office.",
+   "The workshop on academic writing starts at four o'clock.",
+   "Students must return all library books before the end of the semester.",
+   "The shuttle bus leaves from the main gate every twenty minutes."
+  ],
+  "toefl_interview": [
+   "What is the most useful thing you have learned outside the classroom?",
+   "Would you rather take an online course or a face-to-face course? Why?",
+   "Describe a skill you would like to learn in the next year and explain why.",
+   "Some students work part-time while they study. Do you think this is a good idea? Why or why not?"
+  ],
+  "ielts_p1": [
+   "Do you prefer studying in the morning or at night?",
+   "What is your favourite season of the year?",
+   "How often do you use public transport?",
+   "Do you enjoy cooking? Why or why not?"
+  ],
+  "ielts_p2": [
+   "Describe a time when you helped someone.\nYou should say:\n• who you helped\n• what the situation was\n• how you helped them\nand explain how you felt about it.",
+   "Describe a place you visited that you would like to go back to.\nYou should say:\n• where it was\n• when you went there\n• what you did there\nand explain why you would like to return."
+  ],
+  "ielts_p3": [
+   "Why do some people find it hard to ask for help?",
+   "Should schools teach practical life skills such as cooking and managing money?",
+   "How has tourism changed the places that people like to visit?",
+   "Do you think people will travel more or less in the future? Why?"
+  ]
+ }
 }
