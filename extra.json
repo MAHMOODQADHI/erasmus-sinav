@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "updated": "2026-11-11",
+  "t_cw": [
+    {"q": "Complete the word:\nThe new policy will aff___ all first-year students.", "o": ["ect", "ord", "air", "ix"], "tk": "complete"},
+    {"q": "Complete the word:\nShe made a signif___ contribution to the project.", "o": ["icant", "icance", "y", "ied"], "tk": "complete"},
+    {"q": "Complete the word:\nThe lecture was cancel___ because the professor was ill.", "o": ["led", "ling", "s", "lation"], "tk": "complete"},
+    {"q": "Complete the word:\nMost participants found the survey easy to compl___.", "o": ["ete", "eted", "etion", "ain"], "tk": "complete"}
+  ],
+  "t_resp": [
+    {"audio": "Is it okay if I record today's lecture?", "q": "You will hear a question. Choose the best response.", "o": ["Sure, as long as it's for your own use.", "Yes, I recorded it yesterday.", "It's a lecture.", "No, I'm recording."], "fk": "permission"},
+    {"audio": "I've just been accepted to the exchange programme in Lisbon!", "q": "You will hear a statement. Choose the best response.", "o": ["That's wonderful! When do you leave?", "What a shame.", "Good luck with your application!", "I'm sorry to hear that."], "fk": "congrats"},
+    {"audio": "How long does it take to walk to the station from here?", "q": "You will hear a question. Choose the best response.", "o": ["About fifteen minutes.", "Twice a day.", "At the station.", "By train."], "fk": "questions"},
+    {"audio": "Could you speak a little louder? I can't hear you at the back.", "q": "You will hear a request. Choose the best response.", "o": ["Of course. Is this better?", "Yes, I can hear.", "I'm at the back.", "Louder is a word."], "fk": "request"}
+  ],
+  "t_build": [
+    {"q": "Build a sentence: choose the correct word order.\n\"Can you tell me ___?\"", "o": ["why the meeting was cancelled", "why was the meeting cancelled", "why the meeting cancelled was", "the meeting why was cancelled"], "rk": "indirect_q"},
+    {"q": "Build a sentence: choose the correct word order.\n\"By next June, I ___ my degree.\"", "o": ["will have finished", "will finished have", "have will finished", "will having finished"], "rk": "fut_perf"},
+    {"q": "Build a sentence: choose the correct word order.\n\"The building ___ in 1920.\"", "o": ["was designed", "designed was", "was design", "has designed"], "rk": "passive"}
+  ],
+  "t_daily": [
+    {"t": "Email: room change confirmation", "x": ["Dear Ms. Yilmaz, Thank you for your request to change rooms. We are pleased to confirm that you can move from Room 112 to Room 305 on Monday, 18 November.", "Please return the key to Room 112 to the reception desk by 10 a.m. on that day. You can collect the key to Room 305 at the same time. Note that Room 305 does not have a private bathroom, but it is larger and has a balcony.", "If you have any questions, please reply to this email or visit the Housing Office between 9 a.m. and 4 p.m. Kind regards, Housing Office"],
+     "q": [["When can Ms. Yilmaz move to the new room?", ["On Monday, 18 November", "On Sunday, 17 November", "Today", "Next month"], "detail", "you can move from Room 112 to Room 305 on Monday, 18 November"],
+           ["What must she do by 10 a.m. on that day?", ["Return the key to her old room", "Pay a fee", "Clean the balcony", "Call the Housing Office"], "detail", "Please return the key to Room 112 to the reception desk by 10 a.m. on that day."],
+           ["Which statement about Room 305 is TRUE?", ["It is larger and has a balcony.", "It has a private bathroom.", "It is smaller than Room 112.", "It is on the first floor."], "true", "Room 305 does not have a private bathroom, but it is larger and has a balcony."]]}
+  ],
+  "t_acad": [
+    {"t": "The Secret Life of Sleep in Animals", "x": ["Almost all animals studied so far show some form of sleep, but the way they sleep varies enormously. Some birds and dolphins can rest one half of their brain at a time, keeping the other half alert. This allows dolphins to keep swimming and surface to breathe, and helps birds watch for predators.", "The amount of sleep also differs widely between species. Large plant-eating animals such as giraffes and elephants may sleep only a few hours a day, possibly because they need to spend most of their time eating low-energy food. In contrast, some small animals that eat energy-rich food, such as bats, may sleep for more than eighteen hours.", "Despite these differences, scientists believe sleep must have important functions, since it exists across so many species even though sleeping animals are vulnerable to attack. Current theories suggest that sleep helps to save energy, repair the body and process memories."],
+     "q": [["What is the passage mainly about?", ["How and why sleep differs among animals", "Why dolphins are intelligent", "How to sleep better", "Which animals are most dangerous"], "main", ""],
+           ["Why can dolphins keep swimming while they sleep?", ["They rest one half of their brain at a time.", "They sleep only on land.", "They do not need sleep.", "They sleep for eighteen hours."], "detail", "Some birds and dolphins can rest one half of their brain at a time, keeping the other half alert."],
+           ["According to the passage, why might giraffes sleep so little?", ["They need to spend most of their time eating low-energy food.", "They are afraid of bats.", "Their brains are very small.", "They live in cold places."], "detail", "possibly because they need to spend most of their time eating low-energy food"],
+           ["The word \"vulnerable\" in paragraph 3 is closest in meaning to:", ["easily harmed", "very strong", "fast asleep", "well hidden"], "vocab", "sleeping animals are vulnerable to attack"],
+           ["Why do scientists believe sleep has important functions?", ["It exists in many species despite being risky.", "All animals sleep the same amount.", "Sleep makes animals bigger.", "Only humans need sleep."], "infer", "since it exists across so many species even though sleeping animals are vulnerable to attack"]]}
+  ],
+  "t_conv": [
+    {"t": "Conversation: borrowing equipment", "x": ["Student: Hi, I'm making a short film for my media course. Can I borrow a camera?", "Technician: Yes, but you need to book it at least two days in advance using the online form.", "Student: Oh, I need it this Friday. Is that still possible?", "Technician: Let me check. Yes, there's one camera free on Friday, but you have to return it by five o'clock the same day.", "Student: That's fine. Do I need anything else?", "Technician: Just your student card, and please bring your own memory card."],
+     "q": [["Why does the student want to borrow a camera?", ["To make a short film for a course", "To take holiday photos", "To sell it", "To record a lecture"], "gap", "I'm making a short film for my media course."],
+           ["How far in advance must equipment usually be booked?", ["At least two days", "One week", "One hour", "One month"], "gap", "you need to book it at least two days in advance"],
+           ["When must the student return the camera?", ["By five o'clock on Friday", "On Monday morning", "After one week", "Whenever she finishes"], "gap", "you have to return it by five o'clock the same day"],
+           ["What must the student bring?", ["Her student card and a memory card", "A deposit of 100 lira", "A letter from her teacher", "Her own tripod"], "gap", "Just your student card, and please bring your own memory card."]]}
+  ],
+  "t_ann": [
+    {"t": "Announcement: careers fair", "x": ["Good afternoon, everyone. The annual careers fair will take place next Wednesday from ten until four in the main sports hall.", "More than sixty companies will be there, including several that offer internships abroad. We strongly recommend bringing printed copies of your CV.", "If you would like feedback on your CV before the fair, the Careers Office is offering free fifteen-minute appointments this Monday and Tuesday."],
+     "q": [["Where will the careers fair take place?", ["In the main sports hall", "In the library", "In the Careers Office", "Online"], "gap", "in the main sports hall"],
+           ["What are students advised to bring?", ["Printed copies of their CV", "Their passport", "A laptop", "Business cards"], "gap", "We strongly recommend bringing printed copies of your CV."],
+           ["What does the Careers Office offer on Monday and Tuesday?", ["Free CV feedback appointments", "Internships abroad", "Free printing", "Interview practice with companies"], "gap", "the Careers Office is offering free fifteen-minute appointments this Monday and Tuesday"]]}
+  ],
+  "t_talk": [
+    {"t": "Academic talk: why we yawn", "x": ["Today I'd like to look at a behaviour we all share but rarely think about: yawning. For a long time, people believed we yawn because our bodies need more oxygen. However, experiments have shown that breathing extra oxygen does not reduce yawning.", "A more recent theory suggests that yawning helps to cool the brain. When we yawn, we take in a large amount of air, which may lower the temperature of blood flowing to the head. Supporting this idea, studies have found that people yawn less often when the air around them is very hot.", "Finally, yawning is contagious: seeing or even reading about someone yawning can make us yawn. Some researchers think this may be connected to empathy, our ability to share other people's feelings."],
+     "q": [["What is the talk mainly about?", ["Possible explanations for yawning", "How to stop feeling tired", "Why oxygen is important", "How the brain works during sleep"], "main", ""],
+           ["What did experiments show about the oxygen theory?", ["Extra oxygen does not reduce yawning.", "Extra oxygen stops yawning completely.", "Yawning increases oxygen in the blood.", "People yawn more in hot air."], "gap", "experiments have shown that breathing extra oxygen does not reduce yawning"],
+           ["What evidence supports the brain-cooling theory?", ["People yawn less when the air is very hot.", "People yawn more when they are hungry.", "Animals never yawn.", "Yawning raises body temperature."], "gap", "people yawn less often when the air around them is very hot"],
+           ["What do some researchers connect contagious yawning with?", ["Empathy", "Hunger", "Intelligence", "Age"], "gap", "Some researchers think this may be connected to empathy"]]}
+  ],
+  "i_read": [
+    {"t": "The Return of the Night Train", "x": ["A. In the 1990s and 2000s, many European night trains were withdrawn as cheap flights became popular and operators struggled to make a profit. Travellers could fly across the continent in a couple of hours, often for less than the price of a train ticket.", "B. In recent years, however, night trains have made a comeback. Growing concern about the environmental impact of flying has encouraged many travellers to choose rail, which produces far lower emissions per passenger on most routes. Several new routes have opened, connecting cities such as Vienna, Berlin, Paris and Amsterdam.", "C. Supporters point out that night trains also save time and money, as passengers travel while they sleep and do not need to pay for a hotel. Nevertheless, tickets for private sleeping cabins can still be expensive, and demand on popular routes often exceeds the number of available seats."],
+     "q": [["Night trains were withdrawn partly because of competition from cheap flights.", ["True", "False", "Not Given"], "tfng", "many European night trains were withdrawn as cheap flights became popular", true],
+           ["Rail produces higher emissions per passenger than flying on most routes.", ["False", "True", "Not Given"], "tfng", "rail, which produces far lower emissions per passenger on most routes", true],
+           ["The new route between Vienna and Paris is the most popular in Europe.", ["Not Given", "True", "False"], "tfng", "(The text lists cities but does not say which route is the most popular.)", true],
+           ["Which heading best fits paragraph B?", ["A revival driven by environmental concern", "The high cost of sleeping cabins", "Why airlines became cheaper", "How trains are built"], "heading", "In recent years, however, night trains have made a comeback."],
+           ["What problem with night trains is mentioned in paragraph C?", ["Demand is often higher than the number of seats.", "They are always late.", "They have no sleeping cabins.", "They only run in summer."], "detail", "demand on popular routes often exceeds the number of available seats"]]}
+  ],
+  "i_l1": [
+    {"t": "Part 1: joining the university sports centre", "x": ["Woman: Hi, I'd like to join the sports centre. What kind of membership do you have?", "Man: There's a basic membership for the gym only, and a full membership that also includes the swimming pool and classes.", "Woman: How much is the full membership?", "Man: It's thirty-five euros a month for students. The basic one is twenty.", "Woman: I'll take the full one. I'd like to try the yoga classes.", "Man: Great. Yoga is on Tuesday and Friday evenings at seven. Can I have your student number?", "Woman: Yes, it's S, 4, 8, 2, 7, 1.", "Man: Thank you. Your membership starts tomorrow."],
+     "q": [["Which type of membership does the woman choose?", ["Full membership", "Basic membership", "Swimming only", "A one-day pass"], "gap", "I'll take the full one."],
+           ["How much does her membership cost per month?", ["€35", "€20", "€55", "€30"], "gap", "It's thirty-five euros a month for students."],
+           ["When are the yoga classes?", ["Tuesday and Friday evenings at seven", "Every morning at seven", "Monday and Wednesday at six", "Saturday afternoons"], "gap", "Yoga is on Tuesday and Friday evenings at seven."],
+           ["What is her student number?", ["S48271", "S42871", "S48217", "S84271"], "gap", "it's S, 4, 8, 2, 7, 1"]]}
+  ],
+  "i_l4": [
+    {"t": "Part 4: the history of chocolate", "x": ["Today's lecture is about chocolate, which has a much longer history than most people realise.", "The cacao tree is native to Central and South America, and evidence suggests that people there were using cacao more than three thousand years ago. However, they did not eat it as a sweet bar. Instead, they made a bitter drink, often flavoured with chilli.", "Cacao beans were so valuable that the Aztecs even used them as a form of money.", "When cacao reached Europe in the sixteenth century, sugar was added to make the drink sweeter, and it became fashionable among the rich.", "It was only in the nineteenth century, with new industrial machines, that solid chocolate bars became cheap enough for ordinary people to buy."],
+     "q": [["Where is the cacao tree originally from?", ["Central and South America", "West Africa", "Southern Europe", "Asia"], "gap", "The cacao tree is native to Central and South America"],
+           ["How was cacao first consumed?", ["As a bitter drink", "As a sweet bar", "As a cake", "As ice cream"], "gap", "they made a bitter drink, often flavoured with chilli"],
+           ["What did the Aztecs use cacao beans for?", ["As money", "As medicine", "As decoration", "As animal food"], "gap", "the Aztecs even used them as a form of money"],
+           ["What was added to the drink in Europe?", ["Sugar", "Chilli", "Milk only", "Salt"], "gap", "sugar was added to make the drink sweeter"],
+           ["What made chocolate bars cheap for ordinary people?", ["New industrial machines in the nineteenth century", "Lower taxes in the sixteenth century", "The Aztecs' trade", "Growing cacao in Europe"], "gap", "It was only in the nineteenth century, with new industrial machines, that solid chocolate bars became cheap enough"]]}
+  ],
+  "speak": {
+    "toefl_repeat": ["Please collect your exam results from the faculty office.", "The workshop on academic writing starts at four o'clock."],
+    "toefl_interview": ["What is the most useful thing you have learned outside the classroom?", "Would you rather take an online course or a face-to-face course? Why?"],
+    "ielts_p1": ["Do you prefer studying in the morning or at night?", "What is your favourite season of the year?"],
+    "ielts_p2": ["Describe a time when you helped someone.\nYou should say:\n• who you helped\n• what the situation was\n• how you helped them\nand explain how you felt about it."],
+    "ielts_p3": ["Why do some people find it hard to ask for help?", "Should schools teach practical life skills such as cooking and managing money?"]
+  }
+}
