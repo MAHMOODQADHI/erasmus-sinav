@@ -2106,6 +2106,39 @@ const BANKSIZE={
  ielts_read:()=>POOL.i_read.flat().length,
  ielts_listen:()=>POOL.i_l1.flat().length+POOL.i_l4.flat().length
 };
+/* ---------- Weekly extra TOEFL/IELTS questions (extra.json on GitHub, cached for offline use) ---------- */
+const EXTRA_URL=(location.hostname.endsWith("github.io")?location.origin+location.pathname.replace(/[^/]*$/,""):"https://mahmoodqadhi.github.io/erasmus-sinav/")+"extra.json";
+let EXTRA={version:0,updated:""};
+const XSEEN=new Set();
+const XSINGLE={t_cw:"r",t_resp:"l",t_build:"g"};
+const XPASS={t_daily:[false,"r"],t_acad:[false,"r"],t_conv:[true,"l"],t_ann:[true,"l"],t_talk:[true,"l"],i_read:[false,"r"],i_l1:[true,"l"],i_l4:[true,"l"]};
+const okOpts=o=>Array.isArray(o)&&o.length>=3&&o.length<=4&&o.every(s=>typeof s==="string"&&s.trim())&&new Set(o).size===o.length;
+function integrateExtras(x){
+  if(!x||typeof x!=="object") return 0; let n=0;
+  for(const [pool,s] of Object.entries(XSINGLE)) (Array.isArray(x[pool])?x[pool]:[]).forEach((a,i)=>{
+    const id="x"+pool+"_"+i; if(ITEMS[id]||!a||typeof a.q!=="string"||!okOpts(a.o)) return;
+    const it={id,s,q:a.q,o:a.o,tp:1,xtra:1};
+    if(a.rk&&RULES[a.rk]) it.rk=a.rk; else if(a.fk&&FUNCS[a.fk]) it.fk=a.fk; else { it.tk=(a.tk&&RTYPES[a.tk])?a.tk:(pool==="t_cw"?"complete":"detail"); it.ev=typeof a.ev==="string"?a.ev:""; }
+    if(pool==="t_resp"){ if(typeof a.audio!=="string"||!a.audio.trim()) return; const pi=P.length; P.push({t:"Listen and choose a response",x:[a.audio],q:[],audio:true,tp:1}); it.p=pi; }
+    ITEMS[id]=it; POOL[pool].push(id); n++; });
+  for(const [pool,[audio,s]] of Object.entries(XPASS)) (Array.isArray(x[pool])?x[pool]:[]).forEach((p,i)=>{
+    const tag="x"+pool+"_"+i; if(XSEEN.has(tag)||!p||typeof p.t!=="string"||!Array.isArray(p.x)||!Array.isArray(p.q)) return;
+    const qs=p.q.filter(a=>Array.isArray(a)&&typeof a[0]==="string"&&okOpts(a[1])); if(qs.length<2) return; XSEEN.add(tag);
+    const pi=P.length; P.push({t:p.t,x:p.x.map(String),q:qs,audio,tp:1});
+    POOL[pool].push(qs.map((a,j)=>{const id="r"+pi+"_"+j; ITEMS[id]={id,s,q:a[0],o:a[1],tk:RTYPES[a[2]]?a[2]:"detail",ev:typeof a[3]==="string"?a[3]:"",p:pi,fixed:!!a[4],tp:1,xtra:1}; return id;})); n++; });
+  const sp=x.speak&&typeof x.speak==="object"?x.speak:{};
+  for(const k of Object.keys(STASKS)) (Array.isArray(sp[k])?sp[k]:[]).forEach(s=>{ if(typeof s==="string"&&s.trim()&&!STASKS[k].items.includes(s)){ STASKS[k].items.push(s); n++; } });
+  return n;
+}
+function initExtras(){
+  const c=store.get("erx_extra",null);
+  if(c&&c.version){ try{ integrateExtras(c); EXTRA={version:c.version,updated:c.updated||""}; }catch(e){} }
+  try{
+    fetch(EXTRA_URL+"?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(x=>{
+      if(x&&typeof x.version==="number"&&x.version>EXTRA.version){ store.set("erx_extra",x); integrateExtras(x); EXTRA={version:x.version,updated:x.updated||""}; }
+    }).catch(()=>{});
+  }catch(e){}
+}
 const NEX = Math.min(Math.floor(IDS.g.length/12),Math.floor(IDS.f.length/14),Math.floor(IDS.v.length/12),Math.floor(NSTD_P/2));
 /* ---------- Lessons (شرح) ---------- */
 const eg=(...l)=>`<div class="eg" dir="ltr" lang="en">${l.join("<br>")}</div>`;
@@ -3016,6 +3049,7 @@ function renderTests(){
   clearInterval(timerId); stopSpeak(); applyLang();
   app.innerHTML=`${tbar("TOEFL & IELTS",t("home"))}
   <p class="label">${T("Extra practice for international English tests, in the same style as the real tasks. The questions are written for practice and are not official test material.","Uluslararası İngilizce sınavları için gerçek görevlere benzer ek alıştırmalar. Sorular alıştırma için yazılmıştır, resmî sınav materyali değildir.","تدريب إضافي لامتحانات الإنجليزية الدولية بنفس أسلوب المهام الحقيقية. الأسئلة مكتوبة للتدريب وليست من مواد الامتحان الرسمية.")}</p>
+  <p class="note">${T("New TOEFL and IELTS questions are added every week and download automatically when you are online.","Her hafta yeni TOEFL ve IELTS soruları eklenir ve internete bağlandığında otomatik olarak iner.","تُضاف أسئلة TOEFL و IELTS جديدة كل أسبوع، وتنزل تلقائياً عند الاتصال بالإنترنت.")}${EXTRA.version?` <b>${T("Last update","Son güncelleme","آخر تحديث")}: ${esc(EXTRA.updated||"#"+EXTRA.version)}</b>`:""}</p>
   <div class="stack">
     <button class="btn tbtn" data-test="toefl"><span><b>TOEFL iBT</b><small>${T("2026 format · Reading, Listening, Writing, Speaking","2026 formatı · Okuma, Dinleme, Yazma, Konuşma","شكل 2026 · قراءة، استماع، كتابة، محادثة")}</small></span><span>${FWD()}</span></button>
     <button class="btn tbtn" data-test="ielts"><span><b>IELTS Academic</b><small>${T("Band 0–9 · Reading, Listening, Writing, Speaking","Band 0–9 · Okuma, Dinleme, Yazma, Konuşma","درجات 0–9 · قراءة، استماع، كتابة، محادثة")}</small></span><span>${FWD()}</span></button>
@@ -3231,7 +3265,7 @@ function renderResult(){
 }
 
 /* Online updates (used by the APK wrapper). Raise APP_VERSION every time you upload a new version. */
-const APP_VERSION = 12;
+const APP_VERSION = 13;
 function banner(msg,btn,fn){
   document.querySelectorAll(".upd").forEach(x=>x.remove());
   const d=document.createElement("div");d.className="upd";d.setAttribute("role","status");d.dir=rtl()?"rtl":"ltr";
@@ -3249,6 +3283,7 @@ window.appBack=function(){
   return false;
 };
 applyZoom();
+initExtras();
 renderHome();
 setInterval(()=>{const c=document.getElementById("cd");if(c)c.innerHTML=countdown()},30000);
 </script>
