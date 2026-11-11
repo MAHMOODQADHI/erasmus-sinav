@@ -159,6 +159,26 @@ section>h2{font-size:18px;margin-bottom:10px}
 .upd .go{border:0;border-radius:8px;padding:8px 12px;background:var(--sheet);color:var(--ink);font-weight:700}
 .upd .x{border:0;background:transparent;color:inherit;padding:6px}
 .explain,.rv .ex{white-space:pre-line}
+/* Today card, flashcards, charts */
+.today{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--sheet);display:grid;gap:14px}
+.todayrow{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.streak{display:flex;align-items:baseline;gap:8px}
+.streak b{font-size:34px;line-height:1;color:var(--form)}
+.goal{flex:1;min-width:180px}
+.btn[disabled]{opacity:.55;cursor:default}
+.fwrap{display:grid;gap:12px;margin-top:14px}
+.fcard{display:grid;place-items:center;gap:10px;min-height:220px;padding:24px;border:2px solid var(--line);border-radius:16px;background:var(--sheet);color:var(--ink);text-align:center;width:100%}
+.fcard.done{min-height:0;place-items:stretch}
+.fword{font-family:var(--f-en);font-size:30px;font-weight:600}
+.fmean{font-size:20px;font-weight:700;color:var(--mark)}
+.chart{width:100%;height:auto;display:block;background:var(--sheet);border:1px solid var(--line);border-radius:10px}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .passln{stroke:var(--ok);stroke-width:1.5;stroke-dasharray:5 4}
+.chart .ax{fill:var(--muted);font-size:12px;font-family:var(--f-num)}
+.chart .ln{fill:none;stroke:var(--mark);stroke-width:3;stroke-linejoin:round}
+.chart .dotp{fill:var(--ok)}.chart .dotf{fill:var(--bad)}
+.chart .lastv{fill:var(--ink);font-size:14px;font-weight:700;font-family:var(--f-num)}
+.chart .dbar{fill:var(--mark-soft);stroke:var(--mark)}.chart .dbarok{fill:var(--ok)}
 /* B2 level */
 .lvl{display:inline-block;font-family:var(--f-num);font-size:12px;line-height:1.5;padding:1px 8px;border-radius:99px;background:var(--form);color:var(--sheet);vertical-align:middle}
 .b2sec{border:2px solid var(--form);border-radius:14px;padding:16px;background:var(--form-soft)}
@@ -1879,6 +1899,8 @@ function buildExam(kind){
   return ids.map(id=>({id,perm:perm4()}));
 }
 function buildPractice(s){
+  if(s==="mist") return shuffle(mistIds()).slice(0,20).map(id=>({id,perm:perm4()}));
+  if(s==="daily"){const m=shuffle(mistIds()).slice(0,4); const pool=shuffle([...IDS.g,...IDS.f,...IDS.v]).filter(id=>!m.includes(id)); return [...m,...pool].slice(0,GOAL).map(id=>({id,perm:perm4()}));}
   const ids = s==="r" ? Array.from({length:NSTD_P},(_,i)=>i).flatMap(pIds) : shuffle(IDS[s]);
   return ids.map(id=>({id,perm:perm4()}));
 }
@@ -1970,7 +1992,7 @@ const secSub=s=>T(SECN[s][1],SECN[s][0],SECN[s][0]+" · "+SECN[s][1]);
 const ORD=["الأولى","الثانية","الثالثة","الرابعة","الخامسة","السادسة","السابعة","الثامنة","التاسعة","العاشرة","الحادية عشرة","الثانية عشرة","الثالثة عشرة","الرابعة عشرة","الخامسة عشرة","السادسة عشرة"];
 const examTitle=k=>k>100?T("B2 Exam "+(k-100),"B2 Deneme "+(k-100),"تجربة B2 "+(ORD[k-101]||k-100)):k?T("Practice Exam "+k,"Deneme Sınavı "+k,"التجربة "+(ORD[k-1]||k)):t("random");
 const practiceTitle=s=>T("Practice: ","Alıştırma: ","تدريب: ")+secName(s);
-const titleOf=x=>x.kind!==undefined?(x.mode==="exam"?examTitle(x.kind):practiceTitle(x.kind)):(x.title||"");
+const titleOf=x=>x.kind==="mist"?T("Mistakes notebook","Yanlış defteri","دفتر الأخطاء"):x.kind==="daily"?T("Daily practice","Günlük alıştırma","التدريب اليومي"):x.kind!==undefined?(x.mode==="exam"?examTitle(x.kind):practiceTitle(x.kind)):(x.title||"");
 const qCount=n=>T(n+" questions",n+" soru",n+" سؤال");
 const fmtDate=ts=>{try{return new Date(ts).toLocaleDateString(T("en-GB","tr-TR","ar-EG"),{day:"numeric",month:"short"})}catch(e){return ""}};
 function exText(q){
@@ -2030,6 +2052,18 @@ function renderHome(){
     <div><b>B1+</b><span>${t("fLvl")}</span></div>
     <div><b>55</b><span>${t("fPass")}</span></div>
   </div>
+  ${(()=>{const tc=todayCount(),sk=streak(),mc=mistIds().length,ci=cardInfo(),cd=ci.due.length+ci.fresh.length;
+    return `<section class="today">
+    <div class="todayrow">
+      <div class="streak"><b class="num">${sk}</b><span class="label">${T(sk===1?"day in a row":"days in a row",sk===1?"gün üst üste":"gün üst üste","يوم متتالي")}</span></div>
+      <div class="goal"><span class="label">${T("Today's goal","Bugünkü hedef","هدف اليوم")}: <b class="num">${Math.min(tc,GOAL)}/${GOAL}</b> ${tc>=GOAL?T("✓ done","✓ tamam","✓ أنجزته"):""}</span><div class="prog"><i style="width:${Math.min(100,tc/GOAL*100)}%"></i></div></div>
+    </div>
+    <div class="grid2">
+      <button class="btn primary" id="dailyBtn"><span><b>${T("Daily practice","Günlük alıştırma","التدريب اليومي")}</b><small>${T(GOAL+" quick questions",GOAL+" kısa soru",GOAL+" أسئلة سريعة")}</small></span><span>${FWD()}</span></button>
+      <button class="btn" id="mistBtn" ${mc?"":"disabled"}><span><b>${T("Mistakes notebook","Yanlış defteri","دفتر الأخطاء")}</b><small>${mc?T(mc+" questions to review",mc+" soru tekrar edilecek",mc+" سؤال للمراجعة"):T("Empty — great!","Boş — harika!","فارغ — ممتاز!")}</small></span><span>${FWD()}</span></button>
+      <button class="btn" id="cardsBtn"><span><b>${T("Vocabulary flashcards","Kelime kartları","بطاقات المفردات")}</b><small>${T(`${ci.learned}/${ci.total} learned · ${Math.min(cd,20)} to review`,`${ci.learned}/${ci.total} öğrenildi · ${Math.min(cd,20)} tekrar`,`${ci.learned}/${ci.total} تعلّمتها · ${Math.min(cd,20)} للمراجعة`)}</small></span><span>${FWD()}</span></button>
+      <button class="btn" id="progBtn"><span><b>${T("My progress","İlerlemem","تقدّمي")}</b><small>${T("Charts and weak points","Grafikler ve zayıf noktalar","رسوم بيانية ونقاط الضعف")}</small></span><span>${FWD()}</span></button>
+    </div></section>`})()}
   ${saved&&!saved.done?`<section><button class="btn resume" id="resume"><span><b>${t("resume")}</b><small>${esc(titleOf(saved))} · ${T(`answered ${Object.keys(saved.ans).length} of ${saved.items.length}`,`${saved.items.length} sorudan ${Object.keys(saved.ans).length} tanesi cevaplandı`,`أجبت على ${Object.keys(saved.ans).length} من ${saved.items.length}`)}</small></span><span>${FWD()}</span></button></section>`:""}
   <section>
     <h2>${t("hFull")}</h2>
@@ -2079,6 +2113,10 @@ function renderHome(){
   document.getElementById("vocabList").onclick=()=>renderVocab();
   bindLang(()=>renderHome());
   bindBg(()=>renderHome());
+  document.getElementById("dailyBtn").onclick=()=>start("practice","daily");
+  document.getElementById("mistBtn").onclick=()=>{ if(mistIds().length) start("practice","mist"); };
+  document.getElementById("cardsBtn").onclick=startCards;
+  document.getElementById("progBtn").onclick=renderProgress;
   app.querySelectorAll("[data-prac]").forEach(b=>b.onclick=()=>start("practice",b.dataset.prac));
   const r=document.getElementById("resume"); if(r) r.onclick=()=>{S=saved;renderQuiz()};
 }
@@ -2383,6 +2421,105 @@ function renderVocab(){
   window.scrollTo(0,0);
 }
 
+/* ---------- Learning data (kept on this device) ---------- */
+const GOAL=10;
+const dayKey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const getStats=()=>{const s=store.get("erx_stats",null)||{};s.sec=s.sec||{};s.rule=s.rule||{};s.day=s.day||{};return s};
+function addDay(n){const st=getStats(),d=dayKey();st.day[d]=(st.day[d]||0)+n;store.set("erx_stats",st)}
+function recordAnswer(q,ok){
+  const st=getStats(); const s=st.sec[q.s]=st.sec[q.s]||{c:0,n:0}; s.n++; if(ok)s.c++;
+  if(q.rk){const r=st.rule[q.rk]=st.rule[q.rk]||{c:0,n:0}; r.n++; if(ok)r.c++;}
+  const d=dayKey(); st.day[d]=(st.day[d]||0)+1; store.set("erx_stats",st);
+  const m=store.get("erx_mist",{});
+  if(!ok){const e=m[q.id]||{w:0,r:0}; e.w++; e.r=0; e.t=Date.now(); m[q.id]=e;}
+  else if(m[q.id]){m[q.id].r=(m[q.id].r||0)+1; if(m[q.id].r>=2) delete m[q.id];}
+  store.set("erx_mist",m);
+}
+const mistIds=()=>Object.keys(store.get("erx_mist",{})).filter(id=>ITEMS[id]);
+const todayCount=()=>getStats().day[dayKey()]||0;
+function streak(){const day=getStats().day; let n=0; const d=new Date(); if((day[dayKey(d)]||0)<GOAL) d.setDate(d.getDate()-1); while((day[dayKey(d)]||0)>=GOAL){n++; d.setDate(d.getDate()-1);} return n;}
+
+/* ---------- Vocabulary flashcards (Leitner boxes) ---------- */
+const BOX_DAYS=[0,0,1,3,7,14];
+const cardsData=()=>store.get("erx_cards",{});
+function cardInfo(){const c=cardsData(),now=Date.now(),keys=Object.keys(VOC);
+  return {due:keys.filter(k=>c[k]&&c[k].due<=now),fresh:keys.filter(k=>!c[k]),learned:keys.filter(k=>c[k]&&c[k].box>=4).length,total:keys.length};}
+let FC=null;
+function startCards(){const d=cardInfo(); FC={list:[...shuffle(d.due),...shuffle(d.fresh)].slice(0,20),i:0,flip:false,known:0}; renderCards();}
+function gradeCard(ok){const c=cardsData(),k=FC.list[FC.i],e=c[k]||{box:0};
+  e.box=ok?Math.min(5,Math.max(1,e.box)+1):1; e.due=Date.now()+BOX_DAYS[e.box]*864e5; c[k]=e; store.set("erx_cards",c);
+  if(ok)FC.known++; FC.i++; FC.flip=false; addDay(1); renderCards();}
+function renderCards(){
+  clearInterval(timerId); applyLang();
+  const info=cardInfo(), done=!FC||FC.i>=FC.list.length;
+  let body;
+  if(done){
+    const empty=!FC||!FC.list.length;
+    body=`<div class="fcard done"><b>${empty?T("No cards to review right now.","Şu an tekrar edilecek kart yok.","لا توجد بطاقات للمراجعة الآن."):T(`Session finished: you knew ${FC.known} of ${FC.list.length}.`,`Oturum bitti: ${FC.list.length} karttan ${FC.known} tanesini bildin.`,`انتهت الجلسة: عرفت ${FC.known} من ${FC.list.length}.`)}</b>
+      <p class="label">${T("Words you didn't know come back soon; words you knew come back after 1, 3, 7 and then 14 days.","Bilmediğin kelimeler yakında tekrar gelir; bildiklerin 1, 3, 7 ve sonra 14 gün sonra gelir.","الكلمات التي لم تعرفها تعود قريباً، والتي عرفتها تعود بعد 1 ثم 3 ثم 7 ثم 14 يوماً.")}</p>
+      ${(info.due.length+info.fresh.length)?`<button class="btn primary" id="fcAgain"><span><b>${T("Next 20 cards","Sonraki 20 kart","البطاقات العشرون التالية")}</b></span><span>${FWD()}</span></button>`:""}</div>`;
+  } else {
+    const k=FC.list[FC.i], v=VOC[k];
+    body=`<p class="label num">${FC.i+1} / ${FC.list.length}</p>
+    <button class="fcard" id="fcFlip" aria-live="polite"><span class="fword" dir="ltr" lang="en">${esc(k)}</span>
+      ${FC.flip?`<span class="fmean">${esc(T(v[0],v[1],v[2]))}</span>${LANG!=="en"?`<span class="label" dir="ltr" lang="en">${esc(v[0])}</span>`:""}`:`<span class="label">${T("Think of the meaning, then tap to check","Anlamını düşün, sonra kontrol etmek için dokun","فكّر في المعنى، ثم اضغط للتحقق")}</span>`}</button>
+    ${FC.flip?`<div class="row"><button id="fcNo">${T("I didn't know","Bilmiyordum","لم أعرفها")}</button><button class="go" id="fcYes">${T("I knew it","Biliyordum","عرفتها")}</button></div>`:""}`;
+  }
+  app.innerHTML=`<div class="bar"><button class="ghost" id="home">${BACK()} ${t("home")}</button><div class="grow"><b>${T("Vocabulary flashcards","Kelime kartları","بطاقات المفردات")}</b><div class="label num">${T(`${info.learned} of ${info.total} words learned`,`${info.total} kelimeden ${info.learned} tanesi öğrenildi`,`تعلّمت ${info.learned} من ${info.total} كلمة`)}</div></div></div>
+  <div style="margin-top:14px">${langToggle()}</div><div class="fwrap">${body}</div>`;
+  document.getElementById("home").onclick=()=>{renderHome();window.scrollTo(0,0)};
+  const f=document.getElementById("fcFlip"); if(f) f.onclick=()=>{FC.flip=!FC.flip;renderCards()};
+  const y=document.getElementById("fcYes"); if(y) y.onclick=()=>gradeCard(true);
+  const n=document.getElementById("fcNo"); if(n) n.onclick=()=>gradeCard(false);
+  const a=document.getElementById("fcAgain"); if(a) a.onclick=startCards;
+  bindLang(()=>renderCards());
+}
+
+/* ---------- Progress page ---------- */
+function svgLine(vals){
+  const W=600,H=200,L=34,R=12,Tp=12,B=26,n=vals.length,x=i=>L+(n<2?(W-L-R)/2:i*(W-L-R)/(n-1)),y=v=>Tp+(100-v)/100*(H-Tp-B);
+  const pts=vals.map((v,i)=>x(i)+","+y(v)).join(" ");
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="${T("Exam scores over time","Zaman içindeki sınav puanları","درجات الامتحانات عبر الوقت")}">
+    ${[0,55,100].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="${v===55?"passln":"grid"}"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" class="ax">${v}</text>`).join("")}
+    <polyline points="${pts}" class="ln"/>
+    ${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="${i===n-1?6:4}" class="${v>=55?"dotp":"dotf"}"/>`).join("")}
+    <text x="${x(n-1)}" y="${y(vals[n-1])-12}" text-anchor="middle" class="lastv">${vals[n-1]}</text>
+    <text x="${W-R}" y="${y(55)-6}" text-anchor="end" class="ax">${T("pass 55","geçme 55","النجاح 55")}</text></svg>`;
+}
+function svgDays(){
+  const day=getStats().day, ds=[]; for(let i=13;i>=0;i--){const d=new Date(); d.setDate(d.getDate()-i); ds.push([d,day[dayKey(d)]||0]);}
+  const W=600,H=150,B=22,Tp=10,max=Math.max(GOAL,...ds.map(x=>x[1])),bw=(W-20)/14,y=v=>Tp+(1-v/max)*(H-Tp-B);
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="${T("Questions answered per day","Günlük cevaplanan soru","الأسئلة المجابة يومياً")}">
+    <line x1="10" x2="${W-10}" y1="${y(GOAL)}" y2="${y(GOAL)}" class="passln"/>
+    ${ds.map(([d,v],i)=>`<rect x="${10+i*bw+4}" y="${y(v)}" width="${bw-8}" height="${Math.max(0,H-B-y(v))}" rx="3" class="${v>=GOAL?"dbarok":"dbar"}"/><text x="${10+i*bw+bw/2}" y="${H-6}" text-anchor="middle" class="ax">${d.getDate()}</text>`).join("")}</svg>`;
+}
+function renderProgress(){
+  clearInterval(timerId); applyLang();
+  const st=getStats(), hist=store.get("erx_hist",[]).filter(h=>h.k!==undefined||h.t), scores=hist.slice(-15).map(h=>h.s);
+  const tot=Object.values(st.sec).reduce((a,s)=>({c:a.c+s.c,n:a.n+s.n}),{c:0,n:0});
+  const weak=Object.entries(st.rule).filter(([k,v])=>RULES[k]&&v.n>=2).sort((a,b)=>a[1].c/a[1].n-b[1].c/b[1].n).slice(0,5);
+  const pct=v=>Math.round(v.c/v.n*100);
+  app.innerHTML=`<div class="bar"><button class="ghost" id="home">${BACK()} ${t("home")}</button><div class="grow"><b>${T("My progress","İlerlemem","تقدّمي")}</b></div></div>
+  <div style="margin-top:14px">${langToggle()}</div>
+  <div class="facts">
+    <div><b>${streak()}</b><span>${T("day streak","günlük seri","أيام متتالية")}</span></div>
+    <div><b>${tot.n}</b><span>${T("questions answered","cevaplanan soru","سؤال أجبت عليه")}</span></div>
+    <div><b>${tot.n?Math.round(tot.c/tot.n*100)+"%":"–"}</b><span>${T("correct","doğru","صحيحة")}</span></div>
+    <div><b>${mistIds().length}</b><span>${T("in mistakes notebook","yanlış defterinde","في دفتر الأخطاء")}</span></div>
+  </div>
+  <section><h2>${T("Exam scores","Sınav puanları","درجات الامتحانات")}</h2>
+    ${scores.length?svgLine(scores):`<p class="label">${T("Finish a full exam to see your scores here.","Puanlarını burada görmek için bir deneme sınavı bitir.","أنهِ امتحاناً كاملاً لترى درجاتك هنا.")}</p>`}</section>
+  <section><h2>${T("Accuracy by section","Bölümlere göre doğruluk","الدقة حسب القسم")}</h2>
+    ${["g","f","v","r"].map(s=>{const v=st.sec[s];return `<div class="sbar"><span>${secName(s)}</span><span class="tr"><i style="width:${v?pct(v):0}%"></i></span><span class="num">${v?pct(v)+"%":"–"}</span></div>`}).join("")}</section>
+  <section><h2>${T("Grammar rules to review","Tekrar etmen gereken kurallar","قواعد تحتاج مراجعتها")}</h2>
+    ${weak.length?weak.map(([k,v])=>`<div class="secrow"><span class="tag">${pct(v)}%</span><span>${esc(T(...RULES[k].t))}</span><span class="label num">${v.c}/${v.n}</span></div>`).join("")+`<button class="btn" id="toGrammar" style="margin-top:10px"><span><b>${t("hGrammar")}</b></span><span>${FWD()}</span></button>`:`<p class="label">${T("Answer more grammar questions to see your weakest rules.","En zayıf kurallarını görmek için daha fazla dil bilgisi sorusu cevapla.","أجب عن مزيد من أسئلة القواعد لترى أضعف القواعد عندك.")}</p>`}</section>
+  <section><h2>${T("Last 14 days","Son 14 gün","آخر 14 يوماً")}</h2><p class="label">${T(`The line is your daily goal (${GOAL} questions).`,`Çizgi günlük hedefin (${GOAL} soru).`,`الخط هو هدفك اليومي (${GOAL} أسئلة).`)}</p>${svgDays()}</section>`;
+  document.getElementById("home").onclick=()=>{renderHome();window.scrollTo(0,0)};
+  const g=document.getElementById("toGrammar"); if(g) g.onclick=()=>renderGrammar();
+  bindLang(()=>renderProgress());
+  window.scrollTo(0,0);
+}
+
 /* ---------- Quiz ---------- */
 function fmt(ms){ms=Math.max(0,ms);const s0=Math.floor(ms/1000);const h=Math.floor(s0/3600),m=Math.floor(s0%3600/60),s=s0%60;return (h?h+":":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
 function tick(){
@@ -2420,7 +2557,7 @@ function renderQuiz(){
     ${practice?"":`<button id="flag" class="flag ${S.flags[S.cur]?"on":""}">${S.flags[S.cur]?t("flagged"):t("flag")}</button>`}
     ${S.cur===total-1?`<button class="go" id="fin">${t("finish")}</button>`:`<button class="go" id="next">${t("next")} ${FWD()}</button>`}
   </div></nav>`;
-  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ if(locked) return; S.ans[S.cur]=+b.dataset.oi; save(); renderQuiz(); });
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ if(locked) return; S.ans[S.cur]=+b.dataset.oi; if(practice) recordAnswer(q,+b.dataset.oi===0); save(); renderQuiz(); });
   document.getElementById("home").onclick=()=>{save();renderHome();window.scrollTo(0,0)};
   document.getElementById("map").onclick=openMap;
   const go=d=>{S.cur+=d;save();renderQuiz();window.scrollTo(0,pass&&ITEMS[S.items[S.cur].id].p===q.p?window.scrollY:0)};
@@ -2456,6 +2593,7 @@ function finish(){
   S.done=true; store.del("erx_cur");
   const correct=S.items.filter((it,i)=>S.ans[i]===0).length;
   const score=Math.round(correct/S.items.length*100);
+  if(S.mode==="exam") S.items.forEach((it,i)=>recordAnswer(ITEMS[it.id],S.ans[i]===0));
   if(S.mode==="exam"){const h=store.get("erx_hist",[]);h.push({k:S.kind,t:titleOf(S),s:score,ts:Date.now()});store.set("erx_hist",h.slice(-30))}
   reviewFilter="wrong"; renderResult(); window.scrollTo(0,0);
 }
@@ -2502,7 +2640,7 @@ function renderResult(){
 }
 
 /* Online updates (used by the APK wrapper). Raise APP_VERSION every time you upload a new version. */
-const APP_VERSION = 9;
+const APP_VERSION = 10;
 function banner(msg,btn,fn){
   document.querySelectorAll(".upd").forEach(x=>x.remove());
   const d=document.createElement("div");d.className="upd";d.setAttribute("role","status");d.dir=rtl()?"rtl":"ltr";
