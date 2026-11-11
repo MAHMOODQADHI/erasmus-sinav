@@ -159,6 +159,34 @@ section>h2{font-size:18px;margin-bottom:10px}
 .upd .go{border:0;border-radius:8px;padding:8px 12px;background:var(--sheet);color:var(--ink);font-weight:700}
 .upd .x{border:0;background:transparent;color:inherit;padding:6px}
 .explain,.rv .ex{white-space:pre-line}
+/* Speaker, star, settings, TOEFL/IELTS */
+.spk{display:inline-grid;place-items:center;width:34px;height:34px;padding:0;margin-inline-start:6px;border-radius:50%;border:1px solid var(--line);background:var(--mark-soft);color:var(--mark);vertical-align:middle;cursor:pointer}
+.spk svg{width:18px;height:18px;fill:currentColor;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.spk.sm{width:28px;height:28px;margin:0}
+.spk.sm svg{width:15px;height:15px}
+.qtools{display:flex;align-items:center;gap:8px}
+.star{border:1px solid var(--line);background:var(--sheet);color:var(--warn);border-radius:8px;width:34px;height:34px;font-size:18px;line-height:1;padding:0}
+.star.on{background:var(--warn);color:var(--sheet);border-color:var(--warn)}
+.audio{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--sheet);display:grid;gap:8px}
+.audrow,.wtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.audrow button,.wtools button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--sheet);font-weight:600}
+.audrow .go,.wtools .go,.srow .go{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.wtools .t{font-family:var(--f-num);font-size:18px;padding:4px 10px;border-radius:6px;background:var(--mark-soft);color:var(--mark)}
+.wtools .t.low{background:var(--form-soft);color:var(--form)}
+.note{padding:10px 14px;border-radius:10px;background:var(--mark-soft);border:1px solid var(--line);font-size:14px}
+.note.ok{background:var(--ok-soft);border-color:var(--ok)}.note.bad{background:var(--bad-soft);border-color:var(--bad)}
+.codebox,.wbox{width:100%;margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--sheet);color:var(--ink);font-family:var(--f-num);font-size:13px}
+.wbox{font-family:var(--f-en);font-size:16px;line-height:1.6;min-height:220px}
+.remrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.remrow input[type=time]{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink);font:inherit}
+.switch{display:flex;gap:8px;align-items:center}
+.fctop{display:flex;justify-content:space-between;align-items:center}
+.srow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line)}
+.srow button{padding:10px 14px;border-radius:10px;border:1px solid var(--ink);font-weight:600}
+.sphase{margin:10px 0;padding:18px;border-radius:12px;border:2px dashed var(--line);display:flex;justify-content:space-between;align-items:center;font-size:20px;min-height:64px}
+.sphase.prep{border-color:var(--warn)}.sphase.speak{border-color:var(--ok);background:var(--ok-soft)}.sphase.done{border-color:var(--mark)}
+.sphase .num{font-size:28px}
+.tbtn{border-color:var(--mark)}
 /* Today card, flashcards, charts */
 .today{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--sheet);display:grid;gap:14px}
 .todayrow{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
@@ -1758,6 +1786,134 @@ F3.forEach((a,i)=>{const id="bf"+i;ITEMS[id]={id,s:"f",q:a[0],o:a[1],fk:a[2],b2:
 V3.forEach((a,i)=>{const id="bv"+i;ITEMS[id]={id,s:"v",q:a[0],o:a[1],vk:1,b2:1};B2Q.v.push(id)});
 P3.forEach(p=>{const pi=P.length;P.push({t:p.t,x:p.x,q:p.q,b2:1});B2Q.p.push(pi);p.q.forEach((a,i)=>{const id="r"+pi+"_"+i;ITEMS[id]={id,s:"r",q:a[0],o:a[1],tk:a[2],ev:a[3],p:pi,b2:1}})});
 const NB2=Math.min(Math.floor(B2Q.g.length/12),Math.floor(B2Q.f.length/14),Math.floor(B2Q.v.length/12),Math.floor(B2Q.p.length/2));
+/* ================= TOEFL & IELTS practice ================= */
+Object.assign(RTYPES,{
+tfng:["True / False / Not Given: True = the text says the same thing; False = the text says the opposite; Not Given = the text gives no information about it. Evidence:","True / False / Not Given: True = metin aynı şeyi söylüyor; False = metin tersini söylüyor; Not Given = metinde bu konuda bilgi yok. Kanıt:","True / False / Not Given: True = النص يقول الشيء نفسه، False = النص يقول العكس، Not Given = النص لا يذكر هذه المعلومة. الدليل:"],
+complete:["Complete the word: read the whole sentence and choose the ending that fits both the meaning and the grammar.","Kelimeyi tamamla: cümlenin tamamını oku ve hem anlama hem dil bilgisine uyan sonu seç.","أكمل الكلمة: اقرأ الجملة كلها واختر النهاية التي تناسب المعنى والقواعد معاً."],
+heading:["Matching headings: choose the heading that summarises the main idea of the whole paragraph, not just one detail. Key sentence:","Başlık eşleştirme: sadece bir ayrıntıyı değil, paragrafın tamamının ana fikrini özetleyen başlığı seç. Anahtar cümle:","مطابقة العناوين: اختر العنوان الذي يلخص فكرة الفقرة كلها، وليس تفصيلاً واحداً. الجملة المفتاحية:"],
+gap:["Listening for details: the answer is said in the recording. Listen for names, numbers and dates, and watch out for corrections (\"no, sorry, I mean…\"). Evidence:","Ayrıntı dinleme: cevap kayıtta söylenir. İsimlere, sayılara ve tarihlere dikkat et; düzeltmelere de dikkat et (\"no, sorry, I mean…\"). Kanıt:","الاستماع للتفاصيل: الجواب يُقال في التسجيل. انتبه للأسماء والأرقام والتواريخ، وللتصحيحات (\"no, sorry, I mean…\"). الدليل:"]
+});
+const TP={};
+function tpPassage(p,audio,s,b2){
+  const pi=P.length; P.push({t:p.t,x:p.x,q:p.q||[],audio:!!audio,tp:1});
+  return (p.q||[]).map((a,i)=>{const id="r"+pi+"_"+i; ITEMS[id]={id,s:s||(audio?"l":"r"),q:a[0],o:a[1],tk:a[2],ev:a[3],p:pi,fixed:!!a[4],tp:1}; return id;});
+}
+function tpSingle(prefix,list,kind){
+  return list.map((a,i)=>{const id=prefix+i; const it={id,s:a.s||"g",q:a.q,o:a.o,tp:1};
+    if(a.rk) it.rk=a.rk; if(a.fk) it.fk=a.fk; if(a.tk){it.tk=a.tk; it.ev=a.ev||"";}
+    if(a.audio){const pi=P.length; P.push({t:a.title||"Audio",x:[a.audio],q:[],audio:true,tp:1}); it.p=pi;}
+    ITEMS[id]=it; return id;});
+}
+
+/* ----- TOEFL iBT (format introduced in January 2026) ----- */
+TP.toefl_read=[
+ ...tpSingle("tcw",[
+  {s:"r",q:"Complete the word:\nThe experi___ showed that plants grow faster with blue light.",o:["ment","mented","menting","ence"],tk:"complete"},
+  {s:"r",q:"Complete the word:\nMany students fe___ nervous before their first presentation.",o:["el","lt","ll","ed"],tk:"complete"},
+  {s:"r",q:"Complete the word:\nThe library offers free acc___ to online journals.",o:["ess","ept","ount","ident"],tk:"complete"},
+  {s:"r",q:"Complete the word:\nScientists are still trying to under___ how memory works.",o:["stand","stood","standing","line"],tk:"complete"}
+ ]),
+ ...tpPassage({t:"Email from the Housing Office",x:["Dear Residents, Please note that the hot water in Building C will be turned off on Thursday, 14 November, from 9 a.m. to 3 p.m. while engineers replace an old boiler. We apologise for any inconvenience.","During this time, residents may use the showers in the sports centre free of charge by showing their student ID. The laundry room in Building C will also be closed, but the one in Building D will remain open as usual.","If the work takes longer than expected, we will send a text message to all residents. For questions, please contact the Housing Office at the main reception. Best regards, Housing Office"]},false,"r"),
+ ...tpPassage({t:"The Origins of Writing",x:["Writing is one of humanity's most important inventions, yet it developed surprisingly late. For most of human history, knowledge was passed on orally, through stories, songs and memorised lists. The earliest known writing systems appeared only around 5,000 years ago in Mesopotamia, in what is now Iraq.","Interestingly, writing did not begin as a way to record literature or history. The first written documents were mostly economic records: clay tablets listing quantities of grain, animals and other goods. As cities grew and trade became more complex, officials needed a reliable way to keep track of who owned what and who owed what.","Over time, these simple symbols evolved into a full writing system called cuneiform, which could express not only numbers and objects but also sounds and ideas. This made it possible to record laws, letters and eventually stories. Writing systems also developed independently in other parts of the world, including Egypt, China and Central America, which suggests that writing was a response to similar social needs rather than a single lucky discovery."]},false,"r")
+];
+/* questions for the two passages above are attached right after (see TOEFL_RQ) */
+const TOEFL_RQ=[
+ [["When will the hot water be turned off?",["On Thursday from 9 a.m. to 3 p.m.","On Friday all day","On Thursday evening","Every morning this week"],"detail","the hot water in Building C will be turned off on Thursday, 14 November, from 9 a.m. to 3 p.m."],
+  ["What can residents do during the repair?",["Use the sports centre showers for free","Use the laundry room in Building C","Ask for a refund","Stay in a hotel"],"detail","residents may use the showers in the sports centre free of charge by showing their student ID"],
+  ["What will happen if the work takes longer?",["Residents will get a text message.","The office will close.","Building D will also lose hot water.","Residents must call the engineers."],"detail","If the work takes longer than expected, we will send a text message to all residents."],
+  ["Why is the hot water being turned off?",["An old boiler is being replaced.","The water is too expensive.","There is a problem with the laundry.","The building is being painted."],"detail","while engineers replace an old boiler"]],
+ [["What is the passage mainly about?",["How and why writing first developed","The history of Iraq","How to read cuneiform","Why stories are better than lists"],"main",""],
+  ["According to the passage, how was knowledge passed on before writing?",["Orally, through stories, songs and lists","Through drawings on walls","Through clay tablets","Through letters"],"detail","knowledge was passed on orally, through stories, songs and memorised lists"],
+  ["What were the first written documents mostly about?",["Economic records such as goods and trade","Poems and stories","Religious laws","Personal letters"],"detail","The first written documents were mostly economic records"],
+  ["The word \"evolved\" in paragraph 3 is closest in meaning to:",["gradually developed","disappeared","were sold","were copied"],"vocab","these simple symbols evolved into a full writing system called cuneiform"],
+  ["What does the writer suggest about writing in different parts of the world?",["It developed independently because of similar social needs.","It was invented once and then copied everywhere.","It began in China.","It was a single lucky discovery."],"infer","which suggests that writing was a response to similar social needs rather than a single lucky discovery"]]
+];
+TOEFL_RQ.forEach((qs,k)=>{const pi=P.length-2+k; P[pi].q=qs; qs.forEach((a,i)=>{const id="r"+pi+"_"+i; ITEMS[id]={id,s:"r",q:a[0],o:a[1],tk:a[2],ev:a[3],p:pi,tp:1}; TP.toefl_read.push(id);});});
+
+TP.toefl_listen=[
+ ...tpSingle("tlr",[
+  {s:"l",title:"Listen and choose a response",audio:"Do you know if the library is open on Sunday?",q:"You will hear a question. Choose the best response.",o:["Yes, from ten until six.","No, I don't like reading.","It's a big library.","I went there yesterday."],fk:"questions"},
+  {s:"l",title:"Listen and choose a response",audio:"I'm sorry, I can't make it to the study group tonight.",q:"You will hear a statement. Choose the best response.",o:["No problem. I'll send you the notes.","Congratulations!","Yes, you can make it.","I'm sorry to hear you're ill."],fk:"apology"},
+  {s:"l",title:"Listen and choose a response",audio:"Would you mind if I borrowed your calculator for the exam?",q:"You will hear a request. Choose the best response.",o:["Not at all. Here you go.","Yes, I'd mind it.","It's a calculator.","I'm borrowing it."],fk:"mind"},
+  {s:"l",title:"Listen and choose a response",audio:"How was your presentation this morning?",q:"You will hear a question. Choose the best response.",o:["It went really well, thanks.","At ten o'clock.","In room 204.","I'm presenting tomorrow."],fk:"questions"},
+  {s:"l",title:"Listen and choose a response",audio:"Why don't we meet at the café before class?",q:"You will hear a suggestion. Choose the best response.",o:["Good idea. See you there at nine.","Because it's cold.","We didn't meet.","The café is big."],fk:"suggestion"}
+ ]),
+ ...tpPassage({t:"Conversation: a student and an advisor",x:["Advisor: Hi Selin, come in. What can I help you with today?","Student: Hi. I'm in my second year of economics, but I'm thinking about switching to environmental science. I've really enjoyed the elective course I took this semester.","Advisor: That's a big decision. The good news is that several of your economics credits, like statistics, can count towards environmental science. But you'd need to take two lab courses next semester to catch up.","Student: Would that delay my graduation?","Advisor: Probably by one semester, unless you take a summer course. I'd suggest talking to Professor Lee, who coordinates the programme, before you decide. Her office hours are on Wednesday afternoons.","Student: Great, I'll go and see her this week. Thanks a lot."],
+  q:[["Why does the student go to see the advisor?",["She is thinking about changing her major.","She failed a statistics course.","She wants to study abroad.","She needs a summer job."],"main",""],
+     ["Why is the student interested in environmental science?",["She enjoyed an elective course in it.","Her parents want her to study it.","It is easier than economics.","It has no lab courses."],"detail","I've really enjoyed the elective course I took this semester"],
+     ["What does the advisor say about her economics credits?",["Some of them can count towards the new major.","None of them can be used.","They must be repeated.","They only count for summer courses."],"detail","several of your economics credits, like statistics, can count towards environmental science"],
+     ["What will the student probably do next?",["Visit Professor Lee on Wednesday afternoon","Take a summer course immediately","Stay in economics","Drop out of university"],"infer","I'd suggest talking to Professor Lee… Her office hours are on Wednesday afternoons. / Great, I'll go and see her this week."]]},true),
+ ...tpPassage({t:"Announcement: campus shuttle bus",x:["Attention, please. Starting next Monday, the campus shuttle bus will follow a new timetable. Buses will now leave the main gate every fifteen minutes instead of every twenty, between seven a.m. and ten p.m.","However, the stop outside the sports centre will be closed for three weeks because of road repairs. Students who usually use that stop should walk to the library stop, which is about two minutes away.","The updated timetable is available on the university app. Thank you."],
+  q:[["What is the main purpose of the announcement?",["To explain changes to the shuttle bus service","To advertise the sports centre","To announce road repairs in the city","To introduce a new university app"],"purpose",""],
+     ["How often will buses leave the main gate from next Monday?",["Every fifteen minutes","Every twenty minutes","Every ten minutes","Every hour"],"detail","Buses will now leave the main gate every fifteen minutes instead of every twenty"],
+     ["What should students who use the sports centre stop do?",["Walk to the library stop","Wait for a special bus","Use a taxi","Download a new app to book a seat"],"detail","Students who usually use that stop should walk to the library stop"]]},true),
+ ...tpPassage({t:"Academic talk: the spacing effect",x:["Today I want to talk about one of the most reliable findings in memory research: the spacing effect. Put simply, we remember information much better when we study it several times with breaks in between, rather than all at once.","In a classic experiment, two groups of students studied the same list of words for the same total amount of time. One group studied in a single long session; the other spread their study over several days. A week later, the second group remembered significantly more words.","Why does this happen? One explanation is that each time we return to information after a break, we have to work a little harder to recall it, and this effort strengthens the memory. So, the practical lesson for you is simple: instead of cramming the night before an exam, review your notes a little every day."],
+  q:[["What is the talk mainly about?",["Why spreading out study sessions improves memory","How to write a research paper","The history of memory research","Why students should sleep more"],"main",""],
+     ["In the experiment, which group remembered more words?",["The group that studied over several days","The group that studied in one long session","Both groups remembered the same","The group that did not study"],"detail","A week later, the second group remembered significantly more words."],
+     ["According to the speaker, why does spacing work?",["Recalling information after a break takes effort, which strengthens memory.","Breaks help students relax.","Long sessions are boring.","Students sleep better after short sessions."],"detail","we have to work a little harder to recall it, and this effort strengthens the memory"],
+     ["What does the speaker advise students to do?",["Review a little every day instead of cramming","Study only the night before the exam","Study in one long session","Avoid taking notes"],"infer","instead of cramming the night before an exam, review your notes a little every day"]]},true)
+];
+TP.toefl_build=tpSingle("tbs",[
+ {q:"Build a sentence: choose the correct word order.\n\"Could you tell me ___?\"",o:["where the library is","where is the library","where the library is it","where does the library is"],rk:"indirect_q"},
+ {q:"Build a sentence: choose the correct word order.\n\"I wanted to know ___ the assignment.\"",o:["when we had to submit","when did we have to submit","when we did have to submit","we had to submit when"],rk:"reported_q"},
+ {q:"Build a sentence: choose the correct word order.\n\"The results ___ next week.\"",o:["will be announced","will announced be","be will announced","announced will be"],rk:"passive"},
+ {q:"Build a sentence: choose the correct word order.\n\"___ to the new campus café yet?\"",o:["Have you been","You have been","Been you have","Have been you"],rk:"pp_adv"},
+ {q:"Build a sentence: choose the correct word order.\n\"The professor asked us ___.\"",o:["not to be late","to not late be","not be to late","be not to late"],rk:"reported_cmd"}
+]);
+
+/* ----- IELTS Academic ----- */
+TP.ielts_read=[
+ ...tpPassage({t:"The Rise of Urban Farming",x:["A. Over the past twenty years, urban farming has grown from a niche hobby into a serious movement. In cities from Detroit to Singapore, vegetables are now grown on rooftops, in empty buildings and even in shipping containers. Supporters argue that growing food close to where people live reduces transport costs and provides fresher produce.","B. One of the most promising technologies is vertical farming, in which crops are grown in stacked layers under artificial light. Because the environment is fully controlled, vertical farms can produce crops all year round and use up to 90 percent less water than traditional fields. However, the high cost of electricity means that, at present, they are profitable mainly for high-value crops such as herbs and salad leaves.","C. Urban farms also have social benefits. Community gardens give city residents, especially children, a chance to learn where food comes from, and studies suggest that gardening can reduce stress. Some projects provide training and jobs for unemployed people."],
+  q:[["Urban farming started as a large commercial industry.",["True","False","Not Given"],"tfng","urban farming has grown from a niche hobby into a serious movement",true],
+     ["Vertical farms can use much less water than traditional farms.",["True","False","Not Given"],"tfng","use up to 90 percent less water than traditional fields",true],
+     ["Vertical farming is currently profitable for all types of crops.",["False","True","Not Given"],"tfng","they are profitable mainly for high-value crops such as herbs and salad leaves",true],
+     ["Singapore has more urban farms than Detroit.",["Not Given","True","False"],"tfng","In cities from Detroit to Singapore… (no comparison is made)",true],
+     ["Which heading best fits paragraph C?",["The social value of growing food in cities","The cost of electricity","How vertical farms work","The history of farming"],"heading","Urban farms also have social benefits."],
+     ["What is the main disadvantage of vertical farming mentioned in the text?",["High electricity costs","Poor quality crops","Lack of light","Too much water use"],"detail","the high cost of electricity means that, at present, they are profitable mainly for high-value crops"]]},false,"r"),
+ ...tpPassage({t:"Why Teenagers Sleep Late",x:["A. Parents often complain that teenagers stay up late and find it almost impossible to get up in the morning. For a long time, this behaviour was blamed on laziness or too much screen time. Research now shows that biology plays a major role.","B. During adolescence, the body releases the sleep hormone melatonin about two hours later than in childhood. As a result, many teenagers simply do not feel sleepy until around 11 p.m. or later. If school starts early, they may regularly get much less than the eight to ten hours of sleep that experts recommend.","C. Some school districts have experimented with later start times. In several studies, starting school even 30 to 60 minutes later led to longer sleep, better attendance and improved concentration in class. Critics, however, point out that later start times can create problems for transport and after-school activities."],
+  q:[["Scientists now believe teenagers' late sleeping is partly biological.",["True","False","Not Given"],"tfng","Research now shows that biology plays a major role.",true],
+     ["Teenagers produce melatonin earlier than children.",["False","True","Not Given"],"tfng","the body releases the sleep hormone melatonin about two hours later than in childhood",true],
+     ["Most teenagers use their phones until midnight.",["Not Given","True","False"],"tfng","(The text mentions screen time as an old explanation, but gives no information about phone use until midnight.)",true],
+     ["Experts recommend eight to ten hours of sleep for teenagers.",["True","False","Not Given"],"tfng","the eight to ten hours of sleep that experts recommend",true],
+     ["Which heading best fits paragraph C?",["Testing later school start times","Why melatonin matters","Parents' complaints","The dangers of screens"],"heading","Some school districts have experimented with later start times."],
+     ["What problem with later start times do critics mention?",["Difficulties with transport and after-school activities","Students sleep too much","Teachers earn less","Attendance gets worse"],"detail","later start times can create problems for transport and after-school activities"]]},false,"r")
+];
+TP.ielts_listen=[
+ ...tpPassage({t:"Part 1: booking student accommodation",x:["Woman: Good morning, Riverside Student Housing. How can I help?","Man: Hi, I'd like to book a room for the spring semester. I'm an exchange student.","Woman: Of course. Can I have your surname, please?","Man: It's Demir. D-E-M-I-R.","Woman: Thank you. And would you like a single room or a shared room?","Man: A single, please. How much is that?","Woman: A single room is four hundred and fifty euros a month, and that includes Wi-Fi. A shared room is three hundred and twenty.","Man: OK, a single is fine. I'll arrive on the twelfth of February.","Woman: The twelfth… sorry, our office is closed on Sundays, and the twelfth is a Sunday. Could you arrive on the thirteenth instead?","Man: Yes, the thirteenth is fine.","Woman: Great. You'll need to pay a deposit of two hundred euros by bank transfer."],
+  q:[["What is the man's surname?",["Demir","Demmir","Damir","Temir"],"gap","It's Demir. D-E-M-I-R."],
+     ["What kind of room does he book?",["A single room","A shared room","A studio flat","A double room"],"gap","A single, please."],
+     ["How much does his room cost per month?",["€450","€320","€200","€540"],"gap","A single room is four hundred and fifty euros a month"],
+     ["On which date will he arrive?",["13 February","12 February","3 February","30 February"],"gap","the twelfth is a Sunday. Could you arrive on the thirteenth instead? / Yes, the thirteenth is fine."],
+     ["How must he pay the deposit?",["By bank transfer","In cash on arrival","By credit card online","By cheque"],"gap","You'll need to pay a deposit of two hundred euros by bank transfer."]]},true),
+ ...tpPassage({t:"Part 4: a lecture on the history of maps",x:["Good afternoon. Today's lecture is about the history of maps, and how they have reflected not only geography but also the beliefs of the people who made them.","Some of the earliest surviving maps come from ancient Babylon, around two thousand five hundred years ago. These were drawn on clay tablets and showed the world as a flat disc surrounded by water.","In medieval Europe, many maps placed Jerusalem at the centre of the world. Their purpose was religious rather than practical, so they were not very useful for travellers.","The biggest change came in the sixteenth century with the Mercator projection. It allowed sailors to plot straight-line courses, which made navigation much easier. However, it greatly distorts the size of areas near the poles, which is why Greenland looks almost as big as Africa, even though Africa is about fourteen times larger.","Today, of course, satellite mapping gives us extremely accurate images, but even modern maps involve choices about what to show and what to leave out."],
+  q:[["What were the earliest Babylonian maps made of?",["Clay","Paper","Stone","Wood"],"gap","These were drawn on clay tablets"],
+     ["What was the main purpose of many medieval European maps?",["Religious","Practical travel","Military","Trade"],"gap","Their purpose was religious rather than practical"],
+     ["Why was the Mercator projection useful for sailors?",["It allowed them to plot straight-line courses.","It showed the true size of countries.","It placed Jerusalem at the centre.","It was drawn from satellites."],"gap","It allowed sailors to plot straight-line courses, which made navigation much easier."],
+     ["According to the lecturer, how much larger is Africa than Greenland?",["About 14 times","About 4 times","About 40 times","About the same size"],"gap","Africa is about fourteen times larger"],
+     ["What is the lecturer's main point at the end?",["Even modern maps involve choices about what to include.","Satellite maps are always perfect.","Old maps are more beautiful.","Maps are no longer necessary."],"main",""]]},true)
+];
+const TESTSETS={toefl_read:()=>TP.toefl_read,toefl_listen:()=>TP.toefl_listen,toefl_build:()=>TP.toefl_build,ielts_read:()=>TP.ielts_read,ielts_listen:()=>TP.ielts_listen};
+const TESTTITLES={toefl_read:()=>"TOEFL · "+T("Reading","Okuma","القراءة"),toefl_listen:()=>"TOEFL · "+T("Listening","Dinleme","الاستماع"),toefl_build:()=>"TOEFL · Build a Sentence",ielts_read:()=>"IELTS · "+T("Reading","Okuma","القراءة"),ielts_listen:()=>"IELTS · "+T("Listening","Dinleme","الاستماع")};
+
+/* Writing and speaking tasks */
+const WTASKS={
+ toefl_email:{title:"TOEFL · Write an Email",min:7,words:"80–120",prompt:"You borrowed a laptop from the university library last week. Yesterday it stopped working while you were writing an assignment, and you could not finish your work.\n\nWrite an email to the library manager. In your email:\n• explain what happened\n• say how this affected you\n• ask what you should do now.",
+  model:"Dear Library Manager,\n\nI am writing about the laptop I borrowed from the library on 3 November (number 14). Yesterday evening it suddenly switched off while I was working on an assignment, and it has not started again since.\n\nUnfortunately, this meant that I could not finish my essay before the deadline, and I lost about two hours of work. I have already explained the situation to my professor.\n\nCould you please tell me whether I should return the laptop to the front desk today, and whether it would be possible to borrow another one for the rest of the week?\n\nThank you for your help.\n\nKind regards,\nAli Kaya"},
+ toefl_disc:{title:"TOEFL · Academic Discussion",min:10,words:"100+",prompt:"Professor: Many universities now require students to complete an internship before they graduate. Supporters say internships give students real work experience. Others think students should focus on their studies. Should internships be compulsory? Why or why not?\n\nMaria: I think they should be compulsory. Employers want experience, and an internship is the easiest way to get it while you are still a student.\n\nJames: I disagree. Not every student can afford to work for little or no money, and some subjects, like pure mathematics, don't really need it.\n\nWrite a post that adds your own opinion to the discussion.",
+  model:"I understand James's concern about money, but I still believe internships should be compulsory, as long as universities make sure they are paid or supported. In my view, the biggest benefit is not just experience for a CV, but learning how theory works in practice. For example, a friend of mine studying economics only really understood market research after spending two months at a small company. Universities could also offer shorter or research-based internships for subjects like mathematics, so that every student gains something useful without being forced into an unsuitable job."},
+ ielts_t1:{title:"IELTS Writing Task 1",min:20,words:"150+",chart:true,prompt:"The bar chart shows the number of international students (in thousands) at a European university from four regions in 2015 and 2025.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+  model:"The bar chart compares the number of international students from four regions at a European university in 2015 and 2025.\n\nOverall, the number of students increased from every region, and Asia remained the largest source of students in both years, while South America was the smallest.\n\nIn 2015, there were 12,000 students from Asia, compared with 8,000 from other European countries. Africa and South America sent far fewer students, at 3,000 and 2,000 respectively.\n\nBy 2025, the figure for Asia had risen to 18,000, the largest increase in absolute terms. The number of European students grew more slowly, to 10,000. Meanwhile, the number of African students doubled to 6,000, making it the fastest-growing group in relative terms, and students from South America increased slightly to 3,000."},
+ ielts_t2:{title:"IELTS Writing Task 2",min:40,words:"250+",prompt:"Some people believe that studying abroad is the best way for young people to prepare for their future careers. Others think that students can gain the same skills by studying in their own country.\n\nDiscuss both views and give your own opinion.",
+  model:"In an increasingly global job market, many young people consider spending part of their studies abroad. While some argue that this is the most effective preparation for a career, others believe the same skills can be developed at home. This essay will discuss both views before explaining why I believe studying abroad offers unique advantages.\n\nOn the one hand, studying in one's own country has clear benefits. It is usually much cheaper, students can stay close to their families, and many local universities now offer international programmes taught in English. In addition, online courses and virtual exchanges allow students to work with people from other countries without travelling.\n\nOn the other hand, living abroad develops skills that are difficult to learn in a familiar environment. Students must manage their own money, solve everyday problems in a foreign language and adapt to a different academic culture. For example, an Erasmus student who has to find accommodation, open a bank account and complete group projects with people from five countries gains independence and intercultural communication skills that employers value highly.\n\nIn conclusion, although students can acquire many useful skills at home, I believe that studying abroad provides a level of personal growth and international experience that is hard to match. Therefore, where it is financially possible, young people should take this opportunity."}
+};
+const STASKS={
+ toefl_repeat:{title:"TOEFL · Listen and Repeat",type:"repeat",items:["The library closes at ten on weekdays.","Please hand in your assignment before Friday.","The lecture has been moved to room two hundred and four.","Could you tell me where the science building is?","Students must show their ID card at the entrance.","I'd like to change my course to environmental science.","The results will be published on the university website next week."]},
+ toefl_interview:{title:"TOEFL · Take an Interview",type:"timed",prep:0,speak:45,items:["Tell me about a subject you enjoy studying and why you like it.","Some people prefer to study alone, while others prefer to study in groups. Which do you prefer and why?","Describe a time when you had to solve a difficult problem.","Do you think universities should offer more online courses? Why or why not?"]},
+ ielts_p1:{title:"IELTS Speaking Part 1",type:"timed",prep:0,speak:25,items:["Where are you from?","Do you work or are you a student?","What do you enjoy most about your studies?","How do you usually spend your weekends?","Do you prefer reading books or watching films? Why?","Have you ever travelled to another country?"]},
+ ielts_p2:{title:"IELTS Speaking Part 2",type:"timed",prep:60,speak:120,items:["Describe a place you would like to visit in the future.\nYou should say:\n• where it is\n• how you know about it\n• what you would like to do there\nand explain why you would like to visit this place."]},
+ ielts_p3:{title:"IELTS Speaking Part 3",type:"timed",prep:0,speak:45,items:["Why do you think more young people choose to study abroad today?","What are the disadvantages of tourism for local communities?","Do you think people will travel less in the future? Why?","How can governments encourage people to learn foreign languages?"]}
+};
+
 const NEX = Math.min(Math.floor(IDS.g.length/12),Math.floor(IDS.f.length/14),Math.floor(IDS.v.length/12),Math.floor(NSTD_P/2));
 /* ---------- Lessons (شرح) ---------- */
 const eg=(...l)=>`<div class="eg" dir="ltr" lang="en">${l.join("<br>")}</div>`;
@@ -1889,6 +2045,9 @@ ${tb(["نوع السؤال","كيف تحله"],[
 ];
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const perm4=()=>shuffle([0,1,2,3]);
+/* Options are shuffled, except fixed answer sets such as True / False / Not Given */
+const FIXED_ORDER=["True","False","Not Given"];
+const permFor=id=>{const q=ITEMS[id]; const idx=q.o.map((_,i)=>i); return q.fixed?idx.sort((a,b)=>FIXED_ORDER.indexOf(q.o[a])-FIXED_ORDER.indexOf(q.o[b])):shuffle(idx);};
 
 function buildExam(kind){
   let g,f,v,ps;
@@ -1900,6 +2059,8 @@ function buildExam(kind){
 }
 function buildPractice(s){
   if(s==="mist") return shuffle(mistIds()).slice(0,20).map(id=>({id,perm:perm4()}));
+  if(s==="fav") return favs().map(id=>({id,perm:permFor(id)}));
+  if(TESTSETS[s]) return TESTSETS[s]().map(id=>({id,perm:permFor(id)}));
   if(s==="daily"){const m=shuffle(mistIds()).slice(0,4); const pool=shuffle([...IDS.g,...IDS.f,...IDS.v]).filter(id=>!m.includes(id)); return [...m,...pool].slice(0,GOAL).map(id=>({id,perm:perm4()}));}
   const ids = s==="r" ? Array.from({length:NSTD_P},(_,i)=>i).flatMap(pIds) : shuffle(IDS[s]);
   return ids.map(id=>({id,perm:perm4()}));
@@ -1986,13 +2147,13 @@ const I={
   search:["Search for a word…","Kelime ara…","ابحث عن كلمة…"]
 };
 const t=k=>T(...I[k]);
-const SECN={g:["Grammar","Dil Bilgisi","القواعد"],f:["Functional Language","İşlevsel Dil Kullanımı","اللغة الوظيفية"],v:["Vocabulary","Kelime Bilgisi","المفردات"],r:["Reading","Okuma","القراءة"]};
+const SECN={l:["Listening","Dinleme","الاستماع"],w:["Writing","Yazma","الكتابة"],g:["Grammar","Dil Bilgisi","القواعد"],f:["Functional Language","İşlevsel Dil Kullanımı","اللغة الوظيفية"],v:["Vocabulary","Kelime Bilgisi","المفردات"],r:["Reading","Okuma","القراءة"]};
 const secName=s=>T(...SECN[s]);
 const secSub=s=>T(SECN[s][1],SECN[s][0],SECN[s][0]+" · "+SECN[s][1]);
 const ORD=["الأولى","الثانية","الثالثة","الرابعة","الخامسة","السادسة","السابعة","الثامنة","التاسعة","العاشرة","الحادية عشرة","الثانية عشرة","الثالثة عشرة","الرابعة عشرة","الخامسة عشرة","السادسة عشرة"];
 const examTitle=k=>k>100?T("B2 Exam "+(k-100),"B2 Deneme "+(k-100),"تجربة B2 "+(ORD[k-101]||k-100)):k?T("Practice Exam "+k,"Deneme Sınavı "+k,"التجربة "+(ORD[k-1]||k)):t("random");
 const practiceTitle=s=>T("Practice: ","Alıştırma: ","تدريب: ")+secName(s);
-const titleOf=x=>x.kind==="mist"?T("Mistakes notebook","Yanlış defteri","دفتر الأخطاء"):x.kind==="daily"?T("Daily practice","Günlük alıştırma","التدريب اليومي"):x.kind!==undefined?(x.mode==="exam"?examTitle(x.kind):practiceTitle(x.kind)):(x.title||"");
+const titleOf=x=>x.kind==="fav"?T("Favourites","Favoriler","المفضّلة"):TESTTITLES[x.kind]?TESTTITLES[x.kind]():x.kind==="mist"?T("Mistakes notebook","Yanlış defteri","دفتر الأخطاء"):x.kind==="daily"?T("Daily practice","Günlük alıştırma","التدريب اليومي"):x.kind!==undefined?(x.mode==="exam"?examTitle(x.kind):practiceTitle(x.kind)):(x.title||"");
 const qCount=n=>T(n+" questions",n+" soru",n+" سؤال");
 const fmtDate=ts=>{try{return new Date(ts).toLocaleDateString(T("en-GB","tr-TR","ar-EG"),{day:"numeric",month:"short"})}catch(e){return ""}};
 function exText(q){
@@ -2063,6 +2224,8 @@ function renderHome(){
       <button class="btn" id="mistBtn" ${mc?"":"disabled"}><span><b>${T("Mistakes notebook","Yanlış defteri","دفتر الأخطاء")}</b><small>${mc?T(mc+" questions to review",mc+" soru tekrar edilecek",mc+" سؤال للمراجعة"):T("Empty — great!","Boş — harika!","فارغ — ممتاز!")}</small></span><span>${FWD()}</span></button>
       <button class="btn" id="cardsBtn"><span><b>${T("Vocabulary flashcards","Kelime kartları","بطاقات المفردات")}</b><small>${T(`${ci.learned}/${ci.total} learned · ${Math.min(cd,20)} to review`,`${ci.learned}/${ci.total} öğrenildi · ${Math.min(cd,20)} tekrar`,`${ci.learned}/${ci.total} تعلّمتها · ${Math.min(cd,20)} للمراجعة`)}</small></span><span>${FWD()}</span></button>
       <button class="btn" id="progBtn"><span><b>${T("My progress","İlerlemem","تقدّمي")}</b><small>${T("Charts and weak points","Grafikler ve zayıf noktalar","رسوم بيانية ونقاط الضعف")}</small></span><span>${FWD()}</span></button>
+      <button class="btn" id="favBtnH" ${favs().length?"":"disabled"}><span><b>${T("Favourites","Favoriler","المفضّلة")} ★</b><small>${favs().length?T(favs().length+" saved questions",favs().length+" kayıtlı soru",favs().length+" سؤال محفوظ"):T("Tap ☆ on any question to save it","Kaydetmek için bir sorudaki ☆ simgesine dokun","اضغط ☆ على أي سؤال لحفظه")}</small></span><span>${FWD()}</span></button>
+      <button class="btn" id="setBtn"><span><b>${T("Settings","Ayarlar","الإعدادات")}</b><small>${T("Text size, voice, reminder, backup","Yazı boyutu, ses, hatırlatma, yedek","حجم الخط، الصوت، التذكير، النسخ الاحتياطي")}</small></span><span>${FWD()}</span></button>
     </div></section>`})()}
   ${saved&&!saved.done?`<section><button class="btn resume" id="resume"><span><b>${t("resume")}</b><small>${esc(titleOf(saved))} · ${T(`answered ${Object.keys(saved.ans).length} of ${saved.items.length}`,`${saved.items.length} sorudan ${Object.keys(saved.ans).length} tanesi cevaplandı`,`أجبت على ${Object.keys(saved.ans).length} من ${saved.items.length}`)}</small></span><span>${FWD()}</span></button></section>`:""}
   <section>
@@ -2080,6 +2243,10 @@ function renderHome(){
       ${Array.from({length:NB2},(_,i)=>{const k=101+i,best=bestOf(k);
         return `<button class="btn b2btn" data-exam="${k}"><span><b>${examTitle(k)} <span class="lvl">B2</span></b><small>${t("b2Sub")}${best>=0?" · "+T("best score: ","en iyi sonuç: ","أفضل نتيجة: ")+best:""}</small></span><span>${FWD()}</span></button>`}).join("")}
     </div>
+  </section>
+  <section>
+    <h2>TOEFL & IELTS</h2>
+    <button class="btn tbtn" id="testsBtn"><span><b>${T("TOEFL iBT and IELTS Academic","TOEFL iBT ve IELTS Academic","TOEFL iBT و IELTS Academic")}</b><small>${T("Reading, listening (read aloud), writing with model answers, speaking with timers","Okuma, dinleme (sesli), örnek cevaplı yazma, zamanlayıcılı konuşma","قراءة، استماع (بالصوت)، كتابة مع نماذج إجابات، محادثة مع مؤقّت")}</small></span><span>${FWD()}</span></button>
   </section>
   <section>
     <h2>${t("hLessons")}</h2>
@@ -2117,6 +2284,9 @@ function renderHome(){
   document.getElementById("mistBtn").onclick=()=>{ if(mistIds().length) start("practice","mist"); };
   document.getElementById("cardsBtn").onclick=startCards;
   document.getElementById("progBtn").onclick=renderProgress;
+  document.getElementById("favBtnH").onclick=()=>{ if(favs().length) start("practice","fav"); };
+  document.getElementById("setBtn").onclick=()=>renderSettings();
+  const tb=document.getElementById("testsBtn"); if(tb) tb.onclick=()=>renderTests();
   app.querySelectorAll("[data-prac]").forEach(b=>b.onclick=()=>start("practice",b.dataset.prac));
   const r=document.getElementById("resume"); if(r) r.onclick=()=>{S=saved;renderQuiz()};
 }
@@ -2388,11 +2558,11 @@ function renderGrammar(){
   <div class="bar"><button class="ghost" id="home">${BACK()} ${t("home")}</button><div class="grow"><b>${t("hGrammar")}</b></div></div>
   <div style="margin-top:14px">${langToggle()}</div>
   ${RULE_GROUPS.map(([gn,keys])=>`<section><h2>${T(...gn)}</h2>
-    ${keys.map(k=>{const r=RULES[k];return `<details class="lesson"><summary>${esc(T(...r.t))}<span class="label">＋</span></summary><div class="lb"><p>${esc(T(...r.x))}</p><div class="eg" dir="ltr" lang="en">${esc(r.eg)}</div></div></details>`}).join("")}</section>`).join("")}
+    ${keys.map(k=>{const r=RULES[k];return `<details class="lesson"><summary>${esc(T(...r.t))}<span class="label">＋</span></summary><div class="lb"><p>${esc(T(...r.x))}</p><div class="eg" dir="ltr" lang="en">${esc(r.eg)} ${spk(r.eg,"sm")}</div></div></details>`}).join("")}</section>`).join("")}
   <div class="grid2" style="margin-top:20px"><button class="btn" data-prac="g"><span><b>${practiceTitle("g")}</b><small>${qCount(IDS.g.length)}</small></span></button></div>`;
   document.getElementById("home").onclick=()=>{renderHome();window.scrollTo(0,0)};
   app.querySelector("[data-prac]").onclick=()=>start("practice","g");
-  bindLang(()=>renderGrammar());
+  bindLang(()=>renderGrammar()); bindSpeak();
   window.scrollTo(0,0);
 }
 
@@ -2412,9 +2582,9 @@ function renderVocab(){
     const ks=keys.filter(k=>!q||k.includes(q)||VOC[k].some(m=>m.toLowerCase().includes(q)));
     document.getElementById("vcount").textContent=T(ks.length+" words",ks.length+" kelime",ks.length+" كلمة");
     document.getElementById("vlist").innerHTML=ks.map(k=>{const v=VOC[k];
-      return `<div class="vrow"><b class="e" dir="ltr" lang="en">${esc(k)}</b><span>${esc(T(v[0],v[1],v[2]))}${LANG!=="en"?`<br><small class="label" dir="ltr" lang="en">${esc(v[0])}</small>`:""}</span></div>`}).join("");
+      return `<div class="vrow"><b class="e" dir="ltr" lang="en">${spk(k,"sm")} ${esc(k)}</b><span>${esc(T(v[0],v[1],v[2]))}${LANG!=="en"?`<br><small class="label" dir="ltr" lang="en">${esc(v[0])}</small>`:""}</span></div>`}).join("");
   };
-  document.getElementById("vq").oninput=draw; draw();
+  document.getElementById("vq").oninput=()=>{draw();bindSpeak()}; draw(); bindSpeak();
   document.getElementById("home").onclick=()=>{renderHome();window.scrollTo(0,0)};
   app.querySelector("[data-prac]").onclick=()=>start("practice","v");
   bindLang(()=>renderVocab());
@@ -2460,7 +2630,7 @@ function renderCards(){
       ${(info.due.length+info.fresh.length)?`<button class="btn primary" id="fcAgain"><span><b>${T("Next 20 cards","Sonraki 20 kart","البطاقات العشرون التالية")}</b></span><span>${FWD()}</span></button>`:""}</div>`;
   } else {
     const k=FC.list[FC.i], v=VOC[k];
-    body=`<p class="label num">${FC.i+1} / ${FC.list.length}</p>
+    body=`<div class="fctop"><p class="label num">${FC.i+1} / ${FC.list.length}</p>${spk(k)}</div>
     <button class="fcard" id="fcFlip" aria-live="polite"><span class="fword" dir="ltr" lang="en">${esc(k)}</span>
       ${FC.flip?`<span class="fmean">${esc(T(v[0],v[1],v[2]))}</span>${LANG!=="en"?`<span class="label" dir="ltr" lang="en">${esc(v[0])}</span>`:""}`:`<span class="label">${T("Think of the meaning, then tap to check","Anlamını düşün, sonra kontrol etmek için dokun","فكّر في المعنى، ثم اضغط للتحقق")}</span>`}</button>
     ${FC.flip?`<div class="row"><button id="fcNo">${T("I didn't know","Bilmiyordum","لم أعرفها")}</button><button class="go" id="fcYes">${T("I knew it","Biliyordum","عرفتها")}</button></div>`:""}`;
@@ -2472,7 +2642,88 @@ function renderCards(){
   const y=document.getElementById("fcYes"); if(y) y.onclick=()=>gradeCard(true);
   const n=document.getElementById("fcNo"); if(n) n.onclick=()=>gradeCard(false);
   const a=document.getElementById("fcAgain"); if(a) a.onclick=startCards;
+  bindSpeak();
   bindLang(()=>renderCards());
+}
+
+/* ---------- Voice (phone's English text-to-speech) ---------- */
+function speak(text,rate){
+  rate=rate||store.get("erx_rate",0.95); text=String(text).replace(/_{2,}/g," blank ");
+  try{ if(window.AppBridge&&AppBridge.speak){ AppBridge.speak(text,rate); return true; } }catch(e){}
+  try{ if(window.speechSynthesis&&window.SpeechSynthesisUtterance){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang="en-US"; u.rate=rate;
+    const v=speechSynthesis.getVoices().find(v=>/^en[-_](US|GB)/i.test(v.lang)); if(v) u.voice=v; speechSynthesis.speak(u); return true; } }catch(e){}
+  return false;
+}
+function stopSpeak(){ try{window.AppBridge&&AppBridge.stopSpeaking&&AppBridge.stopSpeaking()}catch(e){} try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){} }
+const voiceAvailable=()=>{ try{ if(window.AppBridge&&AppBridge.canSpeak) return !!AppBridge.canSpeak(); }catch(e){} return !!(window.speechSynthesis&&window.SpeechSynthesisUtterance); };
+const spk=(text,cls)=>`<button class="spk ${cls||""}" data-say="${esc(text)}" aria-label="${T("Listen","Dinle","استمع")}" title="${T("Listen","Dinle","استمع")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none"/></svg></button>`;
+function bindSpeak(root){ (root||app).querySelectorAll("[data-say]").forEach(b=>b.onclick=e=>{e.stopPropagation(); if(!speak(b.dataset.say)) toast(T("Voice is not available on this device.","Bu cihazda ses kullanılamıyor.","الصوت غير متاح على هذا الجهاز."));}) }
+function toast(msg){ const d=document.createElement("div"); d.className="upd"; d.dir=rtl()?"rtl":"ltr"; d.innerHTML=`<span>${msg}</span>`; document.body.appendChild(d); setTimeout(()=>d.remove(),2600); }
+
+/* ---------- Font size ---------- */
+const ZOOMS=[[0.9,["Small","Küçük","صغير"]],[1,["Normal","Normal","عادي"]],[1.12,["Large","Büyük","كبير"]],[1.25,["Extra large","Çok büyük","كبير جداً"]]];
+let ZOOM=store.get("erx_zoom",1);
+function applyZoom(){ try{ app.style.zoom=ZOOM===1?"":String(ZOOM); }catch(e){} }
+
+/* ---------- Favourites ---------- */
+const favs=()=>store.get("erx_fav",[]).filter(id=>ITEMS[id]);
+const isFav=id=>favs().includes(id);
+function toggleFav(id){ const f=favs(); const i=f.indexOf(id); if(i>=0) f.splice(i,1); else f.push(id); store.set("erx_fav",f); }
+
+/* ---------- Settings ---------- */
+const BACKUP_KEYS=["erx_hist","erx_stats","erx_mist","erx_cards","erx_fav","erx_lang","erx_bg","erx_zoom","erx_rate"];
+function makeBackup(){ const data={}; BACKUP_KEYS.forEach(k=>{const v=store.get(k,null); if(v!==null) data[k]=v}); const json=JSON.stringify({app:"erasmus-sinav",v:1,at:Date.now(),data}); return btoa(unescape(encodeURIComponent(json))); }
+function restoreBackup(code){ const o=JSON.parse(decodeURIComponent(escape(atob(String(code).trim())))); if(!o||o.app!=="erasmus-sinav"||!o.data) throw new Error("bad"); Object.entries(o.data).forEach(([k,v])=>{ if(BACKUP_KEYS.includes(k)) store.set(k,v) }); }
+function renderSettings(msg){
+  clearInterval(timerId); applyLang();
+  const hasRem=!!(window.AppBridge&&AppBridge.setReminder);
+  let rem=[0,19,0]; if(hasRem){ try{ rem=String(AppBridge.getReminder()).split(",").map(Number) }catch(e){} }
+  const rate=store.get("erx_rate",0.95);
+  app.innerHTML=`<div class="bar"><button class="ghost" id="home">${BACK()} ${t("home")}</button><div class="grow"><b>${T("Settings","Ayarlar","الإعدادات")}</b></div></div>
+  ${msg?`<p class="note ok">${msg}</p>`:""}
+  <section><h2>${T("Language and background","Dil ve arka plan","اللغة والخلفية")}</h2>${langToggle()}${bgPicker()}</section>
+  <section><h2>${T("Text size","Yazı boyutu","حجم الخط")}</h2>
+    <div class="chips">${ZOOMS.map(([z,n])=>`<button data-zoom="${z}" class="${ZOOM===z?"on":""}" style="font-size:${Math.round(14*z)}px">${T(...n)}</button>`).join("")}</div></section>
+  <section><h2>${T("Voice","Ses","الصوت")}</h2>
+    ${voiceAvailable()?"":`<p class="label">${T("The voice is not available here. In the Android app, update to version 5 or newer and make sure an English voice is installed in your phone's text-to-speech settings.","Ses burada kullanılamıyor. Android uygulamasında sürüm 5 veya daha yenisine güncelle ve telefonunun metin okuma ayarlarında İngilizce ses yüklü olsun.","الصوت غير متاح هنا. في تطبيق أندرويد حدّث إلى النسخة 5 أو أحدث، وتأكد أن الصوت الإنجليزي مثبّت في إعدادات تحويل النص إلى كلام في هاتفك.")}</p>`}
+    <label class="label" for="rate">${T("Speaking speed","Konuşma hızı","سرعة النطق")}: <b class="num" id="rateV">${rate}</b></label>
+    <input id="rate" type="range" min="0.6" max="1.2" step="0.05" value="${rate}" style="width:100%">
+    <button class="btn" id="voiceTest" style="margin-top:8px"><span><b>${T("Play a test sentence","Deneme cümlesi çal","تشغيل جملة تجريبية")}</b><small dir="ltr" lang="en">Good luck with your Erasmus exam!</small></span><span>▶</span></button></section>
+  <section><h2>${T("Daily reminder","Günlük hatırlatma","التذكير اليومي")}</h2>
+    ${hasRem?`<div class="remrow"><label class="switch"><input type="checkbox" id="remOn" ${rem[0]?"checked":""}> ${T("Remind me every day at","Her gün şu saatte hatırlat","ذكّرني كل يوم الساعة")}</label>
+      <input type="time" id="remTime" value="${String(rem[1]).padStart(2,"0")}:${String(rem[2]).padStart(2,"0")}"></div>
+      <div class="row"><button id="remTest">${T("Send a test","Deneme gönder","إرسال تجربة")}</button><button class="go" id="remSave">${T("Save","Kaydet","حفظ")}</button></div>
+      <p class="label">${T("Android may ask you to allow notifications. Tap Allow.","Android bildirimlere izin vermeni isteyebilir. İzin ver'e dokun.","قد يطلب أندرويد السماح بالإشعارات. اضغط سماح.")}</p>`
+    :`<p class="label">${T("Reminders work in the Android app (version 5 or newer). Install the latest version from your GitHub link.","Hatırlatmalar Android uygulamasında çalışır (sürüm 5 veya daha yenisi). En son sürümü GitHub bağlantından yükle.","التذكير يعمل في تطبيق أندرويد (النسخة 5 أو أحدث). ثبّت آخر نسخة من رابط GitHub.")}</p>`}</section>
+  <section><h2>${T("Backup and restore","Yedekle ve geri yükle","النسخ الاحتياطي والاستعادة")}</h2>
+    <p class="label">${T("Your results, mistakes, flashcards, favourites and settings are saved only on this device. Copy this code and keep it somewhere safe (for example, send it to yourself). Paste it on a new phone to bring everything back.","Sonuçların, yanlışların, kartların, favorilerin ve ayarların sadece bu cihazda kayıtlı. Bu kodu kopyala ve güvenli bir yerde sakla (örneğin kendine gönder). Yeni bir telefonda yapıştırarak her şeyi geri getir.","نتائجك وأخطاؤك وبطاقاتك ومفضّلتك وإعداداتك محفوظة على هذا الجهاز فقط. انسخ هذا الرمز واحفظه في مكان آمن (مثلاً أرسله لنفسك)، ثم الصقه في هاتف جديد لاستعادة كل شيء.")}</p>
+    <button class="btn" id="bkMake"><span><b>${T("Create backup code","Yedek kodu oluştur","إنشاء رمز النسخة الاحتياطية")}</b></span></button>
+    <textarea id="bkOut" class="codebox" rows="4" readonly hidden></textarea>
+    <button class="btn" id="bkCopy" hidden><span><b>${T("Copy code","Kodu kopyala","نسخ الرمز")}</b></span></button>
+    <label class="label" for="bkIn" style="display:block;margin-top:14px">${T("Restore: paste a backup code","Geri yükle: yedek kodunu yapıştır","الاستعادة: الصق رمز النسخة الاحتياطية")}</label>
+    <textarea id="bkIn" class="codebox" rows="3"></textarea>
+    <div class="row"><button class="go" id="bkRestore">${T("Restore","Geri yükle","استعادة")}</button></div>
+    <p class="note" id="bkMsg" hidden></p></section>`;
+  document.getElementById("home").onclick=()=>{renderHome();window.scrollTo(0,0)};
+  bindLang(()=>renderSettings()); bindBg(()=>renderSettings()); bindSpeak();
+  app.querySelectorAll("[data-zoom]").forEach(b=>b.onclick=()=>{ZOOM=+b.dataset.zoom;store.set("erx_zoom",ZOOM);applyZoom();renderSettings()});
+  const r=document.getElementById("rate"); r.oninput=()=>{document.getElementById("rateV").textContent=r.value}; r.onchange=()=>store.set("erx_rate",+r.value);
+  document.getElementById("voiceTest").onclick=()=>speak("Good luck with your Erasmus exam!",+r.value);
+  if(hasRem){
+    const save=()=>{const [h,m]=(document.getElementById("remTime").value||"19:00").split(":").map(Number); const on=document.getElementById("remOn").checked;
+      try{ AppBridge.setReminder(h,m,on,T("Time to practise!","Çalışma zamanı!","حان وقت التدريب!"),T(`Do your ${GOAL} daily questions and keep your streak going.`,`Günlük ${GOAL} sorunu çöz ve serini sürdür.`,`أجب عن أسئلتك اليومية العشرة وحافظ على سلسلة أيامك.`)); }catch(e){}
+      renderSettings(on?T(`Reminder saved for ${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")} every day.`,`Hatırlatma her gün ${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")} için kaydedildi.`,`تم حفظ التذكير يومياً الساعة ${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}.`):T("Reminder turned off.","Hatırlatma kapatıldı.","تم إيقاف التذكير."));};
+    document.getElementById("remSave").onclick=save;
+    document.getElementById("remTest").onclick=()=>{try{AppBridge.testReminder(T("Time to practise!","Çalışma zamanı!","حان وقت التدريب!"),T("This is a test reminder.","Bu bir deneme hatırlatmasıdır.","هذا تذكير تجريبي."))}catch(e){}};
+  }
+  const out=document.getElementById("bkOut"), cp=document.getElementById("bkCopy"), msgEl=document.getElementById("bkMsg");
+  document.getElementById("bkMake").onclick=()=>{out.value=makeBackup(); out.hidden=false; cp.hidden=false; out.select();};
+  cp.onclick=()=>{ out.select(); const done=()=>{msgEl.hidden=false;msgEl.textContent=T("Copied.","Kopyalandı.","تم النسخ.")};
+    try{ navigator.clipboard.writeText(out.value).then(done,()=>{try{document.execCommand("copy");done()}catch(e){}}) }catch(e){ try{document.execCommand("copy");done()}catch(e2){} } };
+  document.getElementById("bkRestore").onclick=()=>{ try{ restoreBackup(document.getElementById("bkIn").value); LANG=store.get("erx_lang",LANG); BG=store.get("erx_bg",BG); ZOOM=store.get("erx_zoom",ZOOM); applyBg(); applyZoom();
+      renderSettings(T("Backup restored.","Yedek geri yüklendi.","تمت استعادة النسخة الاحتياطية.")); }
+    catch(e){ msgEl.hidden=false; msgEl.className="note bad"; msgEl.textContent=T("This code is not valid. Copy the whole code and try again.","Bu kod geçersiz. Kodun tamamını kopyalayıp tekrar dene.","هذا الرمز غير صالح. انسخ الرمز كاملاً وحاول مرة أخرى."); } };
+  window.scrollTo(0,0);
 }
 
 /* ---------- Progress page ---------- */
@@ -2520,6 +2771,138 @@ function renderProgress(){
   window.scrollTo(0,0);
 }
 
+/* ---------- TOEFL & IELTS screens ---------- */
+const OVERVIEW={
+ toefl:[`<p>The <b>TOEFL iBT</b> is an English test used for university admission, especially in North America, and accepted by many European universities. Since <b>January 2026</b> it has a new, shorter format (about 1.5 hours) with four sections. Scores are given on a <b>1–6 scale</b> for each section and overall (about 4 = B2, 5 = C1).</p>
+<ul><li><b>Reading:</b> Complete the Words · Read in Daily Life · Read an Academic Passage</li><li><b>Listening:</b> Listen and Choose a Response · Conversation · Announcement · Academic Talk</li><li><b>Writing:</b> Build a Sentence · Write an Email · Academic Discussion</li><li><b>Speaking:</b> Listen and Repeat · Take an Interview</li></ul>
+<p class="label">Formats change. Always check the latest information and the score your university requires on the official ETS website (ets.org/toefl).</p>`,
+`<p><b>TOEFL iBT</b>, özellikle Kuzey Amerika'da üniversiteye kabul için kullanılan ve birçok Avrupa üniversitesinin de kabul ettiği bir İngilizce sınavıdır. <b>Ocak 2026'dan</b> beri yaklaşık 1,5 saat süren yeni ve daha kısa bir formatı var. Puanlar her bölüm ve genel için <b>1–6 ölçeğinde</b> verilir (yaklaşık 4 = B2, 5 = C1).</p>
+<ul><li><b>Okuma:</b> Complete the Words · Read in Daily Life · Read an Academic Passage</li><li><b>Dinleme:</b> Listen and Choose a Response · Conversation · Announcement · Academic Talk</li><li><b>Yazma:</b> Build a Sentence · Write an Email · Academic Discussion</li><li><b>Konuşma:</b> Listen and Repeat · Take an Interview</li></ul>
+<p class="label">Formatlar değişebilir. En güncel bilgiyi ve üniversitenin istediği puanı her zaman resmî ETS sitesinden (ets.org/toefl) kontrol et.</p>`,
+`<p><b>TOEFL iBT</b> امتحان لغة إنجليزية يُستخدم للقبول في الجامعات، خاصة في أمريكا الشمالية، وتقبله جامعات أوروبية كثيرة. منذ <b>يناير 2026</b> أصبح له شكل جديد أقصر (حوالي ساعة ونصف) بأربعة أقسام. تُعطى الدرجات على <b>مقياس من 1 إلى 6</b> لكل قسم وللمجموع (تقريباً 4 = B2 و 5 = C1).</p>
+<ul><li><b>القراءة:</b> Complete the Words · Read in Daily Life · Read an Academic Passage</li><li><b>الاستماع:</b> Listen and Choose a Response · Conversation · Announcement · Academic Talk</li><li><b>الكتابة:</b> Build a Sentence · Write an Email · Academic Discussion</li><li><b>المحادثة:</b> Listen and Repeat · Take an Interview</li></ul>
+<p class="label">الأشكال قد تتغير. تحقّق دائماً من أحدث المعلومات ومن الدرجة التي تطلبها جامعتك في موقع ETS الرسمي (ets.org/toefl).</p>`],
+ ielts:[`<p><b>IELTS Academic</b> is the most common English test for studying in the UK, Europe and Australia. It takes about 2 hours and 45 minutes. Scores are given in <b>bands from 0 to 9</b> (half bands possible); many European universities ask for 6.0–6.5 overall.</p>
+<ul><li><b>Listening</b> (30 min): 4 parts, 40 questions. You hear each recording only once.</li><li><b>Reading</b> (60 min): 3 long passages, 40 questions (True/False/Not Given, matching headings, multiple choice…).</li><li><b>Writing</b> (60 min): Task 1 – describe a chart in 150+ words (20 min). Task 2 – an essay of 250+ words (40 min).</li><li><b>Speaking</b> (11–14 min): Part 1 short questions, Part 2 a 2-minute talk after 1 minute of preparation, Part 3 discussion.</li></ul>
+<p class="label">Check the official IELTS website (ielts.org) for test dates and your university's required band.</p>`,
+`<p><b>IELTS Academic</b>, İngiltere, Avrupa ve Avustralya'da eğitim için en yaygın İngilizce sınavıdır. Yaklaşık 2 saat 45 dakika sürer. Puanlar <b>0'dan 9'a kadar band</b> olarak verilir (yarım bandlar olabilir); birçok Avrupa üniversitesi genel 6.0–6.5 ister.</p>
+<ul><li><b>Dinleme</b> (30 dk): 4 bölüm, 40 soru. Her kaydı yalnızca bir kez dinlersin.</li><li><b>Okuma</b> (60 dk): 3 uzun metin, 40 soru (True/False/Not Given, başlık eşleştirme, çoktan seçmeli…).</li><li><b>Yazma</b> (60 dk): Task 1 – bir grafiği 150+ kelimeyle anlat (20 dk). Task 2 – 250+ kelimelik kompozisyon (40 dk).</li><li><b>Konuşma</b> (11–14 dk): Part 1 kısa sorular, Part 2 1 dakika hazırlıktan sonra 2 dakikalık konuşma, Part 3 tartışma.</li></ul>
+<p class="label">Sınav tarihleri ve üniversitenin istediği band için resmî IELTS sitesini (ielts.org) kontrol et.</p>`,
+`<p><b>IELTS Academic</b> هو أشهر امتحان إنجليزي للدراسة في بريطانيا وأوروبا وأستراليا. مدته حوالي ساعتين و45 دقيقة. تُعطى الدرجات <b>من 0 إلى 9</b> (مع أنصاف الدرجات)، وكثير من الجامعات الأوروبية تطلب 6.0–6.5.</p>
+<ul><li><b>الاستماع</b> (30 دقيقة): 4 أجزاء و40 سؤالاً، وتسمع كل تسجيل مرة واحدة فقط.</li><li><b>القراءة</b> (60 دقيقة): 3 نصوص طويلة و40 سؤالاً (True/False/Not Given، ومطابقة العناوين، واختيار من متعدد…).</li><li><b>الكتابة</b> (60 دقيقة): Task 1 – وصف رسم بياني في 150+ كلمة (20 دقيقة)، Task 2 – مقال من 250+ كلمة (40 دقيقة).</li><li><b>المحادثة</b> (11–14 دقيقة): Part 1 أسئلة قصيرة، Part 2 حديث لمدة دقيقتين بعد دقيقة تحضير، Part 3 نقاش.</li></ul>
+<p class="label">تحقّق من موقع IELTS الرسمي (ielts.org) لمواعيد الامتحان والدرجة التي تطلبها جامعتك.</p>`]
+};
+const WTIPS={
+ toefl_email:["Structure: greeting → why you are writing → details (answer every bullet point) → a polite request → closing. Use a polite, semi-formal tone. Aim for 80–120 words in about 7 minutes.","Yapı: selamlama → neden yazdığın → ayrıntılar (her maddeye cevap ver) → kibar bir rica → kapanış. Kibar, yarı resmî bir dil kullan. Yaklaşık 7 dakikada 80–120 kelime hedefle.","البنية: التحية ← سبب الكتابة ← التفاصيل (أجب عن كل نقطة) ← طلب مهذب ← الختام. استخدم لغة مهذبة شبه رسمية، واستهدف 80–120 كلمة في حوالي 7 دقائق."],
+ toefl_disc:["Give your opinion in the first sentence, mention a classmate's idea (I understand Maria's point, but…), then support your view with a reason and an example. 100+ words in 10 minutes.","İlk cümlede görüşünü söyle, bir arkadaşının fikrine değin (I understand Maria's point, but…), sonra görüşünü bir sebep ve bir örnekle destekle. 10 dakikada 100+ kelime.","اذكر رأيك في الجملة الأولى، وأشر إلى فكرة أحد الزملاء (I understand Maria's point, but…)، ثم ادعم رأيك بسبب ومثال. أكثر من 100 كلمة في 10 دقائق."],
+ ielts_t1:["Paragraph 1: paraphrase the question. Paragraph 2: an overview of the main trends (no numbers). Paragraphs 3–4: key details with numbers and comparisons. Don't give your opinion. 150+ words in 20 minutes.","1. paragraf: soruyu başka kelimelerle yaz. 2. paragraf: ana eğilimlerin genel özeti (sayı yok). 3–4. paragraflar: sayılar ve karşılaştırmalarla önemli ayrıntılar. Görüş bildirme. 20 dakikada 150+ kelime.","الفقرة 1: أعد صياغة السؤال. الفقرة 2: نظرة عامة على أهم الاتجاهات (بدون أرقام). الفقرتان 3–4: التفاصيل المهمة مع الأرقام والمقارنات. لا تذكر رأيك. أكثر من 150 كلمة في 20 دقيقة."],
+ ielts_t2:["Introduction (paraphrase + your position) → body 1 (first view + example) → body 2 (second view + example) → conclusion (your opinion). Use linkers: On the one hand, However, For example, In conclusion. 250+ words in 40 minutes.","Giriş (soruyu yeniden yaz + görüşün) → gelişme 1 (birinci görüş + örnek) → gelişme 2 (ikinci görüş + örnek) → sonuç (kendi görüşün). Bağlaçlar kullan: On the one hand, However, For example, In conclusion. 40 dakikada 250+ kelime.","المقدمة (إعادة صياغة + موقفك) ← الفقرة 1 (الرأي الأول + مثال) ← الفقرة 2 (الرأي الثاني + مثال) ← الخاتمة (رأيك). استخدم أدوات الربط: On the one hand, However, For example, In conclusion. أكثر من 250 كلمة في 40 دقيقة."]
+};
+const STIPS={
+ repeat:["Listen carefully, then repeat the sentence aloud with the same rhythm and stress. Then open the text and check what you said.","Dikkatle dinle, sonra cümleyi aynı ritim ve vurguyla yüksek sesle tekrar et. Sonra metni açıp söylediğini kontrol et.","استمع جيداً، ثم كرّر الجملة بصوت عالٍ بنفس الإيقاع والنبر، ثم افتح النص وتحقق مما قلته."],
+ timed:["Answer the question directly, then give a reason and an example. Keep talking until the time is up. If you don't know a word, explain it in other words.","Soruyu doğrudan cevapla, sonra bir sebep ve örnek ver. Süre bitene kadar konuşmaya devam et. Bir kelimeyi bilmiyorsan başka kelimelerle açıkla.","أجب عن السؤال مباشرة، ثم أعطِ سبباً ومثالاً. استمر في الكلام حتى ينتهي الوقت. وإذا لم تعرف كلمة فاشرحها بكلمات أخرى."]
+};
+const TESTMENU={
+ toefl:[["r","toefl_read",["Reading: Complete the Words, Daily Life, Academic Passage","Okuma: Complete the Words, Daily Life, Academic Passage","القراءة: Complete the Words و Daily Life و Academic Passage"]],
+        ["r","toefl_listen",["Listening: Choose a Response, Conversation, Announcement, Talk","Dinleme: Choose a Response, Conversation, Announcement, Talk","الاستماع: Choose a Response و Conversation و Announcement و Talk"]],
+        ["r","toefl_build",["Writing: Build a Sentence","Yazma: Build a Sentence","الكتابة: Build a Sentence"]],
+        ["w","toefl_email",["Writing: Write an Email","Yazma: Write an Email","الكتابة: Write an Email"]],
+        ["w","toefl_disc",["Writing: Academic Discussion","Yazma: Academic Discussion","الكتابة: Academic Discussion"]],
+        ["s","toefl_repeat",["Speaking: Listen and Repeat","Konuşma: Listen and Repeat","المحادثة: Listen and Repeat"]],
+        ["s","toefl_interview",["Speaking: Take an Interview","Konuşma: Take an Interview","المحادثة: Take an Interview"]]],
+ ielts:[["r","ielts_read",["Reading: True/False/Not Given and headings","Okuma: True/False/Not Given ve başlıklar","القراءة: True/False/Not Given والعناوين"]],
+        ["r","ielts_listen",["Listening: Part 1 and Part 4","Dinleme: Part 1 ve Part 4","الاستماع: Part 1 و Part 4"]],
+        ["w","ielts_t1",["Writing Task 1: describe a chart","Writing Task 1: grafik anlatma","Writing Task 1: وصف رسم بياني"]],
+        ["w","ielts_t2",["Writing Task 2: essay","Writing Task 2: kompozisyon","Writing Task 2: مقال"]],
+        ["s","ielts_p1",["Speaking Part 1: short questions","Speaking Part 1: kısa sorular","Speaking Part 1: أسئلة قصيرة"]],
+        ["s","ielts_p2",["Speaking Part 2: 2-minute talk","Speaking Part 2: 2 dakikalık konuşma","Speaking Part 2: حديث لمدة دقيقتين"]],
+        ["s","ielts_p3",["Speaking Part 3: discussion","Speaking Part 3: tartışma","Speaking Part 3: نقاش"]]]
+};
+let TEST_CUR="toefl";
+function tbar(title,back){ return `<div class="bar"><button class="ghost" id="home">${BACK()} ${back}</button><div class="grow"><b>${title}</b></div></div><div style="margin-top:14px">${langToggle()}</div>`; }
+function renderTests(){
+  clearInterval(timerId); stopSpeak(); applyLang();
+  app.innerHTML=`${tbar("TOEFL & IELTS",t("home"))}
+  <p class="label">${T("Extra practice for international English tests, in the same style as the real tasks. The questions are written for practice and are not official test material.","Uluslararası İngilizce sınavları için gerçek görevlere benzer ek alıştırmalar. Sorular alıştırma için yazılmıştır, resmî sınav materyali değildir.","تدريب إضافي لامتحانات الإنجليزية الدولية بنفس أسلوب المهام الحقيقية. الأسئلة مكتوبة للتدريب وليست من مواد الامتحان الرسمية.")}</p>
+  <div class="stack">
+    <button class="btn tbtn" data-test="toefl"><span><b>TOEFL iBT</b><small>${T("2026 format · Reading, Listening, Writing, Speaking","2026 formatı · Okuma, Dinleme, Yazma, Konuşma","شكل 2026 · قراءة، استماع، كتابة، محادثة")}</small></span><span>${FWD()}</span></button>
+    <button class="btn tbtn" data-test="ielts"><span><b>IELTS Academic</b><small>${T("Band 0–9 · Reading, Listening, Writing, Speaking","Band 0–9 · Okuma, Dinleme, Yazma, Konuşma","درجات 0–9 · قراءة، استماع، كتابة، محادثة")}</small></span><span>${FWD()}</span></button>
+  </div>`;
+  document.getElementById("home").onclick=()=>{renderHome();window.scrollTo(0,0)};
+  app.querySelectorAll("[data-test]").forEach(b=>b.onclick=()=>renderTestHome(b.dataset.test));
+  bindLang(()=>renderTests()); window.scrollTo(0,0);
+}
+function renderTestHome(x){
+  TEST_CUR=x; clearInterval(timerId); stopSpeak(); applyLang();
+  const name=x==="toefl"?"TOEFL iBT":"IELTS Academic";
+  app.innerHTML=`${tbar(name,"TOEFL & IELTS")}
+  <details class="lesson" open><summary>${T("About the test","Sınav hakkında","عن الامتحان")}<span class="label">＋</span></summary><div class="lb">${T(...OVERVIEW[x])}</div></details>
+  <section><h2>${T("Practise","Alıştırma yap","تدرّب")}</h2><div class="stack">
+  ${TESTMENU[x].map(([kind,key,lab])=>{const n=kind==="r"?TESTSETS[key]().length:0;
+    return `<button class="btn" data-k="${kind}" data-key="${key}"><span><b>${T(...lab)}</b><small>${kind==="r"?qCount(n):kind==="w"?T("Timer, word count and model answer","Zamanlayıcı, kelime sayacı ve örnek cevap","مؤقّت وعدّاد كلمات ونموذج إجابة"):T("Questions read aloud, with timers","Sesli sorular ve zamanlayıcı","أسئلة مسموعة مع مؤقّت")}</small></span><span>${FWD()}</span></button>`}).join("")}
+  </div></section>`;
+  document.getElementById("home").onclick=()=>renderTests();
+  app.querySelectorAll("[data-key]").forEach(b=>b.onclick=()=>{const k=b.dataset.key; if(b.dataset.k==="r") start("practice",k); else if(b.dataset.k==="w") renderWriting(k); else renderSpeaking(k);});
+  bindLang(()=>renderTestHome(x)); window.scrollTo(0,0);
+}
+function ieltsChart(){
+  const data=[["Asia",12,18],["Europe",8,10],["Africa",3,6],["S. America",2,3]], W=560,H=260,L=40,B=40,Tp=16,max=20,y=v=>Tp+(1-v/max)*(H-Tp-B),gw=(W-L-10)/4;
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="International students by region, 2015 and 2025">
+   ${[0,5,10,15,20].map(v=>`<line x1="${L}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" class="grid"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" class="ax">${v}</text>`).join("")}
+   ${data.map(([n,a,b],i)=>{const x0=L+i*gw+gw*0.15,bw=gw*0.32;return `<rect x="${x0}" y="${y(a)}" width="${bw}" height="${H-B-y(a)}" class="dbar"/><rect x="${x0+bw+4}" y="${y(b)}" width="${bw}" height="${H-B-y(b)}" class="dbarok"/><text x="${x0+bw+2}" y="${H-B+16}" text-anchor="middle" class="ax">${n}</text>`}).join("")}
+   <rect x="${W-160}" y="${Tp}" width="12" height="12" class="dbar"/><text x="${W-142}" y="${Tp+10}" class="ax">2015</text><rect x="${W-95}" y="${Tp}" width="12" height="12" class="dbarok"/><text x="${W-77}" y="${Tp+10}" class="ax">2025</text>
+   <text x="${L}" y="${H-6}" class="ax">thousands of students</text></svg>`;
+}
+function renderWriting(k){
+  clearInterval(timerId); stopSpeak(); applyLang();
+  const w=WTASKS[k], key="erx_w_"+k, saved=store.get(key,"");
+  app.innerHTML=`${tbar(w.title,TEST_CUR==="toefl"?"TOEFL iBT":"IELTS")}
+  <section><div class="passage en" lang="en" style="white-space:pre-line;max-height:none">${esc(w.prompt)}</div>${w.chart?ieltsChart():""}</section>
+  <p class="note">${T(...WTIPS[k])}</p>
+  <div class="wtools"><button class="go" id="wStart">⏱ ${T(`Start ${w.min}-minute timer`,`${w.min} dakikalık zamanlayıcıyı başlat`,`ابدأ مؤقّت ${w.min} دقيقة`)}</button><span class="t num" id="wt">${String(w.min).padStart(2,"0")}:00</span></div>
+  <textarea id="wText" class="wbox" dir="ltr" lang="en" rows="12" placeholder="${T("Write your answer here…","Cevabını buraya yaz…","اكتب إجابتك هنا…")}">${esc(saved)}</textarea>
+  <p class="label num" id="wc"></p>
+  <details class="lesson"><summary>${T("Show model answer","Örnek cevabı göster","إظهار نموذج الإجابة")}<span class="label">＋</span></summary><div class="lb"><div class="eg" dir="ltr" lang="en" style="white-space:pre-line">${esc(w.model)}</div><p class="label">${T(`Words: ${w.model.split(/\s+/).length}`,`Kelime: ${w.model.split(/\s+/).length}`,`عدد الكلمات: ${w.model.split(/\s+/).length}`)}</p></div></details>`;
+  const ta=document.getElementById("wText"), wc=document.getElementById("wc");
+  const count=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=T(`${n} words (target ${w.words})`,`${n} kelime (hedef ${w.words})`,`${n} كلمة (الهدف ${w.words})`); store.set(key,ta.value);};
+  ta.oninput=count; count();
+  document.getElementById("wStart").onclick=()=>{ clearInterval(timerId); const end=Date.now()+w.min*60000, el=document.getElementById("wt");
+    timerId=setInterval(()=>{const left=end-Date.now(); if(!document.getElementById("wt")){clearInterval(timerId);return} el.textContent=fmt(left); el.classList.toggle("low",left<60000); if(left<=0){clearInterval(timerId); el.textContent=T("Time's up","Süre doldu","انتهى الوقت");}},500); };
+  document.getElementById("home").onclick=()=>renderTestHome(TEST_CUR);
+  bindLang(()=>renderWriting(k)); window.scrollTo(0,0);
+}
+let SP={k:null,i:0};
+function renderSpeaking(k,i){
+  clearInterval(timerId); stopSpeak(); applyLang();
+  const s=STASKS[k]; SP={k,i:i||0};
+  let body;
+  if(s.type==="repeat"){
+    body=`<p class="note">${T(...STIPS.repeat)}</p>${s.items.map((x,j)=>`<div class="srow"><button class="go" data-play="${j}">▶ ${T("Listen","Dinle","استمع")} ${j+1}</button><details><summary class="label">${T("Show text","Metni göster","إظهار النص")}</summary><span dir="ltr" lang="en">${esc(x)}</span></details></div>`).join("")}`;
+  } else {
+    const q=s.items[SP.i];
+    body=`<p class="note">${T(...STIPS.timed)}</p>
+    <p class="label num">${T("Question","Soru","السؤال")} ${SP.i+1} / ${s.items.length}</p>
+    <div class="passage en" lang="en" style="white-space:pre-line;max-height:none">${esc(q)}</div>
+    <div class="wtools"><button id="sListen">🔊 ${T("Listen to the question","Soruyu dinle","استمع للسؤال")}</button><button class="go" id="sStart">⏱ ${s.prep?T(`Prepare ${s.prep}s, then speak ${s.speak}s`,`${s.prep} sn hazırlan, sonra ${s.speak} sn konuş`,`تحضير ${s.prep} ثانية ثم كلام ${s.speak} ثانية`):T(`Speak for ${s.speak}s`,`${s.speak} sn konuş`,`تكلّم ${s.speak} ثانية`)}</button></div>
+    <div class="sphase" id="sPhase"></div>
+    <div class="row"><button id="sPrev" ${SP.i===0?"disabled":""}>${BACK()} ${t("prev")}</button><button class="go" id="sNext" ${SP.i===s.items.length-1?"disabled":""}>${t("next")} ${FWD()}</button></div>`;
+  }
+  app.innerHTML=`${tbar(s.title,TEST_CUR==="toefl"?"TOEFL iBT":"IELTS")}${body}`;
+  document.getElementById("home").onclick=()=>renderTestHome(TEST_CUR);
+  app.querySelectorAll("[data-play]").forEach(b=>b.onclick=()=>{ if(!speak(s.items[+b.dataset.play],store.get("erx_rate",0.95)*0.9)) toast(T("Voice is not available on this device.","Bu cihazda ses kullanılamıyor.","الصوت غير متاح على هذا الجهاز.")); });
+  const L=document.getElementById("sListen"); if(L) L.onclick=()=>speak(s.items[SP.i].replace(/\n?You should say:[\s\S]*/,""));
+  const P2=document.getElementById("sPrev"); if(P2) P2.onclick=()=>renderSpeaking(k,SP.i-1);
+  const N=document.getElementById("sNext"); if(N) N.onclick=()=>renderSpeaking(k,SP.i+1);
+  const St=document.getElementById("sStart"); if(St) St.onclick=()=>{
+    clearInterval(timerId); const ph=document.getElementById("sPhase"); let phase=s.prep?"prep":"speak"; let end=Date.now()+(s.prep||s.speak)*1000;
+    const draw=()=>{ if(!document.getElementById("sPhase")){clearInterval(timerId);return}
+      const left=end-Date.now();
+      if(left<=0){ if(phase==="prep"){phase="speak"; end=Date.now()+s.speak*1000; return;} clearInterval(timerId); ph.className="sphase done"; ph.textContent=T("Time's up. Well done!","Süre doldu. Aferin!","انتهى الوقت. أحسنت!"); return; }
+      ph.className="sphase "+phase; ph.innerHTML=`<b>${phase==="prep"?T("Prepare","Hazırlan","حضّر"):T("Speak now","Şimdi konuş","تكلّم الآن")}</b><span class="num">${Math.ceil(left/1000)}s</span>`; };
+    draw(); timerId=setInterval(draw,250); };
+  bindLang(()=>renderSpeaking(k,SP.i)); window.scrollTo(0,0);
+}
+
 /* ---------- Quiz ---------- */
 function fmt(ms){ms=Math.max(0,ms);const s0=Math.floor(ms/1000);const h=Math.floor(s0/3600),m=Math.floor(s0%3600/60),s=s0%60;return (h?h+":":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
 function tick(){
@@ -2541,10 +2924,14 @@ function renderQuiz(){
     <button class="ghost" id="map">${t("sheet")}</button>
   </div>
   ${S.kind>100?`<div class="b2tag">${t("b2Badge")}</div>`:""}
-  <div class="secname"><span><b>${secName(q.s)}</b> <span class="label">${secSub(q.s)}</span></span><span class="qnum">Question ${S.cur+1} / ${total}</span></div>
-  ${pass?`<div class="passage en" lang="en"><h3>${esc(pass.t)}</h3>${pass.x.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}
+  <div class="secname"><span><b>${secName(q.s)}</b> <span class="label">${secSub(q.s)}</span></span><span class="qtools"><span class="qnum">Question ${S.cur+1} / ${total}</span><button class="star ${isFav(q.id)?"on":""}" id="favQ" aria-pressed="${isFav(q.id)}" aria-label="${T("Save to favourites","Favorilere kaydet","حفظ في المفضّلة")}" title="${T("Save to favourites","Favorilere kaydet","حفظ في المفضّلة")}">${isFav(q.id)?"★":"☆"}</button></span></div>
+  ${pass&&pass.audio?`<div class="audio">
+      <div class="audrow"><button class="go" id="aPlay">▶ ${T("Play the recording","Kaydı dinle","تشغيل التسجيل")}</button><button id="aStop">■ ${T("Stop","Durdur","إيقاف")}</button></div>
+      <p class="label">${esc(pass.t)} · ${T("Listen first, then answer. You can play it again.","Önce dinle, sonra cevapla. Tekrar dinleyebilirsin.","استمع أولاً ثم أجب. يمكنك إعادة التشغيل.")}</p>
+      <details><summary class="label">${T("Show transcript","Metni göster","إظهار النص")}</summary><div class="passage en" lang="en">${pass.x.map(p=>`<p>${esc(p)}</p>`).join("")}</div></details></div>`
+   :pass?`<div class="passage en" lang="en"><h3>${esc(pass.t)} ${spk(pass.x.join(" "))}</h3>${pass.x.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}
   <div class="qcard">
-    <div class="qtext en" lang="en">${esc(q.q)}</div>
+    <div class="qtext en" lang="en">${esc(q.q)} ${q.s!=="l"?spk(q.q.replace(/^[AB]: /gm,"")):""}</div>
     <div class="opts" lang="en">
       ${it.perm.map((oi,k)=>{
         let c=""; if(locked){ if(oi===0)c="right"; else if(oi===chosen)c="wrong"; } else if(oi===chosen)c="sel";
@@ -2560,7 +2947,11 @@ function renderQuiz(){
   app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ if(locked) return; S.ans[S.cur]=+b.dataset.oi; if(practice) recordAnswer(q,+b.dataset.oi===0); save(); renderQuiz(); });
   document.getElementById("home").onclick=()=>{save();renderHome();window.scrollTo(0,0)};
   document.getElementById("map").onclick=openMap;
-  const go=d=>{S.cur+=d;save();renderQuiz();window.scrollTo(0,pass&&ITEMS[S.items[S.cur].id].p===q.p?window.scrollY:0)};
+  document.getElementById("favQ").onclick=()=>{toggleFav(q.id);renderQuiz()};
+  bindSpeak();
+  const ap=document.getElementById("aPlay"); if(ap) ap.onclick=()=>{ if(!speak(pass.x.join(" "),store.get("erx_rate",0.95)*0.95)) toast(T("Voice is not available on this device. Open the transcript instead.","Bu cihazda ses yok. Bunun yerine metni aç.","الصوت غير متاح على هذا الجهاز. افتح النص بدلاً من ذلك.")) };
+  const as=document.getElementById("aStop"); if(as) as.onclick=stopSpeak;
+  const go=d=>{stopSpeak();S.cur+=d;save();renderQuiz();window.scrollTo(0,pass&&ITEMS[S.items[S.cur].id].p===q.p?window.scrollY:0)};
   const pv=document.getElementById("prev"); pv.onclick=()=>S.cur>0&&go(-1);
   const nx=document.getElementById("next"); if(nx) nx.onclick=()=>go(1);
   const fl=document.getElementById("flag"); if(fl) fl.onclick=()=>{S.flags[S.cur]=!S.flags[S.cur];save();renderQuiz()};
@@ -2640,7 +3031,7 @@ function renderResult(){
 }
 
 /* Online updates (used by the APK wrapper). Raise APP_VERSION every time you upload a new version. */
-const APP_VERSION = 10;
+const APP_VERSION = 11;
 function banner(msg,btn,fn){
   document.querySelectorAll(".upd").forEach(x=>x.remove());
   const d=document.createElement("div");d.className="upd";d.setAttribute("role","status");d.dir=rtl()?"rtl":"ltr";
@@ -2657,6 +3048,7 @@ window.appBack=function(){
   const b=document.getElementById("home")||document.getElementById("again"); if(b){b.click();return true}
   return false;
 };
+applyZoom();
 renderHome();
 setInterval(()=>{const c=document.getElementById("cd");if(c)c.innerHTML=countdown()},30000);
 </script>
