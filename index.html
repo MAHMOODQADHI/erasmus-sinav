@@ -1914,6 +1914,198 @@ const STASKS={
  ielts_p3:{title:"IELTS Speaking Part 3",type:"timed",prep:0,speak:45,items:["Why do you think more young people choose to study abroad today?","What are the disadvantages of tourism for local communities?","Do you think people will travel less in the future? Why?","How can governments encourage people to learn foreign languages?"]}
 };
 
+/* ================= TOEFL & IELTS question pools (a new mix every session) ================= */
+const POOL={t_cw:[],t_daily:[],t_acad:[],t_resp:[],t_conv:[],t_ann:[],t_talk:[],t_build:[],i_read:[],i_l1:[],i_l4:[]};
+(function regroupExisting(){
+  const byP=ids=>{const m={};ids.forEach(id=>{const p=ITEMS[id].p; if(p===undefined) return; (m[p]=m[p]||[]).push(id)}); return m;};
+  TP.toefl_read.forEach(id=>{ if(ITEMS[id].p===undefined) POOL.t_cw.push(id); });
+  Object.entries(byP(TP.toefl_read)).forEach(([p,ids])=>{ (P[p].t.startsWith("Email")?POOL.t_daily:POOL.t_acad).push(ids); });
+  TP.toefl_listen.forEach(id=>{ if(id.startsWith("tlr")) POOL.t_resp.push(id); });
+  Object.entries(byP(TP.toefl_listen.filter(id=>!id.startsWith("tlr")))).forEach(([p,ids])=>{const t=P[p].t;
+    (t.startsWith("Conversation")?POOL.t_conv:t.startsWith("Announcement")?POOL.t_ann:POOL.t_talk).push(ids); });
+  POOL.t_build.push(...TP.toefl_build);
+  Object.values(byP(TP.ielts_read)).forEach(ids=>POOL.i_read.push(ids));
+  Object.entries(byP(TP.ielts_listen)).forEach(([p,ids])=>{ (P[p].t.startsWith("Part 1")?POOL.i_l1:POOL.i_l4).push(ids); });
+})();
+const addP=(pool,p,audio,s)=>POOL[pool].push(tpPassage(p,audio,s));
+
+/* ----- TOEFL: Complete the Words ----- */
+POOL.t_cw.push(...tpSingle("tcw2_",[
+ ["The government plans to red___ taxes next year.",["uce","uced","ucing","uction"]],
+ ["She has already submit___ her application.",["ted","ting","s","ment"]],
+ ["Most students live in shared accomm___ near the campus.",["odation","odate","odating","odated"]],
+ ["The museum att___ thousands of visitors every year.",["racts","ract","racting","raction"]],
+ ["Climate change is a serious thr___ to many species.",["eat","ow","ough","ill"]],
+ ["The professor gave a clear expla___ of the theory.",["nation","in","ined","ining"]],
+ ["We need more evid___ before we can reach a conclusion.",["ence","ent","ently","enced"]],
+ ["Regular exercise can improve your concen___.",["tration","trate","trated","trating"]],
+ ["The city's population has incr___ rapidly.",["eased","ease","easing","ement"]],
+ ["Bees play an import___ role in pollination.",["ant","ance","antly","ed"]],
+ ["The results were publ___ in a scientific journal.",["ished","ish","ishing","ic"]],
+ ["Students should avoid unnec___ stress before exams.",["essary","essarily","essity","ess"]]
+].map(([q,o])=>({s:"r",q:"Complete the word:\n"+q,o,tk:"complete"}))));
+
+/* ----- TOEFL: Listen and Choose a Response ----- */
+POOL.t_resp.push(...tpSingle("tlr2_",[
+ ["Excuse me, is this seat taken?",["No, please go ahead.","Yes, I'm taking it to class.","It's a seat.","I sat there yesterday."],"permission"],
+ ["Have you finished the reading for tomorrow?",["Not yet. I'll do it tonight.","Yes, I'm reading tomorrow.","Tomorrow is Friday.","I read a book."],"questions"],
+ ["Could you help me move these chairs?",["Sure. Where do they go?","Yes, they're chairs.","I moved last year.","No, I'm helped."],"request"],
+ ["I got the internship at the bank!",["That's fantastic news. Congratulations!","Good luck with it tomorrow!","What a pity.","Never mind."],"congrats"],
+ ["What time does the seminar start?",["At half past two.","For two hours.","In the seminar room.","Every Tuesday."],"questions"],
+ ["I'm afraid the printer isn't working again.",["Let's try the one in the library.","Yes, I'm afraid of printers.","Print it again yesterday.","It's a printer."],"advice"],
+ ["Do you want to grab lunch after class?",["Sure, I'd love to.","I grabbed it.","Lunch is food.","After class is late."],"invitation"],
+ ["Thanks for lending me your notes.",["No problem. Did they help?","You're welcome to lend.","I'm lending them.","Same to you."],"thanks"],
+ ["Which bus goes to the city centre?",["The number 5, from the stop outside.","It's a big bus.","Yes, it goes.","On foot."],"directions"],
+ ["I think the deadline should be extended.",["I agree. We need more time.","Neither do I.","So am I.","Yes, I'm extended."],"agree"],
+ ["Sorry, I didn't catch your name.",["It's Elif. E-L-I-F.","You're welcome.","I caught it.","My name is caught."],"clarify"],
+ ["Shall I book a study room for tomorrow?",["That would be great, thanks.","Yes, you shall booked.","A room is study.","I'm booking yesterday."],"offer"]
+].map(([a,o,fk])=>({s:"l",title:"Listen and choose a response",audio:a,q:"You will hear a sentence. Choose the best response.",o,fk}))));
+
+/* ----- TOEFL: Build a Sentence ----- */
+POOL.t_build.push(...tpSingle("tbs2_",[
+ ["\"I'm not sure ___.\"",["what time the lecture starts","what time does the lecture start","what time starts the lecture","the lecture what time starts"],"indirect_q"],
+ ["\"She ___ in Istanbul since 2020.\"",["has been living","have been living","is living","living has been"],"ppc"],
+ ["\"If I ___ more time, I would join the club.\"",["had","have","would have","will have"],"cond2"],
+ ["\"The essay ___ by Friday.\"",["must be submitted","must submitted be","must submit be","be must submitted"],"passive"],
+ ["\"He asked me ___ to the conference.\"",["whether I was going","was I going whether","whether was I going","I whether was going"],"reported_q"],
+ ["\"___ the bad weather, the trip was great.\"",["Despite","Although","Even though","Because"],"linkers"],
+ ["\"This is the student ___ won the prize.\"",["who","which","whose","whom"],"rel_who"],
+ ["\"I'm looking forward ___ you.\"",["to meeting","to meet","meeting to","for meeting"],"prep_ing"],
+ ["\"Do you know ___?\"",["how much the course costs","how much does the course cost","how much costs the course","the course how much costs"],"indirect_q"],
+ ["\"I ___ the email before the meeting started.\"",["had already sent","have already sent","already had sent","sent had already"],"past_perf"]
+].map(([q,o,rk])=>({q:"Build a sentence: choose the correct word order.\n"+q,o,rk}))));
+
+/* ----- TOEFL: Read in Daily Life ----- */
+addP("t_daily",{t:"Notice: Campus Gym",x:["CAMPUS GYM – NEW OPENING HOURS. From 1 December, the gym will open at 6:30 a.m. instead of 8 a.m. on weekdays, and will close at 10 p.m. Weekend hours stay the same (9 a.m. – 6 p.m.).","Membership is free for all registered students during December. To use the gym, you must book a one-hour slot in the CampusLife app. Please bring your own towel; towels are no longer provided."],
+ q:[["What is the main purpose of the notice?",["To announce changes at the gym","To advertise a new app","To sell towels","To close the gym at weekends"],"purpose",""],
+    ["What time will the gym open on weekdays from 1 December?",["6:30 a.m.","8 a.m.","9 a.m.","10 a.m."],"detail","the gym will open at 6:30 a.m. instead of 8 a.m. on weekdays"],
+    ["What must students do before using the gym?",["Book a slot in the app","Pay a membership fee","Bring a friend","Show a medical certificate"],"detail","you must book a one-hour slot in the CampusLife app"],
+    ["What can be inferred about towels?",["The gym used to provide them.","They are sold at the gym.","They are free in December.","They are not allowed."],"infer","towels are no longer provided"]]},false,"r");
+addP("t_daily",{t:"Messages between flatmates",x:["Deniz (09:12): Hi both! Just a reminder that the landlord is coming to check the flat on Saturday at 11. Can we clean the kitchen on Friday evening?","Lucas (09:40): Friday's fine for me, but I have a lab until 7. Can we start at 8?","Mia (10:05): 8 is OK. I'll buy cleaning products on my way home. Should I get rubbish bags too?","Deniz (10:07): Yes please, we've run out. Thanks, Mia!"],
+ q:[["Why do the flatmates need to clean?",["The landlord will visit on Saturday.","They are having a party.","Mia is moving out.","The kitchen is being repaired."],"detail","the landlord is coming to check the flat on Saturday at 11"],
+    ["Why can't Lucas start before 8?",["He has a lab until 7.","He works at a café.","He has an exam on Friday.","He is going shopping."],"detail","I have a lab until 7"],
+    ["What will Mia buy?",["Cleaning products and rubbish bags","Food for the party","A new kitchen table","Nothing"],"detail","I'll buy cleaning products… Should I get rubbish bags too? / Yes please"]]},false,"r");
+addP("t_daily",{t:"Job advert: campus café",x:["PART-TIME BARISTA WANTED. The Corner Café in the Student Centre is looking for a friendly student to work 10–12 hours a week, mainly on Monday and Wednesday afternoons.","No experience is needed, as full training will be given. Applicants should be reliable, good with people and able to speak basic English. The pay is 150 lira per hour, plus free coffee during shifts.","To apply, send a short CV and your timetable to cornercafe@uni-mail.example by 30 November."],
+ q:[["How many hours a week is the job?",["10–12 hours","20 hours","4 hours","40 hours"],"detail","to work 10–12 hours a week"],
+    ["Which statement is TRUE?",["Applicants do not need experience.","The job is mainly at weekends.","Only English speakers can apply.","There is no training."],"true","No experience is needed, as full training will be given."],
+    ["What should applicants send?",["A short CV and their timetable","A photo and a reference","A cover letter only","Their exam results"],"detail","send a short CV and your timetable"]]},false,"r");
+
+/* ----- TOEFL: Read an Academic Passage ----- */
+addP("t_acad",{t:"Why Languages Disappear",x:["Of the roughly 7,000 languages spoken in the world today, linguists estimate that around 40 percent are endangered, meaning they may stop being spoken within a few generations. Many of these languages have fewer than 1,000 speakers, most of whom are elderly.","Languages rarely disappear suddenly. More often, the process is gradual: parents begin speaking a more widely used language with their children, believing it will offer better education and job opportunities. Within two or three generations, the original language may survive only among older people.","When a language disappears, more is lost than words. Languages contain knowledge about local plants, animals and environments, as well as stories and ways of thinking that cannot always be translated. For this reason, many communities are now working to revitalise their languages through schools, recordings and digital apps."],
+ q:[["What is the passage mainly about?",["Why languages become endangered and why this matters","How to learn a new language quickly","The history of English","Which language has the most speakers"],"main",""],
+    ["According to the passage, approximately how many languages are endangered?",["About 40 percent","About 7,000","Fewer than 1,000","Almost all of them"],"detail","around 40 percent are endangered"],
+    ["Why do parents often stop using their original language with their children?",["They believe another language offers better opportunities.","Schools do not allow it.","The language has no grammar.","Children refuse to learn it."],"detail","believing it will offer better education and job opportunities"],
+    ["The word \"revitalise\" in paragraph 3 is closest in meaning to:",["bring back to life","forget","translate","record"],"vocab","many communities are now working to revitalise their languages"],
+    ["What does the writer suggest is lost when a language disappears?",["Knowledge and ways of thinking, not just words","Only some vocabulary","Nothing important","Mostly grammar rules"],"infer","When a language disappears, more is lost than words."]]},false,"r");
+addP("t_acad",{t:"Coral Reefs Under Pressure",x:["Coral reefs cover less than one percent of the ocean floor, yet they support about a quarter of all marine species. Reefs are built by tiny animals called coral polyps, which live in partnership with microscopic algae. The algae provide the coral with food through photosynthesis and give reefs their bright colours.","When ocean temperatures rise even slightly above normal for several weeks, corals become stressed and expel their algae. Without them, the coral turns white, a process known as bleaching. Bleached coral is not dead, but if high temperatures continue, it can starve.","Scientists are testing several ways to help reefs survive, such as breeding heat-tolerant corals and protecting reefs from pollution and overfishing so they can recover more easily. However, most experts agree that long-term survival depends on limiting global warming."],
+ q:[["Why are coral reefs important, according to the passage?",["They support about a quarter of marine species.","They cover most of the ocean floor.","They produce most of the world's oxygen.","They stop all storms."],"detail","they support about a quarter of all marine species"],
+    ["What do the algae provide for the coral?",["Food through photosynthesis","Protection from fish","Cold water","Calcium"],"detail","The algae provide the coral with food through photosynthesis"],
+    ["What causes coral bleaching?",["Water that is warmer than normal for several weeks","Too many fish","Very cold winters","Strong waves"],"detail","When ocean temperatures rise even slightly above normal for several weeks"],
+    ["The word \"expel\" in paragraph 2 is closest in meaning to:",["push out","eat","protect","grow"],"vocab","corals become stressed and expel their algae"],
+    ["What do most experts believe?",["Reefs' long-term survival depends on limiting global warming.","Breeding new corals will solve the problem completely.","Bleaching is not a serious problem.","Pollution is the only cause of bleaching."],"attitude","most experts agree that long-term survival depends on limiting global warming"]]},false,"r");
+
+/* ----- TOEFL: Listening sets ----- */
+addP("t_conv",{t:"Conversation: essay feedback",x:["Student: Hi Professor Ahmed. Do you have a few minutes to talk about my essay?","Professor: Of course, Tom. I thought your argument was interesting, but your conclusion didn't really match your introduction.","Student: Oh, I see. I changed my mind while I was writing.","Professor: That's normal. The solution is simple: when you finish, go back and rewrite your introduction so it matches what you actually argued. Also, you used several sources without citing them properly.","Student: Should I resubmit it?","Professor: Yes, you can resubmit it by next Friday, and I'll mark it again."],
+ q:[["Why does the student visit the professor?",["To discuss feedback on his essay","To ask for a new topic","To complain about his mark","To ask about the exam date"],"main",""],
+    ["What was the main problem with the essay?",["The conclusion didn't match the introduction.","It was too short.","It was handed in late.","It had no sources."],"gap","your conclusion didn't really match your introduction"],
+    ["What does the professor advise?",["Rewrite the introduction after finishing","Change the topic","Remove all sources","Write a longer conclusion first"],"gap","go back and rewrite your introduction so it matches what you actually argued"],
+    ["What will happen next Friday?",["The student can resubmit the essay.","There will be an exam.","The professor will be away.","The essay will be published."],"gap","you can resubmit it by next Friday"]]},true);
+addP("t_conv",{t:"Conversation: a broken heater",x:["Officer: Housing Office, how can I help?","Student: Hi, the heater in my room in Block B has stopped working. It's been cold for two days.","Officer: I'm sorry about that. What's your room number?","Student: B-214.","Officer: Thank you. A technician can come tomorrow between 9 and 12. In the meantime, you can borrow a portable heater from reception.","Student: Great, I'll pick one up this afternoon."],
+ q:[["What is the student's problem?",["The heater in her room is broken.","She has lost her key.","Her room is too small.","She wants to change rooms."],"gap","the heater in my room in Block B has stopped working"],
+    ["When will the technician come?",["Tomorrow between 9 and 12","This afternoon","Today at 2","Next week"],"gap","A technician can come tomorrow between 9 and 12."],
+    ["What will the student do this afternoon?",["Collect a portable heater from reception","Buy a new heater","Move to Block A","Call the technician"],"gap","you can borrow a portable heater from reception. / I'll pick one up this afternoon."]]},true);
+addP("t_ann",{t:"Announcement: library self-service",x:["Good morning. From next week, the main library will introduce self-service machines on the ground floor. Students will be able to borrow and return books without waiting at the front desk.","To use the machines, simply scan your student card and place the books on the shelf. Staff will be available at the front desk to help during the first two weeks. Please note that laptops and study room keys must still be collected from the front desk."],
+ q:[["What is new in the library?",["Self-service machines for borrowing and returning books","A new study room","Longer opening hours","Free laptops"],"main",""],
+    ["What do students need to use the machines?",["Their student card","A password from the staff","Cash","A library app"],"gap","simply scan your student card"],
+    ["What must still be collected from the front desk?",["Laptops and study room keys","All books","Student cards","Printed copies"],"gap","laptops and study room keys must still be collected from the front desk"]]},true);
+addP("t_ann",{t:"Announcement: field trip change",x:["Attention, geology students. Tomorrow's field trip to the coast will leave at 7:30 a.m., not 8:00 as stated in the email. The bus will depart from the car park behind the science building, not from the main gate.","Please wear strong shoes and bring a waterproof jacket, as rain is expected in the afternoon. Lunch will be provided."],
+ q:[["What time will the bus leave?",["7:30 a.m.","8:00 a.m.","7:00 a.m.","8:30 a.m."],"gap","will leave at 7:30 a.m., not 8:00"],
+    ["Where will the bus leave from?",["The car park behind the science building","The main gate","The library","The coast"],"gap","The bus will depart from the car park behind the science building"],
+    ["What should students bring?",["Strong shoes and a waterproof jacket","Their own lunch","A swimming costume","A laptop"],"gap","Please wear strong shoes and bring a waterproof jacket"]]},true);
+addP("t_talk",{t:"Academic talk: how volcanic islands form",x:["Today we'll look at how some islands form in the middle of the ocean, far from the edges of tectonic plates. A famous example is Hawaii.","Scientists explain this with the idea of a hotspot: an area where unusually hot material rises from deep inside the Earth. As the plate moves slowly over the hotspot, magma breaks through the crust and builds a volcano. Over millions of years, the plate carries that volcano away, and a new one forms above the hotspot.","This explains why the Hawaiian islands form a chain, with the oldest islands in the northwest and the youngest, still active volcanoes in the southeast."],
+ q:[["What is the talk mainly about?",["How hotspots create chains of volcanic islands","Why Hawaii is a popular holiday destination","How earthquakes are measured","The history of tectonic plates"],"main",""],
+    ["What is a hotspot?",["An area where very hot material rises from deep inside the Earth","A warm ocean current","A beach with active volcanoes","The edge of a tectonic plate"],"gap","an area where unusually hot material rises from deep inside the Earth"],
+    ["Why do the islands form a chain?",["The plate moves over the hotspot, carrying old volcanoes away.","The hotspot moves very fast.","Earthquakes push the islands together.","People built them in a line."],"gap","the plate carries that volcano away, and a new one forms above the hotspot"],
+    ["Where are the youngest Hawaiian islands?",["In the southeast","In the northwest","In the centre","In the northeast"],"gap","the youngest, still active volcanoes in the southeast"]]},true);
+addP("t_talk",{t:"Academic talk: the first cities",x:["Why did people first start living in cities? For most of history, humans lived in small groups and moved from place to place. That changed after the development of farming, around ten thousand years ago.","Farming produced more food than a family needed. This surplus allowed some people to do other jobs, such as making tools, trading or organising religious ceremonies. As populations grew, settlements became larger and more complex.","Some of the earliest cities appeared in Mesopotamia about six thousand years ago. Interestingly, researchers now believe that trade and religion may have been as important as farming in bringing people together."],
+ q:[["What made the first cities possible, according to the speaker?",["Farming produced extra food.","People stopped trading.","Families became smaller.","Tools were no longer needed."],"gap","Farming produced more food than a family needed."],
+    ["What does \"surplus\" mean in the talk?",["Extra food beyond what was needed","A type of tool","A religious ceremony","A small group of people"],"vocab","This surplus allowed some people to do other jobs"],
+    ["Where did some of the earliest cities appear?",["Mesopotamia","Egypt","China","Europe"],"gap","Some of the earliest cities appeared in Mesopotamia"],
+    ["What do researchers now believe?",["Trade and religion may have been as important as farming.","Farming was not important at all.","Cities appeared before farming.","Religion slowed down the growth of cities."],"gap","trade and religion may have been as important as farming"]]},true);
+
+/* ----- IELTS: Reading ----- */
+addP("i_read",{t:"Working from Home",x:["A. Before 2020, only a small minority of office workers regularly worked from home. Within a few months, millions of employees were doing their jobs from kitchen tables and spare bedrooms, and many companies discovered that productivity did not fall as much as they had feared.","B. For employees, the most obvious benefit is the time saved by not commuting. Surveys suggest that many people use this time for exercise, family or extra sleep. However, others report feeling isolated and find it harder to separate work from private life.","C. Today, many organisations have adopted a hybrid model, in which staff spend two or three days a week in the office. Managers argue that face-to-face contact is important for training new employees and for creative teamwork."],
+ q:[["Before 2020, most office workers regularly worked from home.",["False","True","Not Given"],"tfng","Before 2020, only a small minority of office workers regularly worked from home.",true],
+    ["Productivity fell sharply in most companies when staff worked from home.",["False","True","Not Given"],"tfng","productivity did not fall as much as they had feared",true],
+    ["Some employees use their commuting time for exercise.",["True","False","Not Given"],"tfng","many people use this time for exercise, family or extra sleep",true],
+    ["Hybrid workers earn more than full-time office workers.",["Not Given","True","False"],"tfng","(Salaries are not mentioned in the text.)",true],
+    ["Which heading best fits paragraph B?",["Advantages and disadvantages for employees","The cost of office buildings","Training new staff","The history of remote work"],"heading","For employees, the most obvious benefit is… However, others report feeling isolated"],
+    ["Why do managers value face-to-face contact?",["For training new staff and creative teamwork","To save money on technology","To reduce commuting","To check working hours"],"detail","face-to-face contact is important for training new employees and for creative teamwork"]]},false,"r");
+addP("i_read",{t:"Light Pollution",x:["A. Artificial light at night has transformed modern life, but it has also created a problem that many people have never heard of: light pollution. Today, around 80 percent of the world's population lives under skies so bright that the Milky Way is no longer visible.","B. Light pollution affects wildlife in many ways. Baby sea turtles, which use the light of the moon to find the ocean, can become confused by street lights and move inland instead. Migrating birds may also lose their direction when flying over brightly lit cities.","C. Unlike many other forms of pollution, light pollution is relatively easy to reduce. Using shielded lamps that point downwards, choosing warmer colours of light and switching off unnecessary lights can make a significant difference without reducing safety."],
+ q:[["Most people in the world can no longer see the Milky Way from where they live.",["True","False","Not Given"],"tfng","around 80 percent of the world's population lives under skies so bright that the Milky Way is no longer visible",true],
+    ["Baby sea turtles use the light of the moon to find the sea.",["True","False","Not Given"],"tfng","Baby sea turtles, which use the light of the moon to find the ocean",true],
+    ["Light pollution is harder to reduce than air pollution.",["False","True","Not Given"],"tfng","Unlike many other forms of pollution, light pollution is relatively easy to reduce.",true],
+    ["Street lights increase crime in rural areas.",["Not Given","True","False"],"tfng","(Crime is not mentioned in the text.)",true],
+    ["Which heading best fits paragraph C?",["Simple ways to reduce the problem","Effects on human sleep","Why cities need more light","The history of electric light"],"heading","light pollution is relatively easy to reduce"],
+    ["Which solution is mentioned in the text?",["Using lamps that point downwards","Banning all street lights","Building darker houses","Moving birds away from cities"],"detail","Using shielded lamps that point downwards"]]},false,"r");
+
+/* ----- IELTS: Listening ----- */
+addP("i_l1",{t:"Part 1: registering for a language course",x:["Man: Good afternoon, City Language School.","Woman: Hello, I'd like to register for the evening Spanish course.","Man: Certainly. Is that the beginners' course or the intermediate one?","Woman: Intermediate, please. I studied Spanish at school.","Man: Fine. The course runs on Tuesdays and Thursdays from six to eight. Can I take your name?","Woman: Yes, it's Sara Okafor. O-K-A-F-O-R.","Man: And a phone number?","Woman: It's 0 7 9 4, 5 5 2, 1 8 6.","Man: Thank you. The fee is two hundred and eighty pounds for ten weeks, but students get a fifteen percent discount.","Woman: Oh good, I'm a student.","Man: Then please bring your student card to the first class, which is on the fourth of March."],
+ q:[["Which course does the woman want?",["Intermediate Spanish","Beginners' Spanish","Intermediate French","Advanced Spanish"],"gap","Intermediate, please."],
+    ["On which days are the classes?",["Tuesdays and Thursdays","Mondays and Wednesdays","Every weekday","Saturdays only"],"gap","The course runs on Tuesdays and Thursdays from six to eight."],
+    ["What is the woman's surname?",["Okafor","Okafur","Ocafor","Okaford"],"gap","it's Sara Okafor. O-K-A-F-O-R."],
+    ["What discount do students get?",["15 percent","50 percent","5 percent","Nothing"],"gap","students get a fifteen percent discount"],
+    ["When is the first class?",["4 March","14 March","4 May","10 March"],"gap","the first class, which is on the fourth of March"]]},true);
+addP("i_l4",{t:"Part 4: how desert plants survive",x:["In today's lecture we'll look at how plants survive in deserts, where rain may fall only a few times a year.","The first strategy is storing water. Cacti, for example, have thick stems that can hold large amounts of water, and their leaves have become spines, which reduces water loss and protects the plant from animals.","A second strategy is having very long roots. Some desert shrubs send roots more than twenty metres underground to reach water deep in the soil.","A third group of plants avoids the dry season completely. Their seeds can stay dormant in the soil for years, and when it finally rains, they grow, flower and produce new seeds within just a few weeks.","So, although deserts look empty, they are full of plants with remarkable adaptations."],
+ q:[["How do cacti store water?",["In their thick stems","In their flowers","In their spines","In underground lakes"],"gap","Cacti, for example, have thick stems that can hold large amounts of water"],
+    ["What is one function of cactus spines?",["Protecting the plant from animals","Collecting rainwater","Making seeds","Producing food"],"gap","which reduces water loss and protects the plant from animals"],
+    ["How deep can some desert shrub roots go?",["More than 20 metres","About 2 metres","More than 200 metres","Less than 1 metre"],"gap","Some desert shrubs send roots more than twenty metres underground"],
+    ["What do some plants do during the dry season?",["Their seeds stay dormant in the soil.","They move to wetter areas.","They store water in their leaves.","They grow very slowly."],"gap","Their seeds can stay dormant in the soil for years"],
+    ["What is the lecturer's main point?",["Desert plants have remarkable ways of surviving.","Deserts have no plants.","Cacti are the only desert plants.","Rain never falls in deserts."],"main",""]]},true);
+
+/* ----- Writing: extra tasks (one is chosen at random each time) ----- */
+WTASKS.toefl_email.alts=[{prompt:"Your study group was supposed to meet yesterday to prepare a presentation, but one member, Alex, did not come and did not reply to messages. The presentation is next Monday.\n\nWrite an email to Alex. In your email:\n• explain what happened at the meeting\n• tell Alex which part of the work is still left for him\n• suggest a time to meet before Monday.",
+ model:"Hi Alex,\n\nWe missed you at yesterday's meeting. We waited for about twenty minutes and then started without you. We managed to finish the introduction and the slides about our research method.\n\nThe part that is still left for you is the section on our results, including the two charts we discussed last week. Could you also prepare a short summary of the main findings?\n\nWould it be possible to meet on Saturday at 11 a.m. in the library to put everything together? If that time doesn't work for you, please let me know another time before Monday.\n\nBest wishes,\nSelin"}];
+WTASKS.toefl_disc.alts=[{prompt:"Professor: Some people believe that universities should stop giving traditional exams and use projects and presentations instead. Do you agree? Explain your view.\n\nAyşe: I agree. Projects show what we can actually do, and they are less stressful than exams.\n\nDaniel: I'm not sure. In group projects, some students do all the work while others do nothing. Exams are fairer.\n\nWrite a post that adds your own opinion to the discussion.",
+ model:"I think Daniel makes a fair point about group work, but I would still support replacing most exams with projects, provided that they are assessed individually. In my experience, exams mostly test how well we can memorise information under pressure, while projects show whether we can apply knowledge to real problems. For instance, in my statistics course, analysing a real data set taught me far more than any exam. To solve the fairness problem, universities could ask each student to submit a short reflection explaining their own contribution."}];
+WTASKS.ielts_t2.alts=[{prompt:"In many countries, more and more people are choosing to live alone.\n\nWhat are the reasons for this? Is this a positive or negative development?",
+ model:"In recent decades, the number of people living alone has increased in many countries. This essay will examine the main reasons for this trend and argue that, although it has some drawbacks, it is largely a positive development.\n\nThere are several reasons why more people live alone. Firstly, people are marrying later or not at all, and they often spend several years living independently while they focus on education and careers. Secondly, higher incomes mean that many people can now afford their own accommodation. Finally, as life expectancy rises, more elderly people continue to live alone after the death of a partner.\n\nOn the one hand, living alone can lead to loneliness, particularly among older people, and single-person households use more housing and energy per person. On the other hand, it gives people greater freedom and independence. Individuals can organise their homes and routines as they wish, and many report that it helps them develop self-confidence and practical skills.\n\nIn conclusion, the rise in solo living is mainly the result of social and economic changes. While governments should offer support to those who feel isolated, I believe the trend mostly reflects greater personal choice, which is a positive change."}];
+
+/* ----- Speaking: more questions (a random selection each time) ----- */
+STASKS.toefl_repeat.items.push("The deadline for applications is the fifteenth of March.","Please switch off your phone during the lecture.","Most international students live in the dormitories near the park.","The seminar will focus on renewable energy.","You can borrow up to five books for two weeks.","Remember to bring your passport to the registration office.","The museum is closed on Mondays for cleaning.","Our group presentation is scheduled for Thursday afternoon.");
+STASKS.toefl_interview.items.push("What is one skill you would like to learn in the next year, and why?","Describe a teacher who influenced you.","Do you think it is better to live in a big city or a small town while studying?","How do you usually prepare for an important exam?","What are the advantages of learning a second language?","Tell me about a place in your city that you would recommend to visitors.");
+STASKS.ielts_p1.items.push("What kind of music do you like?","Do you like cooking? Why or why not?","How often do you use public transport?","What did you enjoy doing as a child?","Do you prefer mornings or evenings?","Is there a sport you enjoy watching?","How do you usually keep in touch with friends?","Do you like the area where you live?");
+STASKS.ielts_p2.items.push(
+ "Describe a skill you learned that you are proud of.\nYou should say:\n• what the skill is\n• when and how you learned it\n• how difficult it was\nand explain why you are proud of it.",
+ "Describe a person who has helped you a lot.\nYou should say:\n• who this person is\n• how you know them\n• what they did to help you\nand explain why their help was important to you.",
+ "Describe a memorable journey you have taken.\nYou should say:\n• where you went\n• who you went with\n• what happened during the journey\nand explain why it was memorable.",
+ "Describe a book or film that made you think.\nYou should say:\n• what it was\n• when you read or watched it\n• what it was about\nand explain why it made you think.");
+STASKS.ielts_p3.items.push("How has technology changed the way people learn?","Should university education be free for everyone?","Why do some people prefer to work for themselves?","What can individuals do to protect the environment?","Do you think people today have less free time than in the past?","How important is it for children to learn about other cultures?");
+
+/* ----- Build a new mix for every session, preferring items not used recently ----- */
+function rotPick(key,groups,n){
+  const k="erx_rot_"+key, used=store.get(k,[]).filter(i=>i<groups.length), idx=groups.map((_,i)=>i);
+  let order=[...shuffle(idx.filter(i=>!used.includes(i))),...shuffle(idx.filter(i=>used.includes(i)))];
+  const pick=order.slice(0,Math.min(n,groups.length));
+  const keep=Math.max(0,groups.length-n);
+  store.set(k,[...used.filter(i=>!pick.includes(i)),...pick].slice(-keep||groups.length));
+  return pick.map(i=>groups[i]).flat();
+}
+const one=a=>a.map(x=>[x]);
+Object.assign(TESTSETS,{
+ toefl_read:()=>[...rotPick("t_cw",one(POOL.t_cw),4),...rotPick("t_daily",POOL.t_daily,1),...rotPick("t_acad",POOL.t_acad,1)],
+ toefl_listen:()=>[...rotPick("t_resp",one(POOL.t_resp),4),...rotPick("t_conv",POOL.t_conv,1),...rotPick("t_ann",POOL.t_ann,1),...rotPick("t_talk",POOL.t_talk,1)],
+ toefl_build:()=>rotPick("t_build",one(POOL.t_build),6),
+ ielts_read:()=>rotPick("i_read",POOL.i_read,2),
+ ielts_listen:()=>[...rotPick("i_l1",POOL.i_l1,1),...rotPick("i_l4",POOL.i_l4,1)]
+});
+const BANKSIZE={
+ toefl_read:()=>POOL.t_cw.length+POOL.t_daily.flat().length+POOL.t_acad.flat().length,
+ toefl_listen:()=>POOL.t_resp.length+POOL.t_conv.flat().length+POOL.t_ann.flat().length+POOL.t_talk.flat().length,
+ toefl_build:()=>POOL.t_build.length,
+ ielts_read:()=>POOL.i_read.flat().length,
+ ielts_listen:()=>POOL.i_l1.flat().length+POOL.i_l4.flat().length
+};
 const NEX = Math.min(Math.floor(IDS.g.length/12),Math.floor(IDS.f.length/14),Math.floor(IDS.v.length/12),Math.floor(NSTD_P/2));
 /* ---------- Lessons (شرح) ---------- */
 const eg=(...l)=>`<div class="eg" dir="ltr" lang="en">${l.join("<br>")}</div>`;
@@ -2838,8 +3030,8 @@ function renderTestHome(x){
   app.innerHTML=`${tbar(name,"TOEFL & IELTS")}
   <details class="lesson" open><summary>${T("About the test","Sınav hakkında","عن الامتحان")}<span class="label">＋</span></summary><div class="lb">${T(...OVERVIEW[x])}</div></details>
   <section><h2>${T("Practise","Alıştırma yap","تدرّب")}</h2><div class="stack">
-  ${TESTMENU[x].map(([kind,key,lab])=>{const n=kind==="r"?TESTSETS[key]().length:0;
-    return `<button class="btn" data-k="${kind}" data-key="${key}"><span><b>${T(...lab)}</b><small>${kind==="r"?qCount(n):kind==="w"?T("Timer, word count and model answer","Zamanlayıcı, kelime sayacı ve örnek cevap","مؤقّت وعدّاد كلمات ونموذج إجابة"):T("Questions read aloud, with timers","Sesli sorular ve zamanlayıcı","أسئلة مسموعة مع مؤقّت")}</small></span><span>${FWD()}</span></button>`}).join("")}
+  ${TESTMENU[x].map(([kind,key,lab])=>{const n=kind==="r"?BANKSIZE[key]():kind==="w"?1+(WTASKS[key].alts||[]).length:STASKS[key].items.length;
+    return `<button class="btn" data-k="${kind}" data-key="${key}"><span><b>${T(...lab)}</b><small>${kind==="r"?T(`Bank of ${n} questions · a new mix every time`,`${n} soruluk banka · her seferinde yeni karışım`,`بنك من ${n} سؤال · مجموعة جديدة في كل مرة`):kind==="w"?T(`${n} tasks · timer, word count and model answer`,`${n} görev · zamanlayıcı, kelime sayacı ve örnek cevap`,`${n} مهام · مؤقّت وعدّاد كلمات ونموذج إجابة`):T(`${n} questions · random order, read aloud, with timers`,`${n} soru · rastgele sıra, sesli, zamanlayıcılı`,`${n} سؤال · ترتيب عشوائي، مسموعة، مع مؤقّت`)}</small></span><span>${FWD()}</span></button>`}).join("")}
   </div></section>`;
   document.getElementById("home").onclick=()=>renderTests();
   app.querySelectorAll("[data-key]").forEach(b=>b.onclick=()=>{const k=b.dataset.key; if(b.dataset.k==="r") start("practice",k); else if(b.dataset.k==="w") renderWriting(k); else renderSpeaking(k);});
@@ -2853,11 +3045,14 @@ function ieltsChart(){
    <rect x="${W-160}" y="${Tp}" width="12" height="12" class="dbar"/><text x="${W-142}" y="${Tp+10}" class="ax">2015</text><rect x="${W-95}" y="${Tp}" width="12" height="12" class="dbarok"/><text x="${W-77}" y="${Tp+10}" class="ax">2025</text>
    <text x="${L}" y="${H-6}" class="ax">thousands of students</text></svg>`;
 }
-function renderWriting(k){
+function renderWriting(k,next){
   clearInterval(timerId); stopSpeak(); applyLang();
-  const w=WTASKS[k], key="erx_w_"+k, saved=store.get(key,"");
+  const base=WTASKS[k], vars=[{prompt:base.prompt,model:base.model},...(base.alts||[])];
+  let vi=store.get("erx_wv_"+k,-1); if(next||vi<0||vi>=vars.length){ vi=vars.length>1?(vi+1+Math.floor(Math.random()*(vars.length-1)))%vars.length:0; if(vi<0) vi=0; store.set("erx_wv_"+k,vi); }
+  const w={...base,...vars[vi]}, key="erx_w_"+k+"_"+vi, saved=store.get(key,"");
   app.innerHTML=`${tbar(w.title,TEST_CUR==="toefl"?"TOEFL iBT":"IELTS")}
-  <section><div class="passage en" lang="en" style="white-space:pre-line;max-height:none">${esc(w.prompt)}</div>${w.chart?ieltsChart():""}</section>
+  ${vars.length>1?`<div class="wtools"><span class="label num">${T(`Task ${vi+1} of ${vars.length}`,`Görev ${vi+1} / ${vars.length}`,`المهمة ${vi+1} من ${vars.length}`)}</span><button id="wNew">↻ ${T("Another task","Başka görev","مهمة أخرى")}</button></div>`:""}
+  <section><div class="passage en" lang="en" style="white-space:pre-line;max-height:none">${esc(w.prompt)}</div>${w.chart&&vi===0?ieltsChart():""}</section>
   <p class="note">${T(...WTIPS[k])}</p>
   <div class="wtools"><button class="go" id="wStart">⏱ ${T(`Start ${w.min}-minute timer`,`${w.min} dakikalık zamanlayıcıyı başlat`,`ابدأ مؤقّت ${w.min} دقيقة`)}</button><span class="t num" id="wt">${String(w.min).padStart(2,"0")}:00</span></div>
   <textarea id="wText" class="wbox" dir="ltr" lang="en" rows="12" placeholder="${T("Write your answer here…","Cevabını buraya yaz…","اكتب إجابتك هنا…")}">${esc(saved)}</textarea>
@@ -2869,12 +3064,16 @@ function renderWriting(k){
   document.getElementById("wStart").onclick=()=>{ clearInterval(timerId); const end=Date.now()+w.min*60000, el=document.getElementById("wt");
     timerId=setInterval(()=>{const left=end-Date.now(); if(!document.getElementById("wt")){clearInterval(timerId);return} el.textContent=fmt(left); el.classList.toggle("low",left<60000); if(left<=0){clearInterval(timerId); el.textContent=T("Time's up","Süre doldu","انتهى الوقت");}},500); };
   document.getElementById("home").onclick=()=>renderTestHome(TEST_CUR);
+  const wn=document.getElementById("wNew"); if(wn) wn.onclick=()=>renderWriting(k,true);
   bindLang(()=>renderWriting(k)); window.scrollTo(0,0);
 }
-let SP={k:null,i:0};
+let SP={k:null,i:0,order:[]};
+const SPEAK_N={toefl_repeat:7,toefl_interview:4,ielts_p1:6,ielts_p2:1,ielts_p3:4};
 function renderSpeaking(k,i){
   clearInterval(timerId); stopSpeak(); applyLang();
-  const s=STASKS[k]; SP={k,i:i||0};
+  const base=STASKS[k];
+  if(i===undefined||SP.k!==k){ const idx=base.items.map((_,j)=>j); SP={k,i:0,order:shuffle(idx).slice(0,SPEAK_N[k]||idx.length)}; } else SP.i=i;
+  const s={...base,items:SP.order.map(j=>base.items[j])};
   let body;
   if(s.type==="repeat"){
     body=`<p class="note">${T(...STIPS.repeat)}</p>${s.items.map((x,j)=>`<div class="srow"><button class="go" data-play="${j}">▶ ${T("Listen","Dinle","استمع")} ${j+1}</button><details><summary class="label">${T("Show text","Metni göster","إظهار النص")}</summary><span dir="ltr" lang="en">${esc(x)}</span></details></div>`).join("")}`;
@@ -2887,7 +3086,8 @@ function renderSpeaking(k,i){
     <div class="sphase" id="sPhase"></div>
     <div class="row"><button id="sPrev" ${SP.i===0?"disabled":""}>${BACK()} ${t("prev")}</button><button class="go" id="sNext" ${SP.i===s.items.length-1?"disabled":""}>${t("next")} ${FWD()}</button></div>`;
   }
-  app.innerHTML=`${tbar(s.title,TEST_CUR==="toefl"?"TOEFL iBT":"IELTS")}${body}`;
+  app.innerHTML=`${tbar(s.title,TEST_CUR==="toefl"?"TOEFL iBT":"IELTS")}<div class="wtools"><button id="sNew">↻ ${T("New questions","Yeni sorular","أسئلة جديدة")}</button></div>${body}`;
+  document.getElementById("sNew").onclick=()=>{SP.k=null;renderSpeaking(k)};
   document.getElementById("home").onclick=()=>renderTestHome(TEST_CUR);
   app.querySelectorAll("[data-play]").forEach(b=>b.onclick=()=>{ if(!speak(s.items[+b.dataset.play],store.get("erx_rate",0.95)*0.9)) toast(T("Voice is not available on this device.","Bu cihazda ses kullanılamıyor.","الصوت غير متاح على هذا الجهاز.")); });
   const L=document.getElementById("sListen"); if(L) L.onclick=()=>speak(s.items[SP.i].replace(/\n?You should say:[\s\S]*/,""));
@@ -3031,7 +3231,7 @@ function renderResult(){
 }
 
 /* Online updates (used by the APK wrapper). Raise APP_VERSION every time you upload a new version. */
-const APP_VERSION = 11;
+const APP_VERSION = 12;
 function banner(msg,btn,fn){
   document.querySelectorAll(".upd").forEach(x=>x.remove());
   const d=document.createElement("div");d.className="upd";d.setAttribute("role","status");d.dir=rtl()?"rtl":"ltr";
